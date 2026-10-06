@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abhishek Sahoo | Autonomous AI & Agentic Systems Engineer</title>
+  <meta name="description" content="Portfolio of Abhishek Sahoo - AI Engineer specializing in Autonomous Multi-Agent Systems, LangGraph, LLM Guardrails, Deep Learning & Scalable Data Solutions." />
+  <meta name="keywords" content="Abhishek Sahoo, AI Engineer, LangGraph, Multi-Agent Systems, LLM Guardrails, Machine Learning, Computer Vision, Portfolio" />
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="Abhishek Sahoo | Autonomous AI & Agentic Systems Engineer" />
+  <meta property="og:description" content="Autonomous Multi-Agent Systems, LangGraph, LLM Guardrails, Deep Learning & Data Intelligence." />
+  <meta property="og:type" content="website" />
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Ambient Smooth Gradient Background -->
+  <div class="ambient-bg-wrapper">
+    <div class="ambient-mesh mesh-1"></div>
+    <div class="ambient-mesh mesh-2"></div>
+    <div class="ambient-spotlight" id="ambientSpotlight"></div>
+  </div>
+
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress-bar" id="scrollProgressBar"></div>
+
+  <!-- Navigation (Floating Capsule) -->
+  <header class="header" id="navbar">
+    <div class="container">
+      <div class="header-container">
+        <a href="#hero" class="logo">
+          <div class="logo-symbol">A</div>
+          <span>Abhishek.ai</span>
+        </a>
+
+        <div class="badge-pill d-none-mobile">
+          <span class="pulse-dot"></span>
+          <span>Open for AI Engineering Roles</span>
+        </div>
+
+        <nav class="nav-links" id="navLinks">
+          <a href="#about" class="nav-item">About</a>
+          <a href="#skills" class="nav-item">Pillars</a>
+          <a href="#blueprint" class="nav-item">Blueprint</a>
+          <a href="#projects" class="nav-item">Projects</a>
+          <a href="#contact" class="nav-item">Contact</a>
+          <button class="btn btn-sm btn-outline" id="openBookingHeader">
+            <i data-lucide="calendar"></i>
+            <span>Book 1:1</span>
+          </button>
+        </nav>
+
+        <div class="header-actions">
+          <button class="btn-agent-nav" id="openAgentNavBtn" title="Chat with AI Agent Assistant" aria-label="Open AI Agent">
+            <i data-lucide="bot"></i>
+            <span>Ask AbhiBot</span>
+          </button>
+          <button class="theme-toggle" id="themeToggle" title="Toggle Dark / Light Mode" aria-label="Toggle Theme">
+            <i data-lucide="sun" class="sun-icon"></i>
+            <i data-lucide="moon" class="moon-icon"></i>
+          </button>
+          <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+            <i data-lucide="menu"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-content">
+            <div class="badge-pill hero-badge">
+              <span class="pulse-dot"></span>
+              <span>Available for Full-Time Roles & AI Consulting</span>
+            </div>
+
+            <h1 class="hero-headline">
+              Autonomous AI<br />
+              Crafted For Humans,<br />
+              <span class="serif-accent">Not Just Code.</span>
+            </h1>
+
+            <p class="hero-description">
+              Architecting production-grade <strong>Multi-Agent Systems</strong> with <strong>LangGraph</strong>, <strong>Model Context Protocol (MCP)</strong>, and <strong>Enterprise LLM Guardrails</strong>. Graduating Class of 2026 with 10 deployed cloud systems.
+            </p>
+
+            <div class="hero-cta-group">
+              <a href="#projects" class="btn btn-amber-pill">
+                <span>Explore 10 Projects</span>
+                <span class="arrow-circle"><i data-lucide="arrow-right"></i></span>
+              </a>
+              <button class="btn btn-secondary" id="heroBookBtn">
+                <i data-lucide="calendar"></i>
+                <span>Book 1:1 Briefing</span>
+              </button>
+              <a href="#contact" class="btn btn-ghost">
+                <i data-lucide="mail"></i>
+                <span>Direct Contact</span>
+              </a>
+            </div>
+
+            <!-- Floating Glass Stats Strip -->
+            <div class="hero-glass-stats">
+              <div class="hero-stat-box">
+                <span class="stat-val">10+</span>
+                <span class="stat-lbl">Live Cloud Systems</span>
+              </div>
+              <div class="hero-stat-box">
+                <span class="stat-val">100%</span>
+                <span class="stat-lbl">Production Verified</span>
+              </div>
+              <div class="hero-stat-box">
+                <span class="stat-val">2026</span>
+                <span class="stat-lbl">B.E (SMIT Degree)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hero Portrait Frame with Amber Rim Halo -->
+          <div class="hero-image-col">
+            <div class="hero-portrait-container">
+              <div class="hero-amber-halo"></div>
+              <div class="hero-portrait-frame">
+                <img src="My Profile image.jpeg" alt="Abhishek Sahoo - AI & Agentic Systems Engineer" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80'" />
+              </div>
+              <div class="hero-floating-chip">
+                <i data-lucide="shield-check"></i>
+                <span>SMIT B.E 2026 • Naresh i Tech AI</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TECH ECOSYSTEM TICKER -->
+    <div class="tech-ticker-section">
+      <div class="container">
+        <div class="ticker-wrapper">
+          <div class="ticker-item"><i data-lucide="network"></i> <span>LangGraph Multi-Agent</span></div>
+          <div class="ticker-item"><i data-lucide="cpu"></i> <span>Model Context Protocol (MCP)</span></div>
+          <div class="ticker-item"><i data-lucide="server"></i> <span>FastAPI Microservices</span></div>
+          <div class="ticker-item"><i data-lucide="layers"></i> <span>PyTorch & TensorFlow</span></div>
+          <div class="ticker-item"><i data-lucide="scan"></i> <span>OpenCV Computer Vision</span></div>
+          <div class="ticker-item"><i data-lucide="shield"></i> <span>Responsible AI Guardrails</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 2: MEET THE MIND BEHIND THE WORK (EXECUTIVE BENTO) -->
+    <section class="section about-section" id="about">
+      <div class="container">
+        <div class="section-header-left">
+          <div>
+            <span class="section-tag">Leadership & Vision</span>
+            <h2 class="section-title-editorial">Meet The Engineer <br /><span class="serif-accent">Behind The Systems</span></h2>
+          </div>
+          <p class="section-desc">
+            Bridging autonomous graph intelligence, deep learning computer vision, and bulletproof safety guardrails into high-performance web systems.
+          </p>
+        </div>
+
+        <div class="bento-profile-grid">
+          <!-- Portrait Card Left -->
+          <div class="profile-portrait-card">
+            <img src="My Profile image.jpeg" alt="Abhishek Sahoo - AI Engineer" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80'" />
+            <div class="profile-portrait-overlay">
+              <span class="p-tag">AI Engineer</span>
+              <h3 class="p-title">Abhishek Sahoo</h3>
+            </div>
+          </div>
+
+          <!-- Bento Stack Right -->
+          <div class="bento-right-stack">
+            <div class="bento-bio-card">
+              <div>
+                <h3>Autonomous Agent Architect & Data Scientist</h3>
+                <p>
+                  I am a Bachelor of Engineering candidate at <strong>SMIT Degree Engineering College</strong> (Graduating Class of 2026) and a certified specialist in <strong>Full Stack Data Science with Agentic AI</strong> from Naresh i Technologies.
+                </p>
+                <p>
+                  My engineering centers on building resilient multi-node agent graphs, dynamic tool routing protocols, and enterprise safety shields that make generative AI deterministic and production-safe.
+                </p>
+              </div>
+              <div class="bento-avatars-row">
+                <div class="avatar-group">
+                  <div class="avatar-item">AI</div>
+                  <div class="avatar-item">LG</div>
+                  <div class="avatar-item">CV</div>
+                </div>
+                <span class="badge-pill">10 Production Deployments</span>
+              </div>
+            </div>
+
+            <div class="bento-stats-split">
+              <div class="bento-stat-card">
+                <span class="b-num">10+</span>
+                <span class="b-lbl">Full-Stack Cloud AI Applications in Production</span>
+              </div>
+              <div class="bento-stat-card red-accent">
+                <span class="b-num">100%</span>
+                <span class="b-lbl">Operational Cloud Uptime & Real-Time Verified</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: DESIGN WITH PURPOSE. BUILD WITH IMPACT. (SKILLS BENTO) -->
+    <section class="section skills-section" id="skills">
+      <div class="container">
+        <div class="section-header-center">
+          <span class="section-tag">Core Capabilities</span>
+          <h2 class="section-title-editorial">Design With Purpose. <br /><span class="serif-accent">Build With Impact.</span></h2>
+          <p class="section-desc" style="margin: 0 auto;">Full-stack development meets distributed agent graphs, computer vision pipelines, and enterprise safety guardrails.</p>
+        </div>
+
+        <div class="skills-bento-grid">
+          <!-- Wide Card: Agentic AI -->
+          <div class="sb-card sb-card-wide">
+            <div>
+              <div class="sb-header">
+                <div class="sb-icon"><i data-lucide="bot"></i></div>
+                <span class="badge-pill">Core Focus</span>
+              </div>
+              <h3 class="sb-title">Autonomous Multi-Agent Systems & MCP</h3>
+              <p class="sb-desc">Architecting multi-node state graphs with LangGraph, Supervisor patterns, dynamic MCP tool calling, and Human-in-the-Loop approval checkpoints.</p>
+            </div>
+            <div class="sb-pills">
+              <span class="sb-pill highlight">LangGraph</span>
+              <span class="sb-pill highlight">MCP Protocol</span>
+              <span class="sb-pill">Supervisor Agents</span>
+              <span class="sb-pill">StateGraph</span>
+              <span class="sb-pill">Human-in-the-Loop</span>
+              <span class="sb-pill">Gemini 2.5 Flash</span>
+            </div>
+          </div>
+
+          <!-- Card 2: Full Stack -->
+          <div class="sb-card">
+            <div>
+              <div class="sb-header">
+                <div class="sb-icon"><i data-lucide="layout"></i></div>
+              </div>
+              <h3 class="sb-title">Full Stack UI & Microservices</h3>
+              <p class="sb-desc">Responsive modern web interfaces, FastAPI asynchronous backends, and robust cloud APIs.</p>
+            </div>
+            <div class="sb-pills">
+              <span class="sb-pill highlight">HTML5 / CSS3</span>
+              <span class="sb-pill highlight">FastAPI</span>
+              <span class="sb-pill">JavaScript ES6+</span>
+              <span class="sb-pill">Flask</span>
+              <span class="sb-pill">Python 3.12</span>
+            </div>
+          </div>
+
+          <!-- Card 3: LLM Guardrails -->
+          <div class="sb-card">
+            <div>
+              <div class="sb-header">
+                <div class="sb-icon"><i data-lucide="shield-alert"></i></div>
+              </div>
+              <h3 class="sb-title">Enterprise AI Guardrails</h3>
+              <p class="sb-desc">Real-time prompt injection defense, automated PII sanitization, toxic filtering, and hallucination reduction.</p>
+            </div>
+            <div class="sb-pills">
+              <span class="sb-pill highlight">PII Masking</span>
+              <span class="sb-pill highlight">Prompt Defense</span>
+              <span class="sb-pill">Responsible AI</span>
+              <span class="sb-pill">Hallucination Checks</span>
+            </div>
+          </div>
+
+          <!-- Card 4: Deep Learning & Vision -->
+          <div class="sb-card">
+            <div>
+              <div class="sb-header">
+                <div class="sb-icon"><i data-lucide="eye"></i></div>
+              </div>
+              <h3 class="sb-title">Deep Learning & Vision</h3>
+              <p class="sb-desc">Transfer learning with ResNet50, VGG16, custom CNN classifiers, and real-time OpenCV tracking.</p>
+            </div>
+            <div class="sb-pills">
+              <span class="sb-pill highlight">TensorFlow</span>
+              <span class="sb-pill highlight">Keras</span>
+              <span class="sb-pill">ResNet50</span>
+              <span class="sb-pill">OpenCV IMOT</span>
+              <span class="sb-pill">VGG16</span>
+            </div>
+          </div>
+
+          <!-- Card 5: Pipeline Efficiency Metric -->
+          <div class="sb-card">
+            <div>
+              <div class="sb-header">
+                <div class="sb-icon"><i data-lucide="bar-chart-2"></i></div>
+                <span class="badge-pill">+98% Efficiency</span>
+              </div>
+              <h3 class="sb-title">Data Intelligence & BI</h3>
+              <p class="sb-desc">Streamlit rapid applications, Tableau analytics dashboards, and exploratory modeling.</p>
+            </div>
+            <div class="efficiency-bars">
+              <div class="eff-bar" style="height: 40%"></div>
+              <div class="eff-bar" style="height: 60%"></div>
+              <div class="eff-bar" style="height: 80%"></div>
+              <div class="eff-bar active" style="height: 100%"></div>
+              <div class="eff-bar active" style="height: 90%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: A SIMPLE, HUMAN-CENTERED WAY TO WORK (BLUEPRINT) -->
+    <section class="section workflow-section" id="blueprint">
+      <div class="container">
+        <div class="section-header-left">
+          <div>
+            <span class="section-tag">Engineering Blueprint</span>
+            <h2 class="section-title-editorial">A Simple, Human-Centered <br /><span class="serif-accent">Way To Work</span></h2>
+          </div>
+          <p class="section-desc">A rigorous three-tier methodology designed to take AI systems from raw concept to enterprise deployment.</p>
+        </div>
+
+        <div class="workflow-grid">
+          <div class="workflow-steps-list">
+            <div class="workflow-step-card active" data-step="1">
+              <span class="w-step-num">PHASE 01</span>
+              <h3 class="w-step-title">Discovery & Graph Topology</h3>
+              <p class="w-step-desc">Define system objectives, schema models, memory state interfaces, and specialized agent personas.</p>
+            </div>
+
+            <div class="workflow-step-card" data-step="2">
+              <span class="w-step-num">PHASE 02</span>
+              <h3 class="w-step-title">Multi-Agent Build & Tool Routing</h3>
+              <p class="w-step-desc">Construct LangGraph state machines, connect MCP server endpoints, and implement supervisory delegation.</p>
+            </div>
+
+            <div class="workflow-step-card" data-step="3">
+              <span class="w-step-num">PHASE 03</span>
+              <h3 class="w-step-title">Guardrails & Cloud Deployment</h3>
+              <p class="w-step-desc">Apply enterprise security filters, Human-in-the-Loop checkpoints, and deploy onto resilient cloud runtimes.</p>
+            </div>
+          </div>
+
+          <div class="workflow-preview-panel">
+            <div class="w-preview-img-box" id="blueprintPreview">
+              <i data-lucide="git-branch" style="width: 48px; height: 48px; color: var(--primary); margin-bottom: 1rem;"></i>
+              <h4 style="font-size: 1.2rem; margin-bottom: 0.5rem;">LangGraph State Topology</h4>
+              <p style="font-size: 0.9rem;">Supervisor Node → Dynamic Tool Router → Human Review Checkpoint</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: FEATURED INTELLIGENT SYSTEMS (10 PROJECTS) -->
+    <section class="section projects-section" id="projects">
+      <div class="container">
+        <div class="section-header-center">
+          <span class="section-tag">Featured Systems</span>
+          <h2 class="section-title-editorial">10 Production <span class="serif-accent">AI & Agentic</span> Deployments</h2>
+          <p class="section-desc" style="margin: 0 auto;">Tested, verified, and operational cloud systems available for interactive demonstration.</p>
+        </div>
+
+        <!-- Filter Controls -->
+        <div class="project-filter-bar">
+          <button class="filter-btn active" data-filter="all">All Systems (10)</button>
+          <button class="filter-btn" data-filter="agents">Multi-Agent & LangGraph (3)</button>
+          <button class="filter-btn" data-filter="guardrails">LLM & GenAI (3)</button>
+          <button class="filter-btn" data-filter="cv">Computer Vision & DL (3)</button>
+          <button class="filter-btn" data-filter="analytics">Data Analytics (1)</button>
+        </div>
+
+        <!-- Projects Bento Grid -->
+        <div class="projects-bento-grid" id="projectsGrid">
+          
+          <!-- Project 1: ResearchMind -->
+          <article class="p-bento-card" data-category="agents">
+            <div class="p-bento-card-banner">
+              <span class="p-bento-badge">Featured Multi-Agent</span>
+              <i data-lucide="bot" style="color: var(--primary);"></i>
+            </div>
+            <div class="p-bento-body">
+              <div>
+                <h3 class="p-bento-title">ResearchMind: Autonomous Multi-Agent AI Research System</h3>
+                <p class="p-bento-desc">Autonomous multi-agent research pipeline that formulates hypotheses, scours web sources, and generates publication-grade intelligence reports.</p>
+                <div class="p-bento-tech"><span>Stack:</span> LangGraph • Multi-Agent • Web Scrapers • Render</div>
+              </div>
+              <a href="https://multi-agent-research-assistant-1-jtam.onrender.com" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-amber-pill">
+                <span>Live Cloud Demo</span>
+                <span class="arrow-circle"><i data-lucide="arrow-right"></i></span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Project 2: Multi-Node LangGraph -->
+          <article class="p-bento-card" data-category="agents">
+            <div class="p-bento-card-banner">
+              <span class="p-bento-badge">LangGraph Framework</span>
+              <i data-lucide="network" style="color: var(--primary);"></i>
+            </div>
+            <div class="p-bento-body">
+              <div>
+                <h3 class="p-bento-title">Multi-Node Conversational AI Framework</h3>
+                <p class="p-bento-desc">Graph-based conversational intelligence framework using LangGraph state machines with intent branching and persistent memory.</p>
+                <div class="p-bento-tech"><span>Stack:</span> LangGraph • Python • Streamlit Cloud • StateGraph</div>
+              </div>
+              <a href="https://multi-node-conversational-ai-framework.streamlit.app" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-amber-pill">
+                <span>Live Cloud Demo</span>
+                <span class="arrow-circle"><i data-lucide="arrow-right"></i></span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Project 3: MCP Supervisor Guardrails HITL -->
+          <article class="p-bento-card" data-category="agents">
+            <div class="p-bento-card-banner">
+              <span class="p-bento-badge">Enterprise Multi-Agent</span>
+              <i data-lucide="users" style="color: var(--primary);"></i>
+            </div>
+            <div class="p-bento-body">
+              <div>
+                <h3 class="p-bento-title">Multi-Agent System: MCP, Supervisor, Guardrails & HITL</h3>
+                <p class="p-bento-desc">Enterprise orchestration leveraging Model Context Protocol (MCP), Supervisor hierarchy, safety guardrails, and Human-in-the-Loop checkpoints.</p>
+                <div class="p-bento-tech"><span>Stack:</span> LangGraph • MCP • Supervisor • HITL • Render</div>
+              </div>
+              <a href="https://multiagentsystem-using-langgraph-mcp.onrender.com" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-amber-pill">
+                <span>Live Cloud Demo</span>
+                <span class="arrow-circle"><i data-lucide="arrow-right"></i></span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Project 4: LLM Guardrails -->
+          <article class="p-bento-card" data-category="guardrails">
+            <div class="p-bento-card-banner">
+              <span class="p-bento-badge">Responsible AI</span>
+              <i data-lucide="shield-check" style="color: var(--primary);"></i>
+            </div>
+            <div class="p-bento-body">
+              <div>
+                <h3 class="p-bento-title">LLM Guardrails: Enterprise & Responsible AI</h3>
+                <p class="p-bento-desc">Full-spectrum safety middleware for LLMs providing prompt injection protection, PII data sanitization, and output hallucination verification.</p>
+                <div class="p-bento-tech"><span>Stack:</span> Guardrails AI • Custom Filters • Python • Render</div>
+              </div>
+              <a href="https://llm-guardrails-enterprise-ai-responsible.onrender.com" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-amber-pill">
+                <span>Live Cloud Demo</span>
+                <span class="arrow-circle"><i data-lucide="arrow-right"></i></span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Project 5: AI Resume Analyzer -->
+          <article class="p-bento-card" data-category="guardrails">
+            <div class="p-bento-card-banner">
+              <span class="p-bento-badge">NLP & ATS</span>
+              <i data-lucide="file-search" style="color: var(--primary);"></i>
+            </div>
+            <div class="p-bento-body">
+              <div>
+                <h3 class="p-bento-title">AI Resume Analyzer & Job Fit Predictor</h3>
+                <p class="p-bento-desc">Intelligent NLP application that parses resumes against target job descriptions, extracts missing technical keywords, and calculates ATS scores.</p>
+                <div class="p-bento-tech"><span>Stack:</span> NLP • PDF Extraction • Streamlit Cloud • LLM</div>
+              </div>
+              <a href="https://airesume-analyzer-hfpcynhkhk5uf9rnb5owcr.streamlit.app" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-amber-pill">
+                <span>Live Cloud Demo</span>
+                <span class="arrow-circle"><i data-lucide="arrow-right"></i></span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Project 6: Gemini 2.5 Flash Chatbot -->
+          <article class="p-bento-card" data-category="guardrails">
+            <div class="p-bento-card-banner">
+              <span class="p-bento-badge">GenAI Assistant</span>
+              <i data-lucide="zap" style="color: var(--primary);"></i>
+            </div>
+            <div class="p-bento-body">
+              <div>
+                <h3 class="p-bento-title">Gemini 2.5 Flash Chatbot</h3>
+                <p class="p-bento-desc">High-throughput conversational AI leveraging Google's Gemini 2.5 Flash architecture with low-latency streaming tokens and code parsing.</p>
+                <div class="p-bento-tech"><span>Stack:</span> Gemini 2.5 Flash API • Python • Streamlit</div>
+              </div>
+              <a href="https://gemini-25-flash-chatbot-2cd5vyxvthctdebyzxcg3b.streamlit.app" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-amber-pill">
+                <span>Live Cloud Demo</span>
+                <span class="arrow-circle"><i data-lucide="arrow-right"></i></span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Project 7: IMOT Object & Color Tracking -->
+          <article class="p-bento-card" data-category="cv">
+            <div class="p-bento-card-banner">
+              <span class="p-bento-badge">Computer Vision</span>
+              <i data-lucide="scan" style="color: var(--primary);"></i>
+            </div>
+            <div class="p-bento-body">
+              <div>
+                <h3 class="p-bento-title">Intelligent Multi-Modal Object & Color Tracking</h3>
+                <p class="p-bento-desc">Real-time video tracking engine combining HSV color space segmentation, contour filtering, and spatial bounding tracking for live camera streams.</p>
+                <div class="p-bento-tech"><span>Stack:</span> OpenCV • NumPy • Python • Streamlit</div>
+              </div>
+              <a href="https://intelligent-multi-modal-object-color-tracking.streamlit.app" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-amber-pill">
+                <span>Live Cloud Demo</span>
+                <span class="arrow-circle"><i data-lucide="arrow-right"></i></span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Project 8: ImageNet Deep Learning -->
+          <article class="p-bento-card" data-category="cv">
+            <div class="p-bento-card-banner">
+              <span class="p-bento-badge">Deep Learning</span>
+              <i data-lucide="layers" style="color: var(--primary);"></i>
+            </div>
+            <div class="p-bento-body">
+              <div>
+                <h3 class="p-bento-title">ImageNet Classification: VGG16, ResNet50 & ResNet50V2</h3>
+                <p class="p-bento-desc">Comparative vision application benchmarking pre-trained ImageNet architectures on inference speeds, top-5 accuracy, and feature activations.</p>
+                <div class="p-bento-tech"><span>Stack:</span> TensorFlow • Keras • Transfer Learning • Streamlit</div>
+              </div>
+              <a href="https://tensorflowkerasimagenetvgg16resnet50resnet50v2.streamlit.app" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-amber-pill">
+                <span>Live Cloud Demo</span>
+                <span class="arrow-circle"><i data-lucide="arrow-right"></i></span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Project 9: CNN Mood Classification -->
+          <article class="p-bento-card" data-category="cv">
+            <div class="p-bento-card-banner">
+              <span class="p-bento-badge">Custom Neural Nets</span>
+              <i data-lucide="smile" style="color: var(--primary);"></i>
+            </div>
+            <div class="p-bento-body">
+              <div>
+                <h3 class="p-bento-title">CNN Image Classification (Mood Detection)</h3>
+                <p class="p-bento-desc">Custom Convolutional Neural Network trained on facial emotion datasets for real-time mood categorization and confidence scoring.</p>
+                <div class="p-bento-tech"><span>Stack:</span> CNN Architecture • TensorFlow • Keras • Streamlit</div>
+              </div>
+              <a href="https://custom-cnn-image-classification-moods.streamlit.app" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-amber-pill">
+                <span>Live Cloud Demo</span>
+                <span class="arrow-circle"><i data-lucide="arrow-right"></i></span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Project 10: Tableau Analytics -->
+          <article class="p-bento-card" data-category="analytics">
+            <div class="p-bento-card-banner">
+              <span class="p-bento-badge">BI & Analytics</span>
+              <i data-lucide="pie-chart" style="color: var(--primary);"></i>
+            </div>
+            <div class="p-bento-body">
+              <div>
+                <h3 class="p-bento-title">HR Employee Attrition Intelligence (Tableau)</h3>
+                <p class="p-bento-desc">Interactive executive BI dashboard revealing employee turnover patterns, demographic drivers, and retention risk factors.</p>
+                <div class="p-bento-tech"><span>Stack:</span> Tableau Public • Data Analytics • BI Modeling</div>
+              </div>
+              <a href="https://public.tableau.com/app/profile/abhishek.sahoo3845/viz/HREmployeeAttrition_17498774021230/Dashboard1" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-amber-pill">
+                <span>Live Dashboard</span>
+                <span class="arrow-circle"><i data-lucide="arrow-right"></i></span>
+              </a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: WHAT COLLABORATORS & CLIENTS SAY (TESTIMONIAL) -->
+    <section class="section testimonial-section">
+      <div class="container">
+        <div class="section-header-center">
+          <span class="section-tag">Peer Endorsements</span>
+          <h2 class="section-title-editorial">What Collaborators <br /><span class="serif-accent">Say About My Work</span></h2>
+        </div>
+
+        <div class="testimonial-box">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt="Endorsement" class="testimonial-avatar" />
+          <p class="testimonial-quote">
+            "Abhishek's mastery of LangGraph multi-agent architectures and enterprise safety guardrails is exceptional. His systems are robust, scalable, and engineered with true human-centric clarity."
+          </p>
+          <h4 class="testimonial-author">Engineering Lead & Mentor</h4>
+          <span class="testimonial-role">Naresh i Technologies • Agentic AI Division</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7: TWIN GLOWING NEON CURVED ORBITAL ARCS CTA -->
+    <section class="curved-neon-cta-section" id="bookingSection">
+      <div class="neon-arc-top"></div>
+      <div class="neon-arc-bottom"></div>
+
+      <!-- Floating Miniature Project Badges -->
+      <div class="cta-float-card cta-float-left">
+        <i data-lucide="bot"></i> LangGraph
+      </div>
+      <div class="cta-float-card cta-float-right">
+        <i data-lucide="shield"></i> Guardrails
+      </div>
+
+      <div class="container">
+        <div class="neon-cta-content">
+          <span class="section-tag">Ready To Collaborate</span>
+          <h2 class="neon-cta-headline">
+            Let's Turn Ideas <br />
+            <span class="serif-accent">Into Intelligent Systems</span>
+          </h2>
+          <p class="neon-cta-desc">
+            Whether you need autonomous multi-agent pipelines, responsible AI guardrails, or deep learning vision architectures, let's schedule an executive strategy session.
+          </p>
+          <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+            <button class="btn btn-amber-pill" id="ctaBookBtn">
+              <span>Book Strategy Session</span>
+              <span class="arrow-circle"><i data-lucide="arrow-right"></i></span>
+            </button>
+            <a href="https://wa.me/918984065377" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+              <i data-lucide="message-circle"></i>
+              <span>WhatsApp Direct</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="section contact-section" id="contact">
+      <div class="container">
+        <div class="section-header-left">
+          <div>
+            <span class="section-tag">Get In Touch</span>
+            <h2 class="section-title-editorial">Let's Discuss Your <br /><span class="serif-accent">Next AI Architecture</span></h2>
+          </div>
+          <p class="section-desc">Messages submitted here trigger instant backend logging and send an immediate dispatch directly to my WhatsApp & Phone at <strong>+91 8984065377</strong>.</p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-info-card">
+            <div>
+              <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem;">Direct Contact Channels</h3>
+              
+              <div class="contact-item">
+                <div class="contact-icon"><i data-lucide="mail"></i></div>
+                <div>
+                  <div style="font-size: 0.8rem; color: var(--text-muted);">Email Address</div>
+                  <div style="font-weight: 600;">abhisheksahoo08583@gmail.com</div>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div class="contact-icon"><i data-lucide="phone"></i></div>
+                <div>
+                  <div style="font-size: 0.8rem; color: var(--text-muted);">Phone & WhatsApp</div>
+                  <div style="font-weight: 600;">+91 8984065377</div>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div class="contact-icon"><i data-lucide="map-pin"></i></div>
+                <div>
+                  <div style="font-size: 0.8rem; color: var(--text-muted);">Location</div>
+                  <div style="font-weight: 600;">India (Available for Worldwide Remote)</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="padding-top: 1.5rem; border-top: 1px solid var(--border-subtle);">
+              <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.75rem;">Social & Repositories</div>
+              <div style="display: flex; gap: 0.75rem;">
+                <a href="https://www.linkedin.com/in/abhishek-sahoo-75519b313" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm"><i data-lucide="linkedin"></i> LinkedIn</a>
+                <a href="https://github.com/ai-genai-agenticai-intelligence" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm"><i data-lucide="github"></i> GitHub</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-form-card">
+            <form id="contactForm">
+              <div class="form-group">
+                <label for="contactName">Your Name / Organization</label>
+                <input type="text" id="contactName" class="form-control" placeholder="e.g. Sarah Jenkins (Tech Lead)" required />
+              </div>
+
+              <div class="form-group">
+                <label for="contactEmail">Your Email</label>
+                <input type="email" id="contactEmail" class="form-control" placeholder="e.g. sarah@enterprise.com" required />
+              </div>
+
+              <div class="form-group">
+                <label for="contactPhone">Your Phone Number (Optional)</label>
+                <input type="tel" id="contactPhone" class="form-control" placeholder="e.g. +1 415 555 2671" />
+              </div>
+
+              <div class="form-group">
+                <label for="contactMessage">Project Details or Inquiry</label>
+                <textarea id="contactMessage" class="form-control" placeholder="Describe the AI system, multi-agent pipeline, or role you'd like to discuss..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-amber-pill" style="width: 100%;">
+                <span>Send Message & Ping WhatsApp</span>
+                <span class="arrow-circle"><i data-lucide="send"></i></span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- LUXURY FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <a href="#hero" class="logo" style="margin-bottom: 1rem;">
+            <div class="logo-symbol">A</div>
+            <span>Abhishek.ai</span>
+          </a>
+          <p style="color: var(--text-muted); max-width: 320px; font-size: 0.9rem;">
+            Human-centered autonomous agent systems, responsible LLM guardrails, and deep learning architectures.
+          </p>
+        </div>
+
+        <div style="display: flex; gap: 3rem;">
+          <div>
+            <h4 style="font-size: 0.95rem; margin-bottom: 0.75rem;">Navigation</h4>
+            <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.88rem;">
+              <a href="#about" style="color: var(--text-secondary); text-decoration: none;">About</a>
+              <a href="#skills" style="color: var(--text-secondary); text-decoration: none;">Pillars</a>
+              <a href="#blueprint" style="color: var(--text-secondary); text-decoration: none;">Blueprint</a>
+              <a href="#projects" style="color: var(--text-secondary); text-decoration: none;">10 Projects</a>
+            </div>
+          </div>
+          <div>
+            <h4 style="font-size: 0.95rem; margin-bottom: 0.75rem;">Connect</h4>
+            <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.88rem;">
+              <a href="https://www.linkedin.com/in/abhishek-sahoo-75519b313" target="_blank" style="color: var(--text-secondary); text-decoration: none;">LinkedIn</a>
+              <a href="https://github.com/ai-genai-agenticai-intelligence" target="_blank" style="color: var(--text-secondary); text-decoration: none;">GitHub</a>
+              <a href="https://wa.me/918984065377" target="_blank" style="color: var(--text-secondary); text-decoration: none;">WhatsApp</a>
+              <a href="tel:8984065377" style="color: var(--text-secondary); text-decoration: none;">Direct Call</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 Abhishek Sahoo. All rights reserved. Graduating Class of 2026 (SMIT).</div>
+        <div>Engineered with LangGraph, FastAPI & Responsible AI</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 1:1 BOOKING MODAL -->
+  <div class="modal-overlay" id="bookingModal">
+    <div class="modal-card">
+      <button class="modal-close" id="closeBookingModal">&times;</button>
+      <div style="margin-bottom: 1.5rem;">
+        <span class="section-tag">Executive Briefing</span>
+        <h3 style="font-size: 1.6rem;">Schedule a 1-on-1 Session</h3>
+        <p style="color: var(--text-secondary); font-size: 0.9rem;">Choose a session format, select an available date, and receive an instant calendar invite (.ics).</p>
+      </div>
+
+      <form id="appointmentForm">
+        <div class="form-group">
+          <label>Session Type</label>
+          <select id="sessionType" class="form-control" required>
+            <option value="AI Architecture Strategy (45 min)">AI Architecture Strategy (45 min)</option>
+            <option value="Multi-Agent Graph Review (30 min)">Multi-Agent Graph Review (30 min)</option>
+            <option value="Full-Time Engineering Interview (45 min)">Full-Time Engineering Interview (45 min)</option>
+          </select>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label>Date</label>
+            <input type="date" id="bookingDate" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label>Time Slot</label>
+            <select id="bookingTime" class="form-control" required>
+              <option value="10:00 AM IST">10:00 AM IST</option>
+              <option value="02:00 PM IST">02:00 PM IST</option>
+              <option value="05:30 PM IST">05:30 PM IST</option>
+              <option value="08:00 PM IST">08:00 PM IST</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" id="bookingName" class="form-control" placeholder="Your Name" required />
+        </div>
+
+        <div class="form-group">
+          <label>Your Email</label>
+          <input type="email" id="bookingEmail" class="form-control" placeholder="your.email@company.com" required />
+        </div>
+
+        <button type="submit" class="btn btn-amber-pill" style="width: 100%;">
+          <span>Confirm & Download .ICS Invite</span>
+          <span class="arrow-circle"><i data-lucide="calendar"></i></span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- FLOATING AUTONOMOUS AI AGENT (ABHIBOT) -->
+  <div class="ai-agent-widget">
+    <button class="agent-trigger-btn" id="agentTriggerBtn">
+      <i data-lucide="bot"></i>
+      <span>Ask AbhiBot</span>
+    </button>
+  </div>
+
+  <div class="ai-agent-window" id="aiAgentWindow">
+    <div class="agent-header">
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <span class="pulse-dot"></span>
+        <span style="font-weight: 700; font-size: 0.95rem;">AbhiBot Concierge</span>
+      </div>
+      <button class="modal-close" id="closeAgentWindow" style="position: static; font-size: 1.1rem;">&times;</button>
+    </div>
+    
+    <div class="agent-chat-body" id="agentChatBody">
+      <div class="agent-msg bot">
+        Hello! I am Abhishek's AI Concierge. Ask me about his <strong>10 live projects</strong>, his <strong>LangGraph Multi-Agent architectures</strong>, or how to schedule a consultation.
+      </div>
+    </div>
+
+    <div class="agent-input-bar">
+      <input type="text" id="agentInput" class="form-control" style="padding: 0.5rem 0.8rem; font-size: 0.85rem;" placeholder="Ask about projects, skills, contact..." />
+      <button id="agentSendBtn" class="btn btn-amber-pill btn-sm" style="padding: 0.5rem 0.8rem;">
+        <i data-lucide="send"></i>
+      </button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
