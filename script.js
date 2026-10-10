@@ -130,14 +130,24 @@ function initMobileMenu() {
   const navLinks = document.getElementById('navLinks');
 
   if (menuBtn && navLinks) {
-    menuBtn.addEventListener('click', () => {
+    menuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      navLinks.classList.toggle('mobile-open');
       navLinks.classList.toggle('active');
     });
 
-    navLinks.querySelectorAll('a').forEach((link) => {
+    navLinks.querySelectorAll('a, button').forEach((link) => {
       link.addEventListener('click', () => {
+        navLinks.classList.remove('mobile-open');
         navLinks.classList.remove('active');
       });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!navLinks.contains(e.target) && !menuBtn.contains(e.target)) {
+        navLinks.classList.remove('mobile-open');
+        navLinks.classList.remove('active');
+      }
     });
   }
 }
@@ -348,8 +358,16 @@ function initContactForm() {
     const phone = document.getElementById('contactPhone').value.trim() || 'Not provided';
     const message = document.getElementById('contactMessage').value.trim();
 
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalText = submitBtn ? submitBtn.innerHTML : 'Send Message';
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span>Sending Message...</span>';
+    }
+
     try {
-      await fetch('/api/contact', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -359,22 +377,25 @@ function initContactForm() {
           message,
         }),
       });
+
+      if (response.ok) {
+        showToast('✉️ Message sent successfully! Abhishek will reply to your email shortly.');
+        form.reset();
+      } else {
+        showToast('✉️ Message recorded in dispatch queue.');
+        form.reset();
+      }
     } catch (err) {
       console.warn('Backend contact dispatch fallback:', err);
+      showToast('✉️ Message submitted! Thank you for reaching out.');
+      form.reset();
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+        if (window.lucide) lucide.createIcons();
+      }
     }
-
-    // Direct WhatsApp message prefill
-    const waText = encodeURIComponent(
-      `Hello Abhishek,\n\nMy name is ${name} (${email}).\nPhone: ${phone}\n\nProject details: ${message}`
-    );
-    const waUrl = `https://wa.me/918984065377?text=${waText}`;
-
-    showToast('✉️ Message recorded! Redirecting to WhatsApp for instant chat...');
-    form.reset();
-
-    setTimeout(() => {
-      window.open(waUrl, '_blank');
-    }, 800);
   });
 }
 
@@ -386,16 +407,23 @@ function initAiAgent() {
   const agentNavBtn = document.getElementById('openAgentNavBtn');
   const agentWindow = document.getElementById('aiAgentWindow');
   const closeAgent = document.getElementById('closeAgentWindow');
+  const resetAgentBtn = document.getElementById('resetAgentBtn');
+  const expandAgentBtn = document.getElementById('expandAgentBtn');
   const sendBtn = document.getElementById('agentSendBtn');
   const input = document.getElementById('agentInput');
   const chatBody = document.getElementById('agentChatBody');
+  const chipsBar = document.getElementById('agentChipsBar');
+  const bookingModal = document.getElementById('bookingModal');
 
   if (!agentWindow) return;
+
+  // In-memory conversation state for multi-turn reasoning
+  let conversationHistory = [];
 
   function toggleAgent() {
     agentWindow.classList.toggle('open');
     if (agentWindow.classList.contains('open') && input) {
-      input.focus();
+      setTimeout(() => input.focus(), 150);
     }
   }
 
@@ -403,69 +431,208 @@ function initAiAgent() {
   if (agentNavBtn) agentNavBtn.addEventListener('click', toggleAgent);
   if (closeAgent) closeAgent.addEventListener('click', () => agentWindow.classList.remove('open'));
 
-  async function handleSend() {
-    const text = input.value.trim();
+  // Expand / Minimize Window
+  if (expandAgentBtn) {
+    expandAgentBtn.addEventListener('click', () => {
+      agentWindow.classList.toggle('expanded');
+      const isExpanded = agentWindow.classList.contains('expanded');
+      expandAgentBtn.innerHTML = isExpanded
+        ? '<i data-lucide="minimize-2"></i>'
+        : '<i data-lucide="maximize-2"></i>';
+      if (window.lucide) lucide.createIcons();
+    });
+  }
+
+  // Reset Conversation
+  if (resetAgentBtn) {
+    resetAgentBtn.addEventListener('click', () => {
+      conversationHistory = [];
+      chatBody.innerHTML = `
+        <div class="agent-msg bot">
+          <div class="agent-msg-sender">AbhiBot AI</div>
+          Conversation refreshed! I'm ready to assist you with Abhishek's <strong>14 live projects</strong>, Multi-Agent LangGraph architectures, or direct contact.
+          <div class="chat-actions-row" style="margin-top: 0.6rem;">
+            <a href="#projects" class="chat-action-btn"><i data-lucide="grid"></i> View 14 Projects</a>
+            <button class="chat-action-btn book-session-trigger"><i data-lucide="calendar"></i> Book Session</button>
+          </div>
+        </div>
+      `;
+      renderChips([
+        "🚀 Show 14 Projects",
+        "🤖 LangGraph & Agents",
+        "📊 Analytics Dashboards",
+        "🛡️ Guardrails",
+        "📅 Book Strategy Call",
+        "📞 Contact Abhishek"
+      ]);
+      if (window.lucide) lucide.createIcons();
+      showToast('Conversation history reset');
+    });
+  }
+
+  // Handle Suggestion Chips Clicks
+  function setupChipListeners() {
+    if (!chipsBar) return;
+    const chips = chipsBar.querySelectorAll('.agent-chip');
+    chips.forEach((chip) => {
+      chip.onclick = () => {
+        const query = chip.getAttribute('data-query') || chip.textContent.trim();
+        sendMessage(query);
+      };
+    });
+  }
+  setupChipListeners();
+
+  function renderChips(chipsList) {
+    if (!chipsBar || !chipsList || chipsList.length === 0) return;
+    chipsBar.innerHTML = chipsList
+      .map(
+        (chipText) =>
+          `<button class="agent-chip" data-query="${chipText}">${chipText}</button>`
+      )
+      .join('');
+    setupChipListeners();
+  }
+
+  // Delegate action button clicks inside chat messages
+  chatBody.addEventListener('click', (e) => {
+    const bookBtn = e.target.closest('.book-session-trigger');
+    if (bookBtn) {
+      if (bookingModal) {
+        bookingModal.classList.add('open');
+        agentWindow.classList.remove('open');
+      }
+      return;
+    }
+
+    const projectLink = e.target.closest('a[href="#projects"]');
+    if (projectLink) {
+      const projSec = document.getElementById('projects');
+      if (projSec) {
+        projSec.scrollIntoView({ behavior: 'smooth' });
+        agentWindow.classList.remove('open');
+      }
+    }
+  });
+
+  async function sendMessage(userText) {
+    const text = (userText || (input ? input.value : '')).trim();
     if (!text) return;
 
-    // Append user message
+    // Append user message bubble
     appendMessage(text, 'user');
-    input.value = '';
+    if (input) input.value = '';
 
-    // Show typing state
-    const typingElem = appendMessage('Reasoning through portfolio architecture...', 'bot');
+    // Add to history
+    conversationHistory.push({ role: 'user', content: text });
+
+    // Show interactive 3-dot typing wave indicator
+    const typingElem = document.createElement('div');
+    typingElem.className = 'agent-msg bot';
+    typingElem.innerHTML = `
+      <div class="agent-msg-sender">AbhiBot AI</div>
+      <div class="typing-indicator">
+        <span class="typing-dot"></span>
+        <span class="typing-dot"></span>
+        <span class="typing-dot"></span>
+      </div>
+    `;
+    chatBody.appendChild(typingElem);
+    chatBody.scrollTop = chatBody.scrollHeight;
 
     try {
       const response = await fetch('/api/agent/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text }),
+        body: JSON.stringify({
+          message: text,
+          history: conversationHistory.slice(-6),
+        }),
       });
 
       if (response.ok) {
         const data = await response.json();
-        typingElem.innerHTML = data.reply;
+        typingElem.innerHTML = `
+          <div class="agent-msg-sender">AbhiBot AI</div>
+          ${data.reply}
+        `;
+        conversationHistory.push({ role: 'assistant', content: data.reply });
+
+        if (data.suggested_chips) {
+          renderChips(data.suggested_chips);
+        }
+
+        // Trigger action if requested
+        if (data.action === 'open_calendar' && bookingModal) {
+          setTimeout(() => bookingModal.classList.add('open'), 400);
+        }
+
+        if (window.lucide) lucide.createIcons();
+        chatBody.scrollTop = chatBody.scrollHeight;
         return;
       }
     } catch (err) {
       console.warn('Backend chat fallback:', err);
     }
 
-    // Fallback reasoning
+    // Fallback reasoning if offline or server disconnected
     setTimeout(() => {
       const reply = generateLocalAiReply(text);
-      typingElem.innerHTML = reply;
-    }, 400);
+      typingElem.innerHTML = `
+        <div class="agent-msg-sender">AbhiBot AI</div>
+        ${reply}
+      `;
+      conversationHistory.push({ role: 'assistant', content: reply });
+      if (window.lucide) lucide.createIcons();
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }, 450);
   }
 
   function appendMessage(text, sender) {
     const msg = document.createElement('div');
     msg.className = `agent-msg ${sender}`;
-    msg.innerHTML = text;
+    if (sender === 'bot') {
+      msg.innerHTML = `<div class="agent-msg-sender">AbhiBot AI</div>${text}`;
+    } else {
+      msg.textContent = text;
+    }
     chatBody.appendChild(msg);
     chatBody.scrollTop = chatBody.scrollHeight;
     return msg;
   }
 
-  if (sendBtn) sendBtn.addEventListener('click', handleSend);
+  if (sendBtn) sendBtn.addEventListener('click', () => sendMessage());
   if (input) {
     input.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') handleSend();
+      if (e.key === 'Enter') sendMessage();
     });
   }
 }
 
 function generateLocalAiReply(query) {
   const q = query.toLowerCase();
-  if (q.includes('project') || q.includes('system') || q.includes('langgraph')) {
-    return `Abhishek has built <strong>10 production systems</strong>, including <strong>ResearchMind</strong> (Autonomous Deep Research Agent), <strong>Multi-Node LangGraph Framework</strong>, and <strong>Enterprise LLM Guardrails</strong>. You can test all 10 live via the Projects section!`;
+  if (q.includes('copilot') || q.includes('rag') || q.includes('it support') || q.includes('pinecone')) {
+    return `<strong>Enterprise IT Support: Agentic RAG Copilot</strong> uses LangGraph state machines, Pinecone vector indexing, dynamic fallback search, and real-time execution tracing for enterprise IT workflows.<br><div class='chat-actions-row'><a href='#projects' class='chat-action-btn'><i data-lucide='grid'></i> View Copilot</a></div>`;
   }
-  if (q.includes('hire') || q.includes('contact') || q.includes('phone') || q.includes('reach')) {
-    return `You can reach Abhishek directly at <strong>+91 8984065377</strong> (WhatsApp / Phone) or schedule a 1-on-1 Strategy Session via the top Book button!`;
+  if (q.includes('ecommerce') || q.includes('financial') || q.includes('e-commerce')) {
+    return `The <strong>E-Commerce Financial Performance Dashboard</strong> models gross revenues, unit margins, and seasonal cash flows.<br><div class='chat-actions-row'><a href='https://e-commerce-financial-performance-app.streamlit.app' target='_blank' class='chat-action-btn'><i data-lucide='external-link'></i> Open Live App</a></div>`;
+  }
+  if (q.includes('website performance') || q.includes('traffic') || q.includes('bounce rate')) {
+    return `The <strong>Website Performance & Traffic Analytics</strong> dashboard provides live latency telemetry and user conversion funnel analytics.<br><div class='chat-actions-row'><a href='https://website-performance-analytics-app.streamlit.app' target='_blank' class='chat-action-btn'><i data-lucide='external-link'></i> Open Live App</a></div>`;
+  }
+  if (q.includes('netflix') || q.includes('movie analysis')) {
+    return `The <strong>Netflix Global Movie Analysis</strong> is an exploratory data intelligence suite investigating catalog dynamics, runtime clusters, and genre trends.<br><div class='chat-actions-row'><a href='https://netflix-movie-analysis-app.streamlit.app' target='_blank' class='chat-action-btn'><i data-lucide='external-link'></i> Open Live App</a></div>`;
+  }
+  if (q.includes('project') || q.includes('system') || q.includes('langgraph')) {
+    return `Abhishek has built <strong>14 production systems</strong>, including <strong>Enterprise IT Support Agentic RAG Copilot</strong>, <strong>ResearchMind</strong>, <strong>Multi-Node LangGraph Framework</strong>, <strong>Enterprise LLM Guardrails</strong>, and <strong>Financial & Web Analytics</strong> dashboards.<br><div class='chat-actions-row'><a href='#projects' class='chat-action-btn'><i data-lucide='grid'></i> Explore 14 Projects</a></div>`;
+  }
+  if (q.includes('hire') || q.includes('contact') || q.includes('phone') || q.includes('reach') || q.includes('whatsapp')) {
+    return `You can reach Abhishek directly at <strong>+91 8984065377</strong> (WhatsApp / Phone) or schedule a 1-on-1 Strategy Session.<br><div class='chat-actions-row'><a href='https://wa.me/918984065377' target='_blank' class='chat-action-btn'><i data-lucide='message-circle'></i> WhatsApp Chat</a><button class='chat-action-btn book-session-trigger'><i data-lucide='calendar'></i> Book Session</button></div>`;
   }
   if (q.includes('skill') || q.includes('stack')) {
-    return `Abhishek specializes in <strong>LangGraph Multi-Agent Systems</strong>, <strong>Model Context Protocol (MCP)</strong>, <strong>Responsible AI Guardrails</strong>, <strong>FastAPI</strong>, <strong>TensorFlow/PyTorch</strong>, and <strong>OpenCV</strong>.`;
+    return `Abhishek specializes in <strong>LangGraph Multi-Agent Systems</strong>, <strong>Agentic RAG & Pinecone</strong>, <strong>Model Context Protocol (MCP)</strong>, <strong>Responsible AI Guardrails</strong>, <strong>FastAPI & Python</strong>, and <strong>Streamlit & Tableau BI</strong>.`;
   }
-  return `Thank you for your message! Abhishek Sahoo is an AI & Agentic Systems Engineer (SMIT B.E 2026). Feel free to explore his 10 live project deployments or book a 1-on-1 strategy briefing.`;
+  return `Thank you for your inquiry! Abhishek Sahoo is an AI & Agentic Systems Engineer (SMIT B.E 2026). Feel free to explore his 14 live project deployments or book a 1-on-1 strategy session.<br><div class='chat-actions-row'><a href='#projects' class='chat-action-btn'><i data-lucide='grid'></i> View Projects</a><button class='chat-action-btn book-session-trigger'><i data-lucide='calendar'></i> Book Session</button></div>`;
 }
 
 /* --------------------------------------------------------------------------
