@@ -128,25 +128,51 @@ function initScrollFeatures() {
 function initMobileMenu() {
   const menuBtn = document.getElementById('menuToggle');
   const navLinks = document.getElementById('navLinks');
+  const navBackdrop = document.getElementById('navBackdrop');
 
   if (menuBtn && navLinks) {
+    function setMenuState(isOpen) {
+      if (isOpen) {
+        navLinks.classList.add('mobile-open', 'active');
+        if (navBackdrop) navBackdrop.classList.add('active');
+        menuBtn.setAttribute('aria-expanded', 'true');
+        menuBtn.innerHTML = '<i data-lucide="x"></i>';
+      } else {
+        navLinks.classList.remove('mobile-open', 'active');
+        if (navBackdrop) navBackdrop.classList.remove('active');
+        menuBtn.setAttribute('aria-expanded', 'false');
+        menuBtn.innerHTML = '<i data-lucide="menu"></i>';
+      }
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+    }
+
     menuBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      navLinks.classList.toggle('mobile-open');
-      navLinks.classList.toggle('active');
+      const isOpen = navLinks.classList.contains('mobile-open');
+      setMenuState(!isOpen);
     });
+
+    if (navBackdrop) {
+      navBackdrop.addEventListener('click', () => setMenuState(false));
+    }
 
     navLinks.querySelectorAll('a, button').forEach((link) => {
       link.addEventListener('click', () => {
-        navLinks.classList.remove('mobile-open');
-        navLinks.classList.remove('active');
+        setMenuState(false);
       });
     });
 
     document.addEventListener('click', (e) => {
       if (!navLinks.contains(e.target) && !menuBtn.contains(e.target)) {
-        navLinks.classList.remove('mobile-open');
-        navLinks.classList.remove('active');
+        setMenuState(false);
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768 && navLinks.classList.contains('mobile-open')) {
+        setMenuState(false);
       }
     });
   }
@@ -431,7 +457,13 @@ function initAiAgent() {
 
   function openAgent() {
     agentWindow.classList.add('open');
-    if (agentTrigger) agentTrigger.classList.add('active');
+    if (agentTrigger) {
+      agentTrigger.classList.add('active');
+      const widget = document.querySelector('.ai-agent-widget');
+      if (widget && window.innerWidth <= 768) {
+        widget.classList.add('widget-hidden');
+      }
+    }
     if (input) setTimeout(() => input.focus(), 150);
     setTimeout(() => {
       chatBody.scrollTop = chatBody.scrollHeight;
@@ -440,7 +472,13 @@ function initAiAgent() {
 
   function closeAgentWindow() {
     agentWindow.classList.remove('open');
-    if (agentTrigger) agentTrigger.classList.remove('active');
+    if (agentTrigger) {
+      agentTrigger.classList.remove('active');
+      const widget = document.querySelector('.ai-agent-widget');
+      if (widget) {
+        widget.classList.remove('widget-hidden');
+      }
+    }
   }
 
   function toggleAgent() {
