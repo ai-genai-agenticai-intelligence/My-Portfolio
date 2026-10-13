@@ -349,14 +349,24 @@ Response Style:
 """
 
 def call_gemini(prompt: str, api_key: str, history: List[ChatMessage] = None) -> Optional[str]:
-    """Calls Google Gemini REST API."""
-    models = ["gemini-2.5-flash", "gemini-1.5-flash"]
+    """Calls Google Gemini REST API with strict turn alternation."""
+    models = ["gemini-2.0-flash", "gemini-1.5-flash"]
     contents = []
+    
     if history:
-        for msg in history[-4:]:
+        last_role = None
+        for msg in history[-6:]:
             role = "user" if msg.role == "user" else "model"
-            contents.append({"role": role, "parts": [{"text": msg.content}]})
-    contents.append({"role": "user", "parts": [{"text": prompt}]})
+            if role == last_role and contents:
+                contents[-1]["parts"].append({"text": msg.content})
+            else:
+                contents.append({"role": role, "parts": [{"text": msg.content}]})
+                last_role = role
+
+    if contents and contents[-1]["role"] == "user":
+        contents[-1]["parts"].append({"text": prompt})
+    else:
+        contents.append({"role": "user", "parts": [{"text": prompt}]})
 
     for model in models:
         try:
@@ -368,7 +378,7 @@ def call_gemini(prompt: str, api_key: str, history: List[ChatMessage] = None) ->
                 "contents": contents,
                 "generationConfig": {
                     "temperature": 0.6,
-                    "maxOutputTokens": 350
+                    "maxOutputTokens": 380
                 }
             }
             res = requests.post(url, json=payload, timeout=8)
@@ -383,8 +393,9 @@ def call_groq(prompt: str, api_key: str, history: List[ChatMessage] = None) -> O
     """Calls Groq Cloud API with Llama 3.3 70B."""
     messages = [{"role": "system", "content": SYSTEM_PERSONA}]
     if history:
-        for msg in history[-4:]:
-            messages.append({"role": msg.role, "content": msg.content})
+        for msg in history[-6:]:
+            role = "assistant" if msg.role in ["bot", "model", "assistant"] else "user"
+            messages.append({"role": role, "content": msg.content})
     messages.append({"role": "user", "content": prompt})
 
     headers = {
@@ -399,7 +410,7 @@ def call_groq(prompt: str, api_key: str, history: List[ChatMessage] = None) -> O
                 "model": model,
                 "messages": messages,
                 "temperature": 0.6,
-                "max_tokens": 350
+                "max_tokens": 380
             }
             res = requests.post(url, headers=headers, json=payload, timeout=8)
             if res.status_code == 200:
@@ -413,8 +424,9 @@ def call_openai(prompt: str, api_key: str, history: List[ChatMessage] = None) ->
     """Calls OpenAI Chat Completions."""
     messages = [{"role": "system", "content": SYSTEM_PERSONA}]
     if history:
-        for msg in history[-4:]:
-            messages.append({"role": msg.role, "content": msg.content})
+        for msg in history[-6:]:
+            role = "assistant" if msg.role in ["bot", "model", "assistant"] else "user"
+            messages.append({"role": role, "content": msg.content})
     messages.append({"role": "user", "content": prompt})
 
     try:
@@ -427,7 +439,7 @@ def call_openai(prompt: str, api_key: str, history: List[ChatMessage] = None) ->
             "model": "gpt-4o-mini",
             "messages": messages,
             "temperature": 0.6,
-            "max_tokens": 350
+            "max_tokens": 380
         }
         res = requests.post(url, headers=headers, json=payload, timeout=8)
         if res.status_code == 200:
@@ -437,34 +449,207 @@ def call_openai(prompt: str, api_key: str, history: List[ChatMessage] = None) ->
         pass
     return None
 
+import re
+
+def has_intent(text: str, patterns: List[str]) -> bool:
+    """Checks for whole-word or phrase matches to avoid substring false positives (e.g. 'hi' inside 'abhishek')."""
+    text_lower = text.lower()
+    for pattern in patterns:
+        p = pattern.lower().strip()
+        if " " in p or "-" in p:
+            if p in text_lower:
+                return True
+        else:
+            if re.search(r'\b' + re.escape(p) + r'\b', text_lower):
+                return True
+    return False
+
+def resolve_semantic_intent(raw_message: str) -> dict:
+    """Production zero-latency semantic intent engine for AbhiBot with rich actionable responses."""
+    user_input = (raw_message or "").strip().lower()
+    if not user_input:
+        return {
+            "reply": "Hello! I am <strong>AbhiBot</strong>, Abhishek Sahoo's AI Concierge. How can I help you explore his 13 live production systems, review his Multi-Agent LangGraph architecture, or schedule an executive strategy session?",
+            "action": "general",
+            "suggested_chips": ["🚀 Show 13 Projects", "🤖 LangGraph & Agents", "📊 Analytics Dashboards", "📅 Book Strategy Call", "📞 Contact Abhishek"]
+        }
+
+    # 1. Booking & Scheduling Strategy Session
+    if has_intent(user_input, ["book", "booking", "schedule", "appointment", "consultation", "meeting", "interview", "calendar", "strategy session", "strategy call", "1-on-1", "1:1", "session"]):
+        return {
+            "reply": "Opening the <strong>1-on-1 Strategy Session Calendar</strong> for you! You can pick your preferred date and time, and instantly receive a calendar invite (.ics).<br><div class='chat-actions-row'><button class='chat-action-btn book-session-trigger'><i data-lucide='calendar'></i> Open Booking Modal</button><a href='https://wa.me/918984065377' target='_blank' class='chat-action-btn'><i data-lucide='phone'></i> Direct WhatsApp</a></div>",
+            "action": "open_calendar",
+            "suggested_chips": ["🚀 Show 13 Projects", "🤖 Multi-Agent Systems", "📞 Direct WhatsApp"]
+        }
+
+    # 2. Contact & Direct Reach
+    if has_intent(user_input, ["contact", "reach", "hire", "email", "phone", "whatsapp", "call", "message", "get in touch", "connect"]):
+        return {
+            "reply": "You can connect with Abhishek directly on WhatsApp / Phone at <strong>+91 8984065377</strong> or email him at <strong>abhisheksahoo08583@gmail.com</strong>.<br><div class='chat-actions-row'><a href='https://wa.me/918984065377' target='_blank' class='chat-action-btn'><i data-lucide='message-circle'></i> Open WhatsApp Chat</a><a href='https://www.linkedin.com/in/abhishek-sahoo-75519b313' target='_blank' class='chat-action-btn'><i data-lucide='linkedin'></i> View LinkedIn</a></div>",
+            "action": "open_whatsapp",
+            "suggested_chips": ["📅 Book 1:1 Session", "🚀 View All 13 Projects", "💻 View Tech Stack"]
+        }
+
+    # 3. Resume & CV Download
+    if has_intent(user_input, ["resume", "cv", "curriculum", "download resume", "pdf", "bio"]):
+        return {
+            "reply": "You can view and download Abhishek Sahoo's official <strong>AI & Agentic Systems Engineer Resume (PDF)</strong> detailing his Naresh i Tech experience, 13 live deployments, and credentials.<br><div class='chat-actions-row'><a href='Abhishek_Sahoo_AI_Resume.pdf' download='Abhishek_Sahoo_AI_Resume.pdf' class='chat-action-btn'><i data-lucide='download'></i> Download Official Resume (PDF)</a><a href='https://www.linkedin.com/in/abhishek-sahoo-75519b313' target='_blank' class='chat-action-btn'><i data-lucide='linkedin'></i> LinkedIn Profile</a></div>",
+            "action": "download_resume",
+            "suggested_chips": ["📅 Book 1:1 Session", "🚀 View All 13 Projects", "📞 Contact Abhishek"]
+        }
+
+    # 4. Work Experience & Internship
+    if has_intent(user_input, ["experience", "intern", "internship", "work history", "naresh i tech", "career", "job", "company"]):
+        return {
+            "reply": "Abhishek completed a rigorous <strong>Data Science & Agentic AI Engineer Internship at Naresh i Tech (Hyderabad)</strong>. He built enterprise multi-agent LangGraph workflows, optimized semantic search latency by 35% with vector caching, fine-tuned deep learning models to 97.2%+ benchmark accuracy, and deployed cloud production systems.",
+            "action": "general",
+            "suggested_chips": ["🤖 Multi-Agent Systems", "🛡️ LLM Guardrails", "📄 Download Resume", "📅 Book Strategy Call"]
+        }
+
+    # 5. Education & Academic Background
+    if has_intent(user_input, ["education", "college", "smit", "degree", "university", "school", "graduate", "cgpa", "academics"]):
+        return {
+            "reply": "Abhishek is pursuing his <strong>B.E. in Computer Science & Engineering (2022 - 2026)</strong> at <strong>Sikkim Manipal Institute of Technology (SMIT)</strong>, focusing on Distributed Systems, Multi-Agent Architectures, and Responsible AI.",
+            "action": "general",
+            "suggested_chips": ["💼 View Tech Stack", "🚀 View 13 Projects", "📞 Direct Contact"]
+        }
+
+    # 6. Certifications & Verified Credentials
+    if has_intent(user_input, ["certification", "certifications", "certificate", "certificates", "courses", "deeplearning.ai", "credentials"]):
+        return {
+            "reply": "Abhishek holds verified certifications in <strong>Machine Learning Specialization (DeepLearning.AI / Stanford)</strong>, <strong>Deep Learning & Generative AI</strong>, and <strong>PyTorch & TensorFlow</strong> foundations.",
+            "action": "general",
+            "suggested_chips": ["💼 Tech Stack", "🚀 13 Live Projects", "📄 Download Resume"]
+        }
+
+    # 7. Enterprise IT Support Agentic RAG Copilot
+    if has_intent(user_input, ["copilot", "it support", "support agent", "rag", "pinecone"]):
+        return {
+            "reply": "<strong>Enterprise IT Support: Agentic RAG Copilot</strong> is Abhishek's flagship enterprise support system. It combines <strong>LangGraph state machines</strong>, <strong>Pinecone vector indexing</strong>, dynamic fallback search, and real-time execution tracing for enterprise IT troubleshooting.<br><div class='chat-actions-row'><a href='#projects' class='chat-action-btn'><i data-lucide='grid'></i> View Project Card</a></div>",
+            "action": "view_project",
+            "suggested_chips": ["🔬 ResearchMind System", "🤖 Multi-Node LangGraph", "📅 Book Strategy Call"]
+        }
+
+    # 8. ResearchMind Autonomous Research
+    if has_intent(user_input, ["researchmind", "deep research", "academic synthesis", "multi-paper"]):
+        return {
+            "reply": "<strong>ResearchMind</strong> is an Autonomous Deep Research Multi-Agent pipeline. It autonomously retrieves multi-source academic papers, resolves contradictions, validates sources, and compiles executive intelligence briefs.",
+            "action": "view_project",
+            "suggested_chips": ["🚀 Multi-Node LangGraph", "🛡️ LLM Guardrails", "📞 Contact Abhishek"]
+        }
+
+    # 9. LangGraph & Multi-Agent Architectures
+    if has_intent(user_input, ["langgraph", "multi-agent", "agentic", "supervisor", "mcp", "model context protocol", "hitl", "human in the loop", "multi node"]):
+        return {
+            "reply": "Abhishek specializes in <strong>Multi-Agent LangGraph Architectures</strong> featuring Supervisor nodes, stateful cycles, Human-in-the-Loop checkpoints, and Model Context Protocol (MCP) tool integrations for autonomous enterprise agents.",
+            "action": "general",
+            "suggested_chips": ["🚀 Enterprise IT Copilot", "🔬 ResearchMind Agent", "📅 Schedule Strategy Session"]
+        }
+
+    # 10. LLM Guardrails & Responsible AI
+    if has_intent(user_input, ["guardrail", "guardrails", "responsible ai", "prompt injection", "pii", "hallucination", "safety"]):
+        return {
+            "reply": "Abhishek's <strong>Enterprise LLM Guardrail Engine</strong> delivers millisecond-level hallucination detection, prompt injection mitigation, and automated PII sanitization to make LLMs enterprise-grade and production-ready.",
+            "action": "general",
+            "suggested_chips": ["🤖 LangGraph Supervisor", "💼 Resume Analyzer", "📅 Book 1:1 Consultation"]
+        }
+
+    # 11. Computer Vision & Deep Learning
+    if has_intent(user_input, ["vision", "cv", "imot", "yolo", "tracking", "imagenet", "cnn", "mood", "computer vision"]):
+        return {
+            "reply": "In Computer Vision & Deep Learning, Abhishek has built <strong>IMOT (Multi-Modal Object & Color Tracking)</strong> with YOLO & DeepSORT, <strong>ImageNet Visual Recognition (VGG16 / ResNet50)</strong>, and <strong>CNN Facial Mood Detection</strong>.<br><div class='chat-actions-row'><a href='#projects' class='chat-action-btn'><i data-lucide='grid'></i> Jump to Vision Projects</a></div>",
+            "action": "general",
+            "suggested_chips": ["🤖 Agentic Systems", "📊 Analytics Dashboards", "📞 Contact Abhishek"]
+        }
+
+    # 12. Business Intelligence & Analytics Dashboards
+    if has_intent(user_input, ["analytics", "bi", "dashboard", "dashboards", "business intelligence", "ecommerce", "e-commerce", "financial performance", "website performance", "traffic analytics", "netflix", "movie analysis", "streamlit"]):
+        return {
+            "reply": "Abhishek has deployed <strong>3 live Streamlit Cloud analytics suites</strong>:<br>• <strong>E-Commerce Financial Performance</strong>: Unit economics & margin modeling<br>• <strong>Website Performance & Traffic Telemetry</strong>: Real-time latency & funnel analysis<br>• <strong>Netflix Global Movie Analysis</strong>: Catalog dynamics & director networks<br><div class='chat-actions-row'><a href='https://e-commerce-financial-performance-app.streamlit.app' target='_blank' class='chat-action-btn'><i data-lucide='external-link'></i> E-Commerce App</a><a href='https://website-performance-analytics-app.streamlit.app' target='_blank' class='chat-action-btn'><i data-lucide='external-link'></i> Website App</a><a href='https://netflix-movie-analysis-app.streamlit.app' target='_blank' class='chat-action-btn'><i data-lucide='external-link'></i> Netflix App</a></div>",
+            "action": "general",
+            "suggested_chips": ["🚀 View All 13 Projects", "🤖 LangGraph & Agents", "📅 Book Strategy Call"]
+        }
+
+    # 13. AI Resume Analyzer
+    if has_intent(user_input, ["resume analyzer", "ats", "job fit"]):
+        return {
+            "reply": "The <strong>AI Resume Analyzer & Job Fit Predictor</strong> evaluates applicant CVs against target job descriptions using dense vector embeddings and semantic parsing to provide ATS scores and skill gap insights.",
+            "action": "general",
+            "suggested_chips": ["🚀 View Projects", "🤖 Gemini Chatbot", "📅 Book 1:1 Session"]
+        }
+
+    # 14. Gemini Chatbot
+    if has_intent(user_input, ["gemini chatbot", "gemini 2.5", "gemini 2.0", "gemini flash", "gemini"]):
+        return {
+            "reply": "The <strong>Gemini Flash Chatbot</strong> provides ultra-low latency conversational intelligence with streaming responses and contextual persona alignment.",
+            "action": "general",
+            "suggested_chips": ["🤖 LangGraph Agents", "🛡️ LLM Guardrails", "📅 Book 1:1 Session"]
+        }
+
+    # 15. Projects Overview / Showcase
+    if has_intent(user_input, ["project", "projects", "work", "portfolio", "built", "showcase", "systems"]):
+        return {
+            "reply": "Abhishek has engineered and deployed <strong>13 production-grade systems</strong> across 4 domains: Multi-Agent LangGraph (4), LLM Guardrails & GenAI (3), Computer Vision (3), and Analytics Dashboards (3).<br><div class='chat-actions-row'><a href='#projects' class='chat-action-btn'><i data-lucide='grid'></i> Jump To Projects Grid</a></div>",
+            "action": "view_projects",
+            "suggested_chips": ["🤖 Multi-Agent (4)", "🛡️ LLM & GenAI (3)", "👁️ Computer Vision (3)", "📊 Data Analytics (3)"]
+        }
+
+    # 16. Technical Stack & Skills
+    if has_intent(user_input, ["skill", "skills", "tech", "stack", "framework", "tools", "python", "pytorch", "fastapi", "technologies", "languages"]):
+        return {
+            "reply": "Abhishek's technical stack includes: <strong>LangGraph & Multi-Agent Workflows</strong>, <strong>Agentic RAG & Pinecone</strong>, <strong>Model Context Protocol (MCP)</strong>, <strong>FastAPI & Python</strong>, <strong>PyTorch & OpenCV</strong>, <strong>Responsible AI Guardrails</strong>, and <strong>Streamlit & Tableau BI</strong>.",
+            "action": "general",
+            "suggested_chips": ["🚀 View 13 Projects", "📅 Schedule Strategy Session", "💬 WhatsApp Chat"]
+        }
+
+    # 17. Who is Abhishek / Profile
+    if has_intent(user_input, ["who is abhishek", "about abhishek", "who are you", "tell me about yourself", "tell me about abhishek", "introduce abhishek", "profile"]):
+        return {
+            "reply": "Abhishek Sahoo is an <strong>AI & Agentic Systems Engineer</strong> (SMIT B.E. CSE 2026) building autonomous multi-agent systems, enterprise RAG copilots, and responsible AI guardrails. He has deployed 13 live cloud systems and interned at Naresh i Tech.",
+            "action": "general",
+            "suggested_chips": ["🚀 Show 13 Projects", "📄 Download Resume", "💼 View Tech Stack", "📅 Book Strategy Call"]
+        }
+
+    # 18. Greetings
+    if has_intent(user_input, ["hi", "hello", "hey", "hola", "namaste", "greetings", "good morning", "good evening", "good afternoon"]):
+        return {
+            "reply": "Hello! 👋 I am <strong>AbhiBot</strong>, Abhishek Sahoo's AI Concierge. I can guide you through his <strong>13 live production systems</strong>, break down his multi-agent architecture, or help you book an executive strategy call. How can I assist you today?",
+            "action": "general",
+            "suggested_chips": ["🚀 Explore 13 Projects", "🤖 LangGraph & Agents", "📊 Live Analytics Dashboards", "📅 Book 1:1 Strategy Call"]
+        }
+
+    # 19. Goodbye / Thanks
+    if has_intent(user_input, ["bye", "goodbye", "see you", "thanks", "thank you"]):
+        return {
+            "reply": "You're very welcome! Feel free to book a 1-on-1 strategy call or message Abhishek on WhatsApp (+91 8984065377) anytime. Have an inspiring day!",
+            "action": "general",
+            "suggested_chips": ["📅 Book 1:1 Session", "📞 WhatsApp Abhishek", "🚀 View Projects"]
+        }
+
+    # Default Fallback
+    return {
+        "reply": "Abhishek Sahoo is an <strong>AI & Agentic Systems Engineer</strong> (SMIT B.E. 2026) building autonomous multi-agent pipelines, enterprise RAG copilots, and responsible AI guardrails. Feel free to ask about his 13 live systems, tech stack, or book a strategy session!",
+        "action": "general",
+        "suggested_chips": ["🚀 Show 13 Projects", "📄 Download Resume", "🤖 LangGraph Architecture", "📅 Book Strategy Call"]
+    }
+
 # --- 8. AUTONOMOUS AI AGENT CONCIERGE ENDPOINT ---
 @app.post("/api/agent/chat")
 def agent_chat_endpoint(payload: AgentChatRequest):
     raw_message = (payload.message or payload.query or "").strip()
     if not raw_message:
         return {
-            "reply": "Hello! I am <strong>AbhiBot</strong>, Abhishek's AI Concierge. How can I help you explore his 14 live systems, tech stack, or schedule an executive strategy session?",
+            "reply": "Hello! I am <strong>AbhiBot</strong>, Abhishek's AI Concierge. How can I help you explore his 13 live systems, tech stack, or schedule an executive strategy session?",
             "action": "general",
             "provider": "default",
-            "suggested_chips": ["🚀 Show 14 Projects", "🤖 LangGraph & Agents", "📊 Analytics Dashboards", "📅 Book Strategy Call", "📞 Contact Abhishek"]
+            "suggested_chips": ["🚀 Show 13 Projects", "🤖 LangGraph & Agents", "📊 Analytics Dashboards", "📅 Book Strategy Call", "📞 Contact Abhishek"]
         }
-    
-    user_input = raw_message.lower()
-    action = "general"
-    action_data = {}
-    suggested_chips = ["🚀 Show 14 Projects", "📅 Book Strategy Call", "📞 Direct WhatsApp"]
 
-    # Detect user intent and trigger UI actions
-    if any(w in user_input for w in ["phone", "whatsapp", "call", "reach", "hire", "email", "contact"]):
-        action = "open_whatsapp"
-        suggested_chips = ["📅 Book 1-on-1 Session", "🚀 View Projects", "💼 Tech Stack"]
-    elif any(w in user_input for w in ["book", "appointment", "schedule", "consult", "meeting", "interview", "calendar"]):
-        action = "open_calendar"
-        suggested_chips = ["📞 WhatsApp Abhishek", "🚀 Explore Systems", "📄 Education & Bio"]
-    elif any(w in user_input for w in ["project", "work", "portfolio", "built", "showcase", "systems"]):
-        action = "view_projects"
-        action_data = {"filter": "all"}
-        suggested_chips = ["🤖 Multi-Agent Systems", "🛡️ LLM Guardrails", "📊 BI & Analytics"]
+    # First check semantic action for UI coordination
+    semantic_result = resolve_semantic_intent(raw_message)
+    action = semantic_result.get("action", "general")
+    action_data = semantic_result.get("action_data", {})
+    suggested_chips = semantic_result.get("suggested_chips", ["🚀 Show 13 Projects", "📅 Book Strategy Call", "📞 Direct WhatsApp"])
 
     # 1. Try Groq API (Ultra-fast LPU inference)
     groq_key = os.environ.get("GROQ_API_KEY")
@@ -490,7 +675,7 @@ def agent_chat_endpoint(payload: AgentChatRequest):
                 "reply": gemini_reply,
                 "action": action,
                 "action_data": action_data,
-                "provider": "Google Gemini 2.5 Flash",
+                "provider": "Google Gemini 2.0 Flash",
                 "phone_number": "+918984065377",
                 "suggested_chips": suggested_chips,
                 "timestamp": datetime.utcnow().isoformat()
@@ -512,83 +697,16 @@ def agent_chat_endpoint(payload: AgentChatRequest):
             }
 
     # 4. Built-in Enterprise Knowledge & Semantic Intent Engine (Zero-Latency Offline Fallback)
-    if action == "open_whatsapp" or any(w in user_input for w in ["contact", "email", "phone", "whatsapp", "call", "reach", "hire", "message"]):
-        reply = "You can connect with Abhishek directly on WhatsApp / Phone at <strong>+91 8984065377</strong> or email him at <strong>abhisheksahoo08583@gmail.com</strong>.<br><div class='chat-actions-row'><a href='https://wa.me/918984065377' target='_blank' class='chat-action-btn'><i data-lucide='message-circle'></i> Open WhatsApp Chat</a><a href='https://www.linkedin.com/in/abhishek-sahoo-75519b313' target='_blank' class='chat-action-btn'><i data-lucide='linkedin'></i> View LinkedIn</a></div>"
-        suggested_chips = ["📅 Book 1:1 Session", "🚀 View All 14 Projects", "💻 View Tech Stack"]
-
-    elif action == "open_calendar" or any(w in user_input for w in ["book", "appointment", "schedule", "consult", "meeting", "interview", "session"]):
-        reply = "Opening the <strong>1-on-1 Strategy Session Calendar</strong> for you! You can pick your preferred date and time, and instantly receive an <strong>.ics calendar invite</strong>.<br><div class='chat-actions-row'><button class='chat-action-btn book-session-trigger'><i data-lucide='calendar'></i> Open Booking Modal</button><a href='https://wa.me/918984065377' target='_blank' class='chat-action-btn'><i data-lucide='phone'></i> Direct Call / WhatsApp</a></div>"
-        suggested_chips = ["🚀 Show 14 Projects", "🤖 Multi-Agent Systems", "📞 WhatsApp Abhishek"]
-
-    elif any(w in user_input for w in ["copilot", "it support", "support agent", "rag", "pinecone"]):
-        reply = "<strong>Enterprise IT Support: Agentic RAG Copilot</strong> is Abhishek's flagship enterprise support system. It combines <strong>LangGraph state machines</strong>, <strong>Pinecone vector indexing</strong>, dynamic fallback web search, and real-time execution traces for secure enterprise troubleshooting."
-        suggested_chips = ["🚀 View Copilot Card", "🤖 ResearchMind System", "📅 Book Strategy Call"]
-
-    elif any(w in user_input for w in ["researchmind", "deep research", "paper synthesis"]):
-        reply = "<strong>ResearchMind</strong> is an Autonomous Deep Research Multi-Agent pipeline. It autonomously retrieves multi-source academic papers, resolves contradictions, validates sources, and compiles executive intelligence briefs."
-        suggested_chips = ["🚀 Multi-Node LangGraph", "🛡️ LLM Guardrails", "📞 Contact Abhishek"]
-
-    elif any(w in user_input for w in ["ecommerce", "e-commerce", "financial performance", "profit margin"]):
-        reply = "The <strong>E-Commerce Financial Performance Dashboard</strong> is deployed live on Streamlit Cloud! It provides real-time financial modeling, gross revenue metrics, profit margin breakdowns, and unit economics analysis.<br><div class='chat-actions-row'><a href='https://e-commerce-financial-performance-app.streamlit.app' target='_blank' class='chat-action-btn'><i data-lucide='external-link'></i> Open Live Cloud App</a></div>"
-        suggested_chips = ["📊 Website Analytics App", "🎬 Netflix Analysis", "🚀 View All Projects"]
-
-    elif any(w in user_input for w in ["website performance", "traffic analytics", "latency", "bounce rate"]):
-        reply = "The <strong>Website Performance & Traffic Analytics</strong> dashboard monitors live latency telemetry, user bounce analytics, and conversion funnels across global traffic nodes.<br><div class='chat-actions-row'><a href='https://website-performance-analytics-app.streamlit.app' target='_blank' class='chat-action-btn'><i data-lucide='external-link'></i> Open Live Cloud App</a></div>"
-        suggested_chips = ["📊 E-Commerce Dashboard", "🎬 Netflix Analysis", "📅 Book 1:1 Session"]
-
-    elif any(w in user_input for w in ["netflix", "movie analysis", "film"]):
-        reply = "The <strong>Netflix Global Movie Analysis</strong> suite conducts exploratory data analysis on Netflix's catalogue, analyzing release timeline trends, runtime clusters, and director-cast networks.<br><div class='chat-actions-row'><a href='https://netflix-movie-analysis-app.streamlit.app' target='_blank' class='chat-action-btn'><i data-lucide='external-link'></i> Open Live Cloud App</a></div>"
-        suggested_chips = ["📊 E-Commerce Dashboard", "📊 Website Performance", "🚀 All 14 Projects"]
-
-    elif any(w in user_input for w in ["guardrail", "responsible ai", "prompt injection", "pii"]):
-        reply = "Abhishek's <strong>Enterprise LLM Guardrail Engine</strong> delivers millisecond-level hallucination detection, prompt injection mitigation, and automated PII sanitization to make LLMs safe for production enterprise rollout."
-        suggested_chips = ["🤖 LangGraph Supervisor", "💼 Resume Analyzer", "📅 Book 1:1 Consultation"]
-
-    elif any(w in user_input for w in ["langgraph", "multi-agent", "agentic", "supervisor", "mcp"]):
-        reply = "Abhishek specializes in <strong>Multi-Agent LangGraph Architectures</strong> featuring Supervisor nodes, stateful cycles, Human-in-the-Loop checkpoints, and Model Context Protocol (MCP) integrations."
-        suggested_chips = ["🚀 Enterprise IT Copilot", "🔬 ResearchMind Agent", "📅 Schedule Strategy Session"]
-
-    elif any(w in user_input for w in ["vision", "cv", "imot", "yolo", "tracking", "imagenet", "cnn", "mood"]):
-        reply = "In Computer Vision & Deep Learning, Abhishek has built <strong>IMOT (Multi-Modal Object & Color Tracking)</strong> with YOLO & DeepSORT, <strong>ImageNet Deep Learning (VGG16/ResNet50)</strong>, and <strong>CNN Facial Mood Detection</strong>."
-        suggested_chips = ["🚀 View Vision Projects", "🤖 Agentic Systems", "📞 Contact Abhishek"]
-
-    elif any(w in user_input for w in ["resume analyzer", "ats", "job fit"]):
-        reply = "The <strong>AI Resume Analyzer & Job Fit Predictor</strong> evaluates applicant CVs against job descriptions using vector embeddings and semantic extraction to generate ATS match scores and gap recommendations."
-        suggested_chips = ["🚀 View Projects", "🤖 Gemini Chatbot", "📅 Book 1:1 Session"]
-
-    elif any(w in user_input for w in ["education", "college", "smit", "degree", "university", "school", "graduate"]):
-        reply = "Abhishek is pursuing his <strong>B.E. in Computer Science & Engineering (2022 - 2026)</strong> at <strong>Sikkim Manipal Institute of Technology (SMIT)</strong>, maintaining a strong academic focus on AI, Multi-Agent Systems, and Distributed Computing."
-        suggested_chips = ["💼 View Tech Stack", "🚀 View 14 Projects", "📞 Direct Contact"]
-
-    elif any(w in user_input for w in ["skill", "tech", "stack", "framework", "tools", "python", "pytorch", "fastapi"]):
-        reply = "Abhishek's core tech stack includes: <strong>LangGraph & Multi-Agent Workflows</strong>, <strong>Agentic RAG & Pinecone</strong>, <strong>Model Context Protocol (MCP)</strong>, <strong>FastAPI & Python</strong>, <strong>PyTorch & OpenCV</strong>, <strong>Responsible AI Guardrails</strong>, and <strong>Streamlit & Tableau BI</strong>."
-        suggested_chips = ["🚀 View 13 Projects", "📅 Schedule Strategy Session", "💬 WhatsApp Chat"]
-
-    elif any(w in user_input for w in ["hi", "hello", "hey", "hola", "namaste", "greetings"]):
-        reply = "Hello! 👋 I am <strong>AbhiBot</strong>, Abhishek's AI Concierge. I can guide you through his <strong>13 live production systems</strong>, break down his multi-agent architecture, or help you book an executive strategy call. How can I assist you today?"
-        suggested_chips = ["🚀 Explore 13 Projects", "🤖 LangGraph & Agents", "📊 Live Analytics Dashboards", "📅 Book 1:1 Strategy Call"]
-
-    elif action == "view_projects" or any(w in user_input for w in ["project", "work", "portfolio", "built", "showcase"]):
-        reply = "Abhishek has developed and deployed <strong>13 production-grade systems</strong> spanning Multi-Agent LangGraph, Responsible LLM Guardrails, Computer Vision, and Business Intelligence dashboards.<br><div class='chat-actions-row'><a href='#projects' class='chat-action-btn'><i data-lucide='grid'></i> Jump To Projects Grid</a></div>"
-        suggested_chips = ["🤖 Multi-Agent (4)", "🛡️ LLM & GenAI (3)", "👁️ Computer Vision (3)", "📊 Data Analytics (3)"]
-
-    elif any(w in user_input for w in ["resume", "cv", "curriculum", "download resume", "bio"]):
-        reply = "You can view and download Abhishek Sahoo's official <strong>AI & Agentic Systems Engineer Resume (PDF)</strong> with full credentials, Naresh i Tech experience, and production project links.<br><div class='chat-actions-row'><a href='Abhishek_Sahoo_AI_Resume.pdf' download='Abhishek_Sahoo_AI_Resume.pdf' class='chat-action-btn'><i data-lucide='download'></i> Download Official Resume (PDF)</a><a href='https://www.linkedin.com/in/abhishek-sahoo-75519b313' target='_blank' class='chat-action-btn'><i data-lucide='linkedin'></i> LinkedIn</a></div>"
-        suggested_chips = ["📅 Book 1:1 Session", "🚀 View All 13 Projects", "📞 Contact Abhishek"]
-
-    else:
-        reply = f"Abhishek Sahoo is an <strong>AI & Agentic Systems Engineer</strong> (SMIT B.E. 2026) building autonomous multi-agent pipelines, enterprise RAG copilots, and responsible AI guardrails. Feel free to ask about his 13 live systems, tech stack, or book a strategy session!"
-        suggested_chips = ["🚀 Show 13 Projects", "📄 Download Resume", "🤖 LangGraph Architecture", "📅 Book Strategy Call"]
-
     return {
-        "reply": reply,
+        "reply": semantic_result["reply"],
         "action": action,
         "action_data": action_data,
-        "provider": "AbhiBot Semantic Engine",
+        "provider": "AbhiBot Autonomous Engine",
         "phone_number": "+918984065377",
         "suggested_chips": suggested_chips,
         "timestamp": datetime.utcnow().isoformat()
     }
+
 
 # ==============================================================================
 # RESUME DOWNLOAD ROUTE

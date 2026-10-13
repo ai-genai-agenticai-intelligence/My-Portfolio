@@ -420,16 +420,86 @@ function initAiAgent() {
   // In-memory conversation state for multi-turn reasoning
   let conversationHistory = [];
 
+  const initialChips = [
+    "🚀 Show 13 Projects",
+    "🤖 LangGraph & Agents",
+    "📊 Analytics Dashboards",
+    "🛡️ Guardrails",
+    "📅 Book Strategy Call",
+    "📞 Contact Abhishek"
+  ];
+
+  function openAgent() {
+    agentWindow.classList.add('open');
+    if (agentTrigger) agentTrigger.classList.add('active');
+    if (input) setTimeout(() => input.focus(), 150);
+    setTimeout(() => {
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }, 100);
+  }
+
+  function closeAgentWindow() {
+    agentWindow.classList.remove('open');
+    if (agentTrigger) agentTrigger.classList.remove('active');
+  }
+
   function toggleAgent() {
-    agentWindow.classList.toggle('open');
-    if (agentWindow.classList.contains('open') && input) {
-      setTimeout(() => input.focus(), 150);
+    if (agentWindow.classList.contains('open')) {
+      closeAgentWindow();
+    } else {
+      openAgent();
     }
   }
 
   if (agentTrigger) agentTrigger.addEventListener('click', toggleAgent);
-  if (agentNavBtn) agentNavBtn.addEventListener('click', toggleAgent);
-  if (closeAgent) closeAgent.addEventListener('click', () => agentWindow.classList.remove('open'));
+  if (agentNavBtn) agentNavBtn.addEventListener('click', openAgent);
+  if (closeAgent) closeAgent.addEventListener('click', closeAgentWindow);
+
+  // Keyboard accessibility: ESC key to close
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && agentWindow.classList.contains('open')) {
+      closeAgentWindow();
+    }
+  });
+
+  // Dynamic State Toggling between Geometric Swirl and Mic + Accent Sparkle
+  const pillIconSwirl = document.getElementById('pillIconSwirl');
+  const pillIconMic = document.getElementById('pillIconMic');
+  let currentPillIconState = 'swirl';
+
+  function setPillIconState(state) {
+    currentPillIconState = state;
+    if (pillIconSwirl && pillIconMic) {
+      if (state === 'mic') {
+        pillIconSwirl.classList.remove('active');
+        pillIconMic.classList.add('active');
+      } else {
+        pillIconMic.classList.remove('active');
+        pillIconSwirl.classList.add('active');
+      }
+      // Subtle scale-up effect when state toggles
+      if (agentTrigger) {
+        agentTrigger.style.transform = 'scale(1.06)';
+        setTimeout(() => {
+          agentTrigger.style.transform = '';
+        }, 220);
+      }
+    }
+  }
+
+  function togglePillIconState() {
+    setPillIconState(currentPillIconState === 'swirl' ? 'mic' : 'swirl');
+  }
+
+  // Periodic automatic state toggle every 4.5 seconds to demonstrate fluid dual-state capability
+  setInterval(togglePillIconState, 4500);
+
+  // Also toggle on hover for immediate tactile feedback
+  if (agentTrigger) {
+    agentTrigger.addEventListener('mouseenter', () => {
+      togglePillIconState();
+    });
+  }
 
   // Expand / Minimize Window
   if (expandAgentBtn) {
@@ -439,9 +509,28 @@ function initAiAgent() {
       expandAgentBtn.innerHTML = isExpanded
         ? '<i data-lucide="minimize-2"></i>'
         : '<i data-lucide="maximize-2"></i>';
+      expandAgentBtn.title = isExpanded ? 'Minimize Window' : 'Maximize Window';
       if (window.lucide) lucide.createIcons();
     });
   }
+
+  const VORTEX_SENDER_HTML = `
+    <div class="agent-msg-sender">
+      <svg class="vortex-mini-svg vortex-spin-slow" viewBox="0 0 24 24" width="13" height="13" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="vortexMiniGlobalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#fff2a1"/>
+            <stop offset="35%" stop-color="#ffa600"/>
+            <stop offset="70%" stop-color="#ff6b00"/>
+            <stop offset="100%" stop-color="#ff2200"/>
+          </linearGradient>
+        </defs>
+        <path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.6666zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z" fill="url(#vortexMiniGlobalGrad)"/>
+      </svg>
+      AbhiBot AI
+    </div>
+  `;
+  const GEMINI_SENDER_HTML = VORTEX_SENDER_HTML;
 
   // Reset Conversation
   if (resetAgentBtn) {
@@ -449,24 +538,17 @@ function initAiAgent() {
       conversationHistory = [];
       chatBody.innerHTML = `
         <div class="agent-msg bot">
-          <div class="agent-msg-sender">AbhiBot AI</div>
-          Conversation refreshed! I'm ready to assist you with Abhishek's <strong>14 live projects</strong>, Multi-Agent LangGraph architectures, or direct contact.
+          ${GEMINI_SENDER_HTML}
+          Conversation refreshed! I am ready to guide you through Abhishek's <strong>13 live production systems</strong>, his <strong>LangGraph Multi-Agent architectures</strong>, or help you book an executive strategy session.
           <div class="chat-actions-row" style="margin-top: 0.6rem;">
-            <a href="#projects" class="chat-action-btn"><i data-lucide="grid"></i> View 14 Projects</a>
-            <button class="chat-action-btn book-session-trigger"><i data-lucide="calendar"></i> Book Session</button>
+            <a href="#projects" class="chat-action-btn"><i data-lucide="grid"></i> View 13 Projects</a>
+            <button class="chat-action-btn book-session-trigger"><i data-lucide="calendar"></i> Book Strategy Session</button>
           </div>
         </div>
       `;
-      renderChips([
-        "🚀 Show 14 Projects",
-        "🤖 LangGraph & Agents",
-        "📊 Analytics Dashboards",
-        "🛡️ Guardrails",
-        "📅 Book Strategy Call",
-        "📞 Contact Abhishek"
-      ]);
+      renderChips(initialChips);
       if (window.lucide) lucide.createIcons();
-      showToast('Conversation history reset');
+      showToast('Conversation refreshed');
     });
   }
 
@@ -500,7 +582,7 @@ function initAiAgent() {
     if (bookBtn) {
       if (bookingModal) {
         bookingModal.classList.add('open');
-        agentWindow.classList.remove('open');
+        closeAgentWindow();
       }
       return;
     }
@@ -510,7 +592,7 @@ function initAiAgent() {
       const projSec = document.getElementById('projects');
       if (projSec) {
         projSec.scrollIntoView({ behavior: 'smooth' });
-        agentWindow.classList.remove('open');
+        closeAgentWindow();
       }
     }
   });
@@ -518,6 +600,9 @@ function initAiAgent() {
   async function sendMessage(userText) {
     const text = (userText || (input ? input.value : '')).trim();
     if (!text) return;
+
+    const headerAvatar = document.getElementById('agentHeaderAvatar') || (agentWindow ? agentWindow.querySelector('.agent-avatar-icon') : null);
+    if (headerAvatar) headerAvatar.classList.add('is-thinking');
 
     // Append user message bubble
     appendMessage(text, 'user');
@@ -530,7 +615,7 @@ function initAiAgent() {
     const typingElem = document.createElement('div');
     typingElem.className = 'agent-msg bot';
     typingElem.innerHTML = `
-      <div class="agent-msg-sender">AbhiBot AI</div>
+      ${GEMINI_SENDER_HTML}
       <div class="typing-indicator">
         <span class="typing-dot"></span>
         <span class="typing-dot"></span>
@@ -540,59 +625,90 @@ function initAiAgent() {
     chatBody.appendChild(typingElem);
     chatBody.scrollTop = chatBody.scrollHeight;
 
-    try {
-      const response = await fetch('/api/agent/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          message: text,
-          history: conversationHistory.slice(-6),
-        }),
-      });
+    // Helper to display response and run UI actions
+    function applyResponse(replyHtml, action, suggestedChips) {
+      if (headerAvatar) headerAvatar.classList.remove('is-thinking');
+      typingElem.innerHTML = `
+        ${GEMINI_SENDER_HTML}
+        ${replyHtml}
+      `;
+      conversationHistory.push({ role: 'assistant', content: replyHtml });
 
-      if (response.ok) {
-        const data = await response.json();
-        typingElem.innerHTML = `
-          <div class="agent-msg-sender">AbhiBot AI</div>
-          ${data.reply}
-        `;
-        conversationHistory.push({ role: 'assistant', content: data.reply });
-
-        if (data.suggested_chips) {
-          renderChips(data.suggested_chips);
-        }
-
-        // Trigger action if requested
-        if (data.action === 'open_calendar' && bookingModal) {
-          setTimeout(() => bookingModal.classList.add('open'), 400);
-        }
-
-        if (window.lucide) lucide.createIcons();
-        chatBody.scrollTop = chatBody.scrollHeight;
-        return;
+      if (suggestedChips && suggestedChips.length > 0) {
+        renderChips(suggestedChips);
       }
-    } catch (err) {
-      console.warn('Backend chat fallback:', err);
+
+      // Trigger calendar or project navigation actions
+      if (action === 'open_calendar' && bookingModal) {
+        setTimeout(() => bookingModal.classList.add('open'), 400);
+      } else if (action === 'view_projects') {
+        const projSec = document.getElementById('projects');
+        if (projSec) {
+          setTimeout(() => projSec.scrollIntoView({ behavior: 'smooth' }), 500);
+        }
+      }
+
+      if (window.lucide) lucide.createIcons();
+      setTimeout(() => {
+        chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: 'smooth' });
+      }, 50);
     }
 
-    // Fallback reasoning if offline or server disconnected
-    setTimeout(() => {
-      const reply = generateLocalAiReply(text);
-      typingElem.innerHTML = `
-        <div class="agent-msg-sender">AbhiBot AI</div>
-        ${reply}
-      `;
-      conversationHistory.push({ role: 'assistant', content: reply });
-      if (window.lucide) lucide.createIcons();
-      chatBody.scrollTop = chatBody.scrollHeight;
-    }, 450);
+    // Determine target API endpoint with intelligent localhost / cross-port support
+    const targetEndpoints = ['/api/agent/chat'];
+    if (
+      window.location.protocol === 'file:' ||
+      (window.location.port !== '8000' &&
+        (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'))
+    ) {
+      targetEndpoints.unshift('http://127.0.0.1:8000/api/agent/chat');
+    }
+
+    let backendSucceeded = false;
+
+    for (const url of targetEndpoints) {
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 4000);
+
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            message: text,
+            history: conversationHistory.slice(-6),
+          }),
+          signal: controller.signal,
+        });
+        clearTimeout(timeoutId);
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data && data.reply) {
+            applyResponse(data.reply, data.action, data.suggested_chips);
+            backendSucceeded = true;
+            break;
+          }
+        }
+      } catch (err) {
+        // Continue to fallback
+      }
+    }
+
+    // If backend was unreachable or returned non-200, use robust client semantic engine
+    if (!backendSucceeded) {
+      setTimeout(() => {
+        const localResult = resolveLocalAiResponse(text);
+        applyResponse(localResult.reply, localResult.action, localResult.suggested_chips);
+      }, 350);
+    }
   }
 
   function appendMessage(text, sender) {
     const msg = document.createElement('div');
     msg.className = `agent-msg ${sender}`;
     if (sender === 'bot') {
-      msg.innerHTML = `<div class="agent-msg-sender">AbhiBot AI</div>${text}`;
+      msg.innerHTML = `${GEMINI_SENDER_HTML}${text}`;
     } else {
       msg.textContent = text;
     }
@@ -609,30 +725,385 @@ function initAiAgent() {
   }
 }
 
-function generateLocalAiReply(query) {
-  const q = query.toLowerCase();
-  if (q.includes('copilot') || q.includes('rag') || q.includes('it support') || q.includes('pinecone')) {
-    return `<strong>Enterprise IT Support: Agentic RAG Copilot</strong> uses LangGraph state machines, Pinecone vector indexing, dynamic fallback search, and real-time execution tracing for enterprise IT workflows.<br><div class='chat-actions-row'><a href='#projects' class='chat-action-btn'><i data-lucide='grid'></i> View Copilot</a></div>`;
+/* --------------------------------------------------------------------------
+   CLIENT-SIDE AUTONOMOUS SEMANTIC INTENT ENGINE (ZERO-LATENCY FALLBACK)
+   -------------------------------------------------------------------------- */
+function hasLocalIntent(text, patterns) {
+  const textLower = (text || '').toLowerCase();
+  for (const pattern of patterns) {
+    const p = pattern.toLowerCase().trim();
+    if (p.includes(' ') || p.includes('-')) {
+      if (textLower.includes(p)) return true;
+    } else {
+      const regex = new RegExp(`\\b${p}\\b`, 'i');
+      if (regex.test(textLower)) return true;
+    }
   }
-  if (q.includes('ecommerce') || q.includes('financial') || q.includes('e-commerce')) {
-    return `The <strong>E-Commerce Financial Performance Dashboard</strong> models gross revenues, unit margins, and seasonal cash flows.<br><div class='chat-actions-row'><a href='https://e-commerce-financial-performance-app.streamlit.app' target='_blank' class='chat-action-btn'><i data-lucide='external-link'></i> Open Live App</a></div>`;
+  return false;
+}
+
+function resolveLocalAiResponse(rawQuery) {
+  const q = (rawQuery || '').trim().toLowerCase();
+
+  // 1. Booking & Scheduling Strategy Session
+  if (
+    hasLocalIntent(q, [
+      'book',
+      'booking',
+      'schedule',
+      'appointment',
+      'consultation',
+      'meeting',
+      'interview',
+      'calendar',
+      'strategy session',
+      'strategy call',
+      '1-on-1',
+      '1:1',
+      'session',
+    ])
+  ) {
+    return {
+      reply: `Opening the <strong>1-on-1 Strategy Session Calendar</strong> for you! You can pick your preferred date and time, and instantly receive a calendar invite (.ics).<br><div class='chat-actions-row'><button class='chat-action-btn book-session-trigger'><i data-lucide='calendar'></i> Open Booking Modal</button><a href='https://wa.me/918984065377' target='_blank' class='chat-action-btn'><i data-lucide='phone'></i> Direct WhatsApp</a></div>`,
+      action: 'open_calendar',
+      suggested_chips: ['🚀 Show 13 Projects', '🤖 Multi-Agent Systems', '📞 Direct WhatsApp'],
+    };
   }
-  if (q.includes('website performance') || q.includes('traffic') || q.includes('bounce rate')) {
-    return `The <strong>Website Performance & Traffic Analytics</strong> dashboard provides live latency telemetry and user conversion funnel analytics.<br><div class='chat-actions-row'><a href='https://website-performance-analytics-app.streamlit.app' target='_blank' class='chat-action-btn'><i data-lucide='external-link'></i> Open Live App</a></div>`;
+
+  // 2. Direct Contact & WhatsApp
+  if (
+    hasLocalIntent(q, [
+      'contact',
+      'reach',
+      'hire',
+      'email',
+      'phone',
+      'whatsapp',
+      'call',
+      'message',
+      'get in touch',
+      'connect',
+    ])
+  ) {
+    return {
+      reply: `You can connect with Abhishek directly on WhatsApp / Phone at <strong>+91 8984065377</strong> or email him at <strong>abhisheksahoo08583@gmail.com</strong>.<br><div class='chat-actions-row'><a href='https://wa.me/918984065377' target='_blank' class='chat-action-btn'><i data-lucide='message-circle'></i> Open WhatsApp Chat</a><a href='https://www.linkedin.com/in/abhishek-sahoo-75519b313' target='_blank' class='chat-action-btn'><i data-lucide='linkedin'></i> View LinkedIn</a></div>`,
+      action: 'open_whatsapp',
+      suggested_chips: ['📅 Book 1:1 Session', '🚀 View All 13 Projects', '💻 View Tech Stack'],
+    };
   }
-  if (q.includes('netflix') || q.includes('movie analysis')) {
-    return `The <strong>Netflix Global Movie Analysis</strong> is an exploratory data intelligence suite investigating catalog dynamics, runtime clusters, and genre trends.<br><div class='chat-actions-row'><a href='https://netflix-movie-analysis-app.streamlit.app' target='_blank' class='chat-action-btn'><i data-lucide='external-link'></i> Open Live App</a></div>`;
+
+  // 3. Resume & CV Download
+  if (
+    hasLocalIntent(q, [
+      'resume',
+      'cv',
+      'curriculum',
+      'download resume',
+      'pdf',
+      'bio',
+    ])
+  ) {
+    return {
+      reply: `You can view and download Abhishek Sahoo's official <strong>AI & Agentic Systems Engineer Resume (PDF)</strong> detailing his Naresh i Tech experience, 13 live deployments, and credentials.<br><div class='chat-actions-row'><a href='Abhishek_Sahoo_AI_Resume.pdf' download='Abhishek_Sahoo_AI_Resume.pdf' class='chat-action-btn'><i data-lucide='download'></i> Download Official Resume (PDF)</a><a href='https://www.linkedin.com/in/abhishek-sahoo-75519b313' target='_blank' class='chat-action-btn'><i data-lucide='linkedin'></i> LinkedIn Profile</a></div>`,
+      action: 'download_resume',
+      suggested_chips: ['📅 Book 1:1 Session', '🚀 View All 13 Projects', '📞 Contact Abhishek'],
+    };
   }
-  if (q.includes('project') || q.includes('system') || q.includes('langgraph')) {
-    return `Abhishek has built <strong>14 production systems</strong>, including <strong>Enterprise IT Support Agentic RAG Copilot</strong>, <strong>ResearchMind</strong>, <strong>Multi-Node LangGraph Framework</strong>, <strong>Enterprise LLM Guardrails</strong>, and <strong>Financial & Web Analytics</strong> dashboards.<br><div class='chat-actions-row'><a href='#projects' class='chat-action-btn'><i data-lucide='grid'></i> Explore 14 Projects</a></div>`;
+
+  // 4. Work Experience & Internship
+  if (
+    hasLocalIntent(q, [
+      'experience',
+      'intern',
+      'internship',
+      'work history',
+      'naresh i tech',
+      'career',
+      'job',
+      'company',
+    ])
+  ) {
+    return {
+      reply: `Abhishek completed a rigorous <strong>Data Science & Agentic AI Engineer Internship at Naresh i Tech (Hyderabad)</strong>. He built enterprise multi-agent LangGraph workflows, optimized semantic search latency by 35% with vector caching, fine-tuned deep learning models to 97.2%+ benchmark accuracy, and deployed cloud production systems.`,
+      action: 'general',
+      suggested_chips: ['🤖 Multi-Agent Systems', '🛡️ LLM Guardrails', '📄 Download Resume', '📅 Book Strategy Call'],
+    };
   }
-  if (q.includes('hire') || q.includes('contact') || q.includes('phone') || q.includes('reach') || q.includes('whatsapp')) {
-    return `You can reach Abhishek directly at <strong>+91 8984065377</strong> (WhatsApp / Phone) or schedule a 1-on-1 Strategy Session.<br><div class='chat-actions-row'><a href='https://wa.me/918984065377' target='_blank' class='chat-action-btn'><i data-lucide='message-circle'></i> WhatsApp Chat</a><button class='chat-action-btn book-session-trigger'><i data-lucide='calendar'></i> Book Session</button></div>`;
+
+  // 5. Education & College
+  if (
+    hasLocalIntent(q, [
+      'education',
+      'college',
+      'smit',
+      'degree',
+      'university',
+      'school',
+      'graduate',
+      'cgpa',
+      'academics',
+    ])
+  ) {
+    return {
+      reply: `Abhishek is pursuing his <strong>B.E. in Computer Science & Engineering (2022 - 2026)</strong> at <strong>Sikkim Manipal Institute of Technology (SMIT)</strong>, focusing on Distributed Systems, Multi-Agent Architectures, and Responsible AI.`,
+      action: 'general',
+      suggested_chips: ['💼 View Tech Stack', '🚀 View 13 Projects', '📞 Direct Contact'],
+    };
   }
-  if (q.includes('skill') || q.includes('stack')) {
-    return `Abhishek specializes in <strong>LangGraph Multi-Agent Systems</strong>, <strong>Agentic RAG & Pinecone</strong>, <strong>Model Context Protocol (MCP)</strong>, <strong>Responsible AI Guardrails</strong>, <strong>FastAPI & Python</strong>, and <strong>Streamlit & Tableau BI</strong>.`;
+
+  // 6. Certifications
+  if (
+    hasLocalIntent(q, [
+      'certification',
+      'certifications',
+      'certificate',
+      'certificates',
+      'courses',
+      'deeplearning.ai',
+      'credentials',
+    ])
+  ) {
+    return {
+      reply: `Abhishek holds verified certifications in <strong>Machine Learning Specialization (DeepLearning.AI / Stanford)</strong>, <strong>Deep Learning & Generative AI</strong>, and <strong>PyTorch & TensorFlow</strong> foundations.`,
+      action: 'general',
+      suggested_chips: ['💼 Tech Stack', '🚀 13 Live Projects', '📄 Download Resume'],
+    };
   }
-  return `Thank you for your inquiry! Abhishek Sahoo is an AI & Agentic Systems Engineer (SMIT B.E 2026). Feel free to explore his 14 live project deployments or book a 1-on-1 strategy session.<br><div class='chat-actions-row'><a href='#projects' class='chat-action-btn'><i data-lucide='grid'></i> View Projects</a><button class='chat-action-btn book-session-trigger'><i data-lucide='calendar'></i> Book Session</button></div>`;
+
+  // 7. Flagship Copilot (Enterprise IT Support)
+  if (
+    hasLocalIntent(q, [
+      'copilot',
+      'it support',
+      'support agent',
+      'rag',
+      'pinecone',
+    ])
+  ) {
+    return {
+      reply: `<strong>Enterprise IT Support: Agentic RAG Copilot</strong> is Abhishek's flagship enterprise support system. It combines <strong>LangGraph state machines</strong>, <strong>Pinecone vector indexing</strong>, dynamic fallback search, and real-time execution tracing for enterprise IT troubleshooting.<br><div class='chat-actions-row'><a href='#projects' class='chat-action-btn'><i data-lucide='grid'></i> View Project Card</a></div>`,
+      action: 'view_project',
+      suggested_chips: ['🔬 ResearchMind System', '🤖 Multi-Node LangGraph', '📅 Book Strategy Call'],
+    };
+  }
+
+  // 8. ResearchMind
+  if (
+    hasLocalIntent(q, [
+      'researchmind',
+      'deep research',
+      'academic synthesis',
+      'multi-paper',
+    ])
+  ) {
+    return {
+      reply: `<strong>ResearchMind</strong> is an Autonomous Deep Research Multi-Agent pipeline. It autonomously retrieves multi-source academic papers, resolves contradictions, validates sources, and compiles executive intelligence briefs.`,
+      action: 'view_project',
+      suggested_chips: ['🚀 Multi-Node LangGraph', '🛡️ LLM Guardrails', '📞 Contact Abhishek'],
+    };
+  }
+
+  // 9. LangGraph & Multi-Agent Systems
+  if (
+    hasLocalIntent(q, [
+      'langgraph',
+      'multi-agent',
+      'agentic',
+      'supervisor',
+      'mcp',
+      'model context protocol',
+      'hitl',
+      'human in the loop',
+      'multi node',
+    ])
+  ) {
+    return {
+      reply: `Abhishek specializes in <strong>Multi-Agent LangGraph Architectures</strong> featuring Supervisor nodes, stateful cycles, Human-in-the-Loop checkpoints, and Model Context Protocol (MCP) tool integrations for autonomous enterprise agents.`,
+      action: 'general',
+      suggested_chips: ['🚀 Enterprise IT Copilot', '🔬 ResearchMind Agent', '📅 Schedule Strategy Session'],
+    };
+  }
+
+  // 10. LLM Guardrails & Responsible AI
+  if (
+    hasLocalIntent(q, [
+      'guardrail',
+      'guardrails',
+      'responsible ai',
+      'prompt injection',
+      'pii',
+      'hallucination',
+      'safety',
+    ])
+  ) {
+    return {
+      reply: `Abhishek's <strong>Enterprise LLM Guardrail Engine</strong> delivers millisecond-level hallucination detection, prompt injection mitigation, and automated PII sanitization to make LLMs enterprise-grade and production-ready.`,
+      action: 'general',
+      suggested_chips: ['🤖 LangGraph Supervisor', '💼 Resume Analyzer', '📅 Book 1:1 Consultation'],
+    };
+  }
+
+  // 11. Computer Vision & Deep Learning
+  if (
+    hasLocalIntent(q, [
+      'vision',
+      'cv',
+      'imot',
+      'yolo',
+      'tracking',
+      'imagenet',
+      'cnn',
+      'mood',
+      'computer vision',
+    ])
+  ) {
+    return {
+      reply: `In Computer Vision & Deep Learning, Abhishek has built <strong>IMOT (Multi-Modal Object & Color Tracking)</strong> with YOLO & DeepSORT, <strong>ImageNet Visual Recognition (VGG16 / ResNet50)</strong>, and <strong>CNN Facial Mood Detection</strong>.<br><div class='chat-actions-row'><a href='#projects' class='chat-action-btn'><i data-lucide='grid'></i> Jump to Vision Projects</a></div>`,
+      action: 'general',
+      suggested_chips: ['🤖 Agentic Systems', '📊 Analytics Dashboards', '📞 Contact Abhishek'],
+    };
+  }
+
+  // 12. Business Intelligence & Analytics Dashboards
+  if (
+    hasLocalIntent(q, [
+      'analytics',
+      'bi',
+      'dashboard',
+      'dashboards',
+      'business intelligence',
+      'ecommerce',
+      'e-commerce',
+      'financial performance',
+      'website performance',
+      'traffic analytics',
+      'netflix',
+      'movie analysis',
+      'streamlit',
+    ])
+  ) {
+    return {
+      reply: `Abhishek has deployed <strong>3 live Streamlit Cloud analytics suites</strong>:<br>• <strong>E-Commerce Financial Performance</strong>: Unit economics & margin modeling<br>• <strong>Website Performance & Traffic Telemetry</strong>: Real-time latency & funnel analysis<br>• <strong>Netflix Global Movie Analysis</strong>: Catalog dynamics & director networks<br><div class='chat-actions-row'><a href='https://e-commerce-financial-performance-app.streamlit.app' target='_blank' class='chat-action-btn'><i data-lucide='external-link'></i> E-Commerce App</a><a href='https://website-performance-analytics-app.streamlit.app' target='_blank' class='chat-action-btn'><i data-lucide='external-link'></i> Website App</a><a href='https://netflix-movie-analysis-app.streamlit.app' target='_blank' class='chat-action-btn'><i data-lucide='external-link'></i> Netflix App</a></div>`,
+      action: 'general',
+      suggested_chips: ['🚀 View All 13 Projects', '🤖 LangGraph & Agents', '📅 Book Strategy Call'],
+    };
+  }
+
+  // 13. AI Resume Analyzer
+  if (hasLocalIntent(q, ['resume analyzer', 'ats', 'job fit'])) {
+    return {
+      reply: `The <strong>AI Resume Analyzer & Job Fit Predictor</strong> evaluates applicant CVs against target job descriptions using dense vector embeddings and semantic parsing to provide ATS scores and skill gap insights.`,
+      action: 'general',
+      suggested_chips: ['🚀 View Projects', '🤖 Gemini Chatbot', '📅 Book 1:1 Session'],
+    };
+  }
+
+  // 14. Gemini Chatbot
+  if (hasLocalIntent(q, ['gemini chatbot', 'gemini 2.5', 'gemini 2.0', 'gemini flash', 'gemini'])) {
+    return {
+      reply: `The <strong>Gemini Flash Chatbot</strong> provides ultra-low latency conversational intelligence with streaming responses and contextual persona alignment.`,
+      action: 'general',
+      suggested_chips: ['🤖 LangGraph Agents', '🛡️ LLM Guardrails', '📅 Book 1:1 Session'],
+    };
+  }
+
+  // 15. Projects Overview / Showcase
+  if (
+    hasLocalIntent(q, [
+      'project',
+      'projects',
+      'work',
+      'portfolio',
+      'built',
+      'showcase',
+      'systems',
+    ])
+  ) {
+    return {
+      reply: `Abhishek has engineered and deployed <strong>13 production-grade systems</strong> across 4 domains: Multi-Agent LangGraph (4), LLM Guardrails & GenAI (3), Computer Vision (3), and Analytics Dashboards (3).<br><div class='chat-actions-row'><a href='#projects' class='chat-action-btn'><i data-lucide='grid'></i> Jump To Projects Grid</a></div>`,
+      action: 'view_projects',
+      suggested_chips: ['🤖 Multi-Agent (4)', '🛡️ LLM & GenAI (3)', '👁️ Computer Vision (3)', '📊 Data Analytics (3)'],
+    };
+  }
+
+  // 16. Technical Stack & Skills
+  if (
+    hasLocalIntent(q, [
+      'skill',
+      'skills',
+      'tech',
+      'stack',
+      'framework',
+      'tools',
+      'python',
+      'pytorch',
+      'fastapi',
+      'technologies',
+      'languages',
+    ])
+  ) {
+    return {
+      reply: `Abhishek's technical stack includes: <strong>LangGraph & Multi-Agent Workflows</strong>, <strong>Agentic RAG & Pinecone</strong>, <strong>Model Context Protocol (MCP)</strong>, <strong>FastAPI & Python</strong>, <strong>PyTorch & OpenCV</strong>, <strong>Responsible AI Guardrails</strong>, and <strong>Streamlit & Tableau BI</strong>.`,
+      action: 'general',
+      suggested_chips: ['🚀 View 13 Projects', '📅 Schedule Strategy Session', '💬 WhatsApp Chat'],
+    };
+  }
+
+  // 17. Who is Abhishek / Profile
+  if (
+    hasLocalIntent(q, [
+      'who is abhishek',
+      'about abhishek',
+      'who are you',
+      'tell me about yourself',
+      'tell me about abhishek',
+      'introduce abhishek',
+      'profile',
+    ])
+  ) {
+    return {
+      reply: `Abhishek Sahoo is an <strong>AI & Agentic Systems Engineer</strong> (SMIT B.E. CSE 2026) building autonomous multi-agent systems, enterprise RAG copilots, and responsible AI guardrails. He has deployed 13 live cloud systems and interned at Naresh i Tech.`,
+      action: 'general',
+      suggested_chips: ['🚀 Show 13 Projects', '📄 Download Resume', '💼 View Tech Stack', '📅 Book Strategy Call'],
+    };
+  }
+
+  // 18. Greetings
+  if (
+    hasLocalIntent(q, [
+      'hi',
+      'hello',
+      'hey',
+      'hola',
+      'namaste',
+      'greetings',
+      'good morning',
+      'good evening',
+      'good afternoon',
+    ])
+  ) {
+    return {
+      reply: `Hello! 👋 I am <strong>AbhiBot</strong>, Abhishek Sahoo's AI Concierge. I can guide you through his <strong>13 live production systems</strong>, break down his multi-agent architecture, or help you book an executive strategy call. How can I assist you today?`,
+      action: 'general',
+      suggested_chips: ['🚀 Explore 13 Projects', '🤖 LangGraph & Agents', '📊 Live Analytics Dashboards', '📅 Book 1:1 Strategy Call'],
+    };
+  }
+
+  // 19. Goodbye / Thanks
+  if (hasLocalIntent(q, ['bye', 'goodbye', 'see you', 'thanks', 'thank you'])) {
+    return {
+      reply: `You're very welcome! Feel free to book a 1-on-1 strategy call or message Abhishek on WhatsApp (+91 8984065377) anytime. Have an inspiring day!`,
+      action: 'general',
+      suggested_chips: ['📅 Book 1:1 Session', '📞 WhatsApp Abhishek', '🚀 View Projects'],
+    };
+  }
+
+  // Default Fallback
+  return {
+    reply: `Abhishek Sahoo is an <strong>AI & Agentic Systems Engineer</strong> (SMIT B.E. 2026) building autonomous multi-agent pipelines, enterprise RAG copilots, and responsible AI guardrails. Feel free to ask about his 13 live systems, tech stack, or book a strategy session!`,
+    action: 'general',
+    suggested_chips: ['🚀 Show 13 Projects', '📄 Download Resume', '🤖 LangGraph Architecture', '📅 Book Strategy Call'],
+  };
 }
 
 /* --------------------------------------------------------------------------
