@@ -1076,6 +1076,14 @@ function resolveLocalAiResponse(rawQuery) {
       'framework',
       'tools',
       'python',
+      'sql',
+      'mysql',
+      'postgres',
+      'postgresql',
+      'ml',
+      'machine learning',
+      'statistics',
+      'statics',
       'pytorch',
       'fastapi',
       'technologies',
@@ -1083,7 +1091,7 @@ function resolveLocalAiResponse(rawQuery) {
     ])
   ) {
     return {
-      reply: `Abhishek's technical stack includes: <strong>LangGraph & Multi-Agent Workflows</strong>, <strong>Agentic RAG & Pinecone</strong>, <strong>Model Context Protocol (MCP)</strong>, <strong>FastAPI & Python</strong>, <strong>PyTorch & OpenCV</strong>, <strong>Responsible AI Guardrails</strong>, and <strong>Streamlit & Tableau BI</strong>.`,
+      reply: `Abhishek's core technical stack includes: <strong>Python</strong>, <strong>Machine Learning (ML)</strong>, <strong>SQL (PostgreSQL & MySQL)</strong>, <strong>Statistics & Data Analysis</strong>, <strong>LangGraph Multi-Agent Workflows</strong>, <strong>Agentic RAG & Pinecone</strong>, <strong>FastAPI & Docker</strong>, and <strong>PyTorch & OpenCV</strong>.<br><div class='chat-actions-row'><a href='#skills' class='chat-action-btn'><i data-lucide='layers'></i> Explore Skills Matrix</a></div>`,
       action: 'general',
       suggested_chips: ['🚀 View 13 Projects', '📅 Schedule Strategy Session', '💬 WhatsApp Chat'],
     };
@@ -1178,3 +1186,37 @@ function showToast(msg) {
     toast.style.opacity = '0';
   }, 3200);
 }
+
+// ==============================================================================
+// CORE & ML SKILLS TAB SWITCHER
+// ==============================================================================
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.ml-subnav-btn, .core-subnav-btn');
+  if (!btn) return;
+  const parentCard = btn.closest('.core-lib-card');
+  if (!parentCard) return;
+
+  parentCard.querySelectorAll('.ml-subnav-btn, .core-subnav-btn').forEach((b) => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  const selectedCat = btn.getAttribute('data-cat') || btn.getAttribute('data-ml-cat');
+  const groups = parentCard.querySelectorAll('.ml-algo-group, .core-subgroup');
+
+  groups.forEach((group) => {
+    const groupCat = group.getAttribute('data-group');
+    if (selectedCat === 'all' || groupCat === selectedCat) {
+      group.style.display = 'flex';
+      group.style.opacity = '1';
+    } else {
+      group.style.display = 'none';
+      group.style.opacity = '0';
+    }
+  });
+
+  // Re-run lucide icons if any new icons are rendered
+  if (window.lucide) {
+    lucide.createIcons();
+  }
+});
+
+

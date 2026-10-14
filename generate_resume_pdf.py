@@ -62,14 +62,14 @@ def build_resume():
     # 3. TECHNICAL SKILLS
     pdf.draw_heading("Technical Skills")
     skills = [
-        ("Programming:", "Python, SQL, MySQL, NumPy, Pandas, Matplotlib, Seaborn"),
+        ("Programming:", "Python, SQL, MySQL, PostgreSQL, NumPy, Pandas, Matplotlib, Seaborn"),
         ("Data Science:", "Data Cleaning, EDA, Statistics, Feature Engineering, Visualization, Model Evaluation"),
-        ("Machine Learning:", "Scikit-learn, Classification, Regression, Clustering, Hyperparameter Tuning"),
+        ("Machine Learning (ML):", "Scikit-learn, XGBoost, LightGBM, Regression, Classification, K-Means, DBSCAN, PCA, SVR"),
         ("Deep Learning:", "TensorFlow, Keras, PyTorch, ANN, CNN, RNN, LSTM, Transformers"),
         ("Computer Vision:", "OpenCV, MediaPipe, YOLO, Object Detection, Classification, Segmentation"),
         ("GenAI & LLMs:", "GPT, Claude, Gemini, LLaMA, RAG, Prompt Engineering, LoRA, QLoRA, AI Agents"),
         ("AI Frameworks:", "LangChain, LangGraph, LangSmith, Hugging Face, OpenAI API, CrewAI"),
-        ("Databases:", "ChromaDB, Qdrant, Pinecone"),
+        ("Databases:", "PostgreSQL, MySQL, SQLite, ChromaDB, Qdrant, Pinecone"),
         ("Deployment:", "Git, GitHub, Docker, FastAPI, Flask, Streamlit, Gradio"),
         ("BI & Tools:", "Power BI, Tableau, Excel, VS Code, Jupyter, Google Colab")
     ]
