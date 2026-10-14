@@ -137,11 +137,13 @@ function initMobileMenu() {
         if (navBackdrop) navBackdrop.classList.add('active');
         menuBtn.setAttribute('aria-expanded', 'true');
         menuBtn.innerHTML = '<i data-lucide="x"></i>';
+        document.body.classList.add('mobile-nav-open');
       } else {
         navLinks.classList.remove('mobile-open', 'active');
         if (navBackdrop) navBackdrop.classList.remove('active');
         menuBtn.setAttribute('aria-expanded', 'false');
         menuBtn.innerHTML = '<i data-lucide="menu"></i>';
+        document.body.classList.remove('mobile-nav-open');
       }
       if (window.lucide) {
         lucide.createIcons();
