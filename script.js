@@ -449,7 +449,7 @@ function initAiAgent() {
   let conversationHistory = [];
 
   const initialChips = [
-    "🚀 Show 13 Projects",
+    "🚀 Show 14 Projects",
     "🤖 LangGraph & Agents",
     "📊 Analytics Dashboards",
     "🛡️ Guardrails",
@@ -579,9 +579,9 @@ function initAiAgent() {
       chatBody.innerHTML = `
         <div class="agent-msg bot">
           ${GEMINI_SENDER_HTML}
-          Conversation refreshed! I am ready to guide you through Abhishek's <strong>13 live production systems</strong>, his <strong>LangGraph Multi-Agent architectures</strong>, or help you book an executive strategy session.
+          Conversation refreshed! I am ready to guide you through Abhishek's <strong>14 live production systems</strong>, his <strong>LangGraph Multi-Agent architectures</strong>, or help you book an executive strategy session.
           <div class="chat-actions-row" style="margin-top: 0.6rem;">
-            <a href="#projects" class="chat-action-btn"><i data-lucide="grid"></i> View 13 Projects</a>
+            <a href="#projects" class="chat-action-btn"><i data-lucide="grid"></i> View 14 Projects</a>
             <button class="chat-action-btn book-session-trigger"><i data-lucide="calendar"></i> Book Strategy Session</button>
           </div>
         </div>
@@ -806,7 +806,7 @@ function resolveLocalAiResponse(rawQuery) {
     return {
       reply: `Opening the <strong>1-on-1 Strategy Session Calendar</strong> for you! You can pick your preferred date and time, and instantly receive a calendar invite (.ics).<br><div class='chat-actions-row'><button class='chat-action-btn book-session-trigger'><i data-lucide='calendar'></i> Open Booking Modal</button><a href='https://wa.me/918984065377' target='_blank' class='chat-action-btn'><i data-lucide='phone'></i> Direct WhatsApp</a></div>`,
       action: 'open_calendar',
-      suggested_chips: ['🚀 Show 13 Projects', '🤖 Multi-Agent Systems', '📞 Direct WhatsApp'],
+      suggested_chips: ['🚀 Show 14 Projects', '🤖 Multi-Agent Systems', '📞 Direct WhatsApp'],
     };
   }
 
@@ -828,7 +828,7 @@ function resolveLocalAiResponse(rawQuery) {
     return {
       reply: `You can connect with Abhishek directly on WhatsApp / Phone at <strong>+91 8984065377</strong> or email him at <strong>abhisheksahoo08583@gmail.com</strong>.<br><div class='chat-actions-row'><a href='https://wa.me/918984065377' target='_blank' class='chat-action-btn'><i data-lucide='message-circle'></i> Open WhatsApp Chat</a><a href='https://www.linkedin.com/in/abhishek-sahoo-75519b313' target='_blank' class='chat-action-btn'><i data-lucide='linkedin'></i> View LinkedIn</a></div>`,
       action: 'open_whatsapp',
-      suggested_chips: ['📅 Book 1:1 Session', '🚀 View All 13 Projects', '💻 View Tech Stack'],
+      suggested_chips: ['📅 Book 1:1 Session', '🚀 View All 14 Projects', '💻 View Tech Stack'],
     };
   }
 
@@ -844,9 +844,9 @@ function resolveLocalAiResponse(rawQuery) {
     ])
   ) {
     return {
-      reply: `You can view and download Abhishek Sahoo's official <strong>AI & Agentic Systems Engineer Resume (PDF)</strong> detailing his Naresh i Tech experience, 13 live deployments, and credentials.<br><div class='chat-actions-row'><a href='Abhishek_Sahoo_AI_Resume.pdf' download='Abhishek_Sahoo_AI_Resume.pdf' class='chat-action-btn'><i data-lucide='download'></i> Download Official Resume (PDF)</a><a href='https://www.linkedin.com/in/abhishek-sahoo-75519b313' target='_blank' class='chat-action-btn'><i data-lucide='linkedin'></i> LinkedIn Profile</a></div>`,
+      reply: `You can view and download Abhishek Sahoo's official <strong>AI & Agentic Systems Engineer Resume (PDF)</strong> detailing his Naresh i Tech experience, 14 live deployments, and credentials.<br><div class='chat-actions-row'><a href='Abhishek_Sahoo_AI_Resume.pdf' download='Abhishek_Sahoo_AI_Resume.pdf' class='chat-action-btn'><i data-lucide='download'></i> Download Official Resume (PDF)</a><a href='https://www.linkedin.com/in/abhishek-sahoo-75519b313' target='_blank' class='chat-action-btn'><i data-lucide='linkedin'></i> LinkedIn Profile</a></div>`,
       action: 'download_resume',
-      suggested_chips: ['📅 Book 1:1 Session', '🚀 View All 13 Projects', '📞 Contact Abhishek'],
+      suggested_chips: ['📅 Book 1:1 Session', '🚀 View All 14 Projects', '📞 Contact Abhishek'],
     };
   }
 
@@ -887,7 +887,7 @@ function resolveLocalAiResponse(rawQuery) {
     return {
       reply: `Abhishek is pursuing his <strong>B.E. in Computer Science & Engineering (2022 - 2026)</strong> at <strong>Sikkim Manipal Institute of Technology (SMIT)</strong>, focusing on Distributed Systems, Multi-Agent Architectures, and Responsible AI.`,
       action: 'general',
-      suggested_chips: ['💼 View Tech Stack', '🚀 View 13 Projects', '📞 Direct Contact'],
+      suggested_chips: ['💼 View Tech Stack', '🚀 View 14 Projects', '📞 Direct Contact'],
     };
   }
 
@@ -906,7 +906,7 @@ function resolveLocalAiResponse(rawQuery) {
     return {
       reply: `Abhishek holds verified certifications in <strong>Machine Learning Specialization (DeepLearning.AI / Stanford)</strong>, <strong>Deep Learning & Generative AI</strong>, and <strong>PyTorch & TensorFlow</strong> foundations.`,
       action: 'general',
-      suggested_chips: ['💼 Tech Stack', '🚀 13 Live Projects', '📄 Download Resume'],
+      suggested_chips: ['💼 Tech Stack', '🚀 14 Live Projects', '📄 Download Resume'],
     };
   }
 
@@ -940,6 +940,27 @@ function resolveLocalAiResponse(rawQuery) {
       reply: `<strong>ResearchMind</strong> is an Autonomous Deep Research Multi-Agent pipeline. It autonomously retrieves multi-source academic papers, resolves contradictions, validates sources, and compiles executive intelligence briefs.`,
       action: 'view_project',
       suggested_chips: ['🚀 Multi-Node LangGraph', '🛡️ LLM Guardrails', '📞 Contact Abhishek'],
+    };
+  }
+
+  // 9. Medical-Agentic-Chatbot
+  if (
+    hasLocalIntent(q, [
+      'medical',
+      'medguide',
+      'healthcare',
+      'clinical',
+      'doctor',
+      'medicine',
+      'medical chatbot',
+      'medical agentic',
+      'medical-agentic-chatbot',
+    ])
+  ) {
+    return {
+      reply: `<strong>Medical-Agentic-Chatbot (MedGuide AI)</strong> is an autonomous clinical reference & triage copilot engineered with <strong>LangGraph routing</strong>, <strong>Pinecone vector indexing</strong> (Gale Encyclopedia of Medicine), optional <strong>Tavily web search fallback</strong>, and multimodal image observation.<br><div class='chat-actions-row'><a href='https://medical-agentic-chatbot.onrender.com' target='_blank' class='chat-action-btn'><i data-lucide='external-link'></i> Live Demo</a><a href='https://github.com/ai-genai-agenticai-intelligence/Medical-Agentic-Chatbot.git' target='_blank' class='chat-action-btn'><i data-lucide='github'></i> GitHub</a></div>`,
+      action: 'view_project',
+      suggested_chips: ['🚀 Enterprise IT Copilot', '🔬 ResearchMind Agent', '📅 Book Strategy Call'],
     };
   }
 
@@ -1025,7 +1046,7 @@ function resolveLocalAiResponse(rawQuery) {
     return {
       reply: `Abhishek has deployed <strong>3 live Streamlit Cloud analytics suites</strong>:<br>• <strong>E-Commerce Financial Performance</strong>: Unit economics & margin modeling<br>• <strong>Website Performance & Traffic Telemetry</strong>: Real-time latency & funnel analysis<br>• <strong>Netflix Global Movie Analysis</strong>: Catalog dynamics & director networks<br><div class='chat-actions-row'><a href='https://e-commerce-financial-performance-app.streamlit.app' target='_blank' class='chat-action-btn'><i data-lucide='external-link'></i> E-Commerce App</a><a href='https://website-performance-analytics-app.streamlit.app' target='_blank' class='chat-action-btn'><i data-lucide='external-link'></i> Website App</a><a href='https://netflix-movie-analysis-app.streamlit.app' target='_blank' class='chat-action-btn'><i data-lucide='external-link'></i> Netflix App</a></div>`,
       action: 'general',
-      suggested_chips: ['🚀 View All 13 Projects', '🤖 LangGraph & Agents', '📅 Book Strategy Call'],
+      suggested_chips: ['🚀 View All 14 Projects', '🤖 LangGraph & Agents', '📅 Book Strategy Call'],
     };
   }
 
@@ -1060,9 +1081,9 @@ function resolveLocalAiResponse(rawQuery) {
     ])
   ) {
     return {
-      reply: `Abhishek has engineered and deployed <strong>13 production-grade systems</strong> across 4 domains: Multi-Agent LangGraph (4), LLM Guardrails & GenAI (3), Computer Vision (3), and Analytics Dashboards (3).<br><div class='chat-actions-row'><a href='#projects' class='chat-action-btn'><i data-lucide='grid'></i> Jump To Projects Grid</a></div>`,
+      reply: `Abhishek has engineered and deployed <strong>14 production-grade systems</strong> across 4 domains: Multi-Agent LangGraph (5), LLM Guardrails & GenAI (3), Computer Vision (3), and Analytics Dashboards (3).<br><div class='chat-actions-row'><a href='#projects' class='chat-action-btn'><i data-lucide='grid'></i> Jump To Projects Grid</a></div>`,
       action: 'view_projects',
-      suggested_chips: ['🤖 Multi-Agent (4)', '🛡️ LLM & GenAI (3)', '👁️ Computer Vision (3)', '📊 Data Analytics (3)'],
+      suggested_chips: ['🤖 Multi-Agent (5)', '🛡️ LLM & GenAI (3)', '👁️ Computer Vision (3)', '📊 Data Analytics (3)'],
     };
   }
 
@@ -1093,7 +1114,7 @@ function resolveLocalAiResponse(rawQuery) {
     return {
       reply: `Abhishek's core technical stack includes: <strong>Python</strong>, <strong>Machine Learning (ML)</strong>, <strong>SQL (PostgreSQL & MySQL)</strong>, <strong>Statistics & Data Analysis</strong>, <strong>LangGraph Multi-Agent Workflows</strong>, <strong>Agentic RAG & Pinecone</strong>, <strong>FastAPI & Docker</strong>, and <strong>PyTorch & OpenCV</strong>.<br><div class='chat-actions-row'><a href='#skills' class='chat-action-btn'><i data-lucide='layers'></i> Explore Skills Matrix</a></div>`,
       action: 'general',
-      suggested_chips: ['🚀 View 13 Projects', '📅 Schedule Strategy Session', '💬 WhatsApp Chat'],
+      suggested_chips: ['🚀 View 14 Projects', '📅 Schedule Strategy Session', '💬 WhatsApp Chat'],
     };
   }
 
@@ -1110,9 +1131,9 @@ function resolveLocalAiResponse(rawQuery) {
     ])
   ) {
     return {
-      reply: `Abhishek Sahoo is an <strong>AI & Agentic Systems Engineer</strong> (SMIT B.E. CSE 2026) building autonomous multi-agent systems, enterprise RAG copilots, and responsible AI guardrails. He has deployed 13 live cloud systems and interned at Naresh i Tech.`,
+      reply: `Abhishek Sahoo is an <strong>AI & Agentic Systems Engineer</strong> (SMIT B.E. CSE 2026) building autonomous multi-agent systems, enterprise RAG copilots, and responsible AI guardrails. He has deployed 14 live cloud systems and interned at Naresh i Tech.`,
       action: 'general',
-      suggested_chips: ['🚀 Show 13 Projects', '📄 Download Resume', '💼 View Tech Stack', '📅 Book Strategy Call'],
+      suggested_chips: ['🚀 Show 14 Projects', '📄 Download Resume', '💼 View Tech Stack', '📅 Book Strategy Call'],
     };
   }
 
@@ -1131,9 +1152,9 @@ function resolveLocalAiResponse(rawQuery) {
     ])
   ) {
     return {
-      reply: `Hello! 👋 I am <strong>AbhiBot</strong>, Abhishek Sahoo's AI Concierge. I can guide you through his <strong>13 live production systems</strong>, break down his multi-agent architecture, or help you book an executive strategy call. How can I assist you today?`,
+      reply: `Hello! 👋 I am <strong>AbhiBot</strong>, Abhishek Sahoo's AI Concierge. I can guide you through his <strong>14 live production systems</strong>, break down his multi-agent architecture, or help you book an executive strategy call. How can I assist you today?`,
       action: 'general',
-      suggested_chips: ['🚀 Explore 13 Projects', '🤖 LangGraph & Agents', '📊 Live Analytics Dashboards', '📅 Book 1:1 Strategy Call'],
+      suggested_chips: ['🚀 Explore 14 Projects', '🤖 LangGraph & Agents', '📊 Live Analytics Dashboards', '📅 Book 1:1 Strategy Call'],
     };
   }
 
@@ -1148,9 +1169,9 @@ function resolveLocalAiResponse(rawQuery) {
 
   // Default Fallback
   return {
-    reply: `Abhishek Sahoo is an <strong>AI & Agentic Systems Engineer</strong> (SMIT B.E. 2026) building autonomous multi-agent pipelines, enterprise RAG copilots, and responsible AI guardrails. Feel free to ask about his 13 live systems, tech stack, or book a strategy session!`,
+    reply: `Abhishek Sahoo is an <strong>AI & Agentic Systems Engineer</strong> (SMIT B.E. 2026) building autonomous multi-agent pipelines, enterprise RAG copilots, and responsible AI guardrails. Feel free to ask about his 14 live systems, tech stack, or book a strategy session!`,
     action: 'general',
-    suggested_chips: ['🚀 Show 13 Projects', '📄 Download Resume', '🤖 LangGraph Architecture', '📅 Book Strategy Call'],
+    suggested_chips: ['🚀 Show 14 Projects', '📄 Download Resume', '🤖 LangGraph Architecture', '📅 Book Strategy Call'],
   };
 }
 
