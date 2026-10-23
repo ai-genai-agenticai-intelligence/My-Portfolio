@@ -35,6 +35,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 9. Autonomous AI Agent Concierge (AbhiBot)
   initAiAgent();
+
+  // 10. Scroll Reveal & Stagger Animation Engine
+  if (window.ScrollReveal) {
+    ScrollReveal.init();
+  }
+
+  // 11. Redesigned Technical Skills Section (Toggle & Motion)
+  initSkillsSection();
 });
 
 /* --------------------------------------------------------------------------
@@ -202,6 +210,11 @@ function initProjectFilters() {
           card.style.display = 'none';
         }
       });
+
+      // Refresh ScrollReveal to re-sync stagger delays and observe any newly visible cards
+      if (window.ScrollReveal && typeof window.ScrollReveal.refresh === 'function') {
+        window.ScrollReveal.refresh();
+      }
     });
   });
 }
@@ -1209,35 +1222,77 @@ function showToast(msg) {
 }
 
 // ==============================================================================
-// CORE & ML SKILLS TAB SWITCHER
+// 11. TECHNICAL SKILLS SECTION: EXPANDABLE LIST TOGGLE & MOTION
 // ==============================================================================
-document.addEventListener('click', (e) => {
-  const btn = e.target.closest('.ml-subnav-btn, .core-subnav-btn');
-  if (!btn) return;
-  const parentCard = btn.closest('.core-lib-card');
-  if (!parentCard) return;
+function initSkillsSection() {
+  // Mark JS ready so progressive enhancement collapses long lists only when JS works
+  document.documentElement.classList.add('js-skills-ready');
 
-  parentCard.querySelectorAll('.ml-subnav-btn, .core-subnav-btn').forEach((b) => b.classList.remove('active'));
-  btn.classList.add('active');
+  // Handle "Show all N" / "Show less" toggle buttons (MySQL, PostgreSQL, Statistics)
+  const toggleBtns = document.querySelectorAll('.skills-toggle-btn');
+  toggleBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+      const targetId = btn.getAttribute('aria-controls');
+      const targetGroup = targetId ? document.getElementById(targetId) : null;
+      const count = btn.getAttribute('data-count') || '';
 
-  const selectedCat = btn.getAttribute('data-cat') || btn.getAttribute('data-ml-cat');
-  const groups = parentCard.querySelectorAll('.ml-algo-group, .core-subgroup');
+      if (isExpanded) {
+        btn.setAttribute('aria-expanded', 'false');
+        if (targetGroup) targetGroup.classList.remove('is-open');
+        const textSpan = btn.querySelector('.toggle-btn-text');
+        if (textSpan) textSpan.textContent = `Show all ${count}`;
+      } else {
+        btn.setAttribute('aria-expanded', 'true');
+        if (targetGroup) targetGroup.classList.add('is-open');
+        const textSpan = btn.querySelector('.toggle-btn-text');
+        if (textSpan) textSpan.textContent = 'Show less';
+      }
 
-  groups.forEach((group) => {
-    const groupCat = group.getAttribute('data-group');
-    if (selectedCat === 'all' || groupCat === selectedCat) {
-      group.style.display = 'flex';
-      group.style.opacity = '1';
-    } else {
-      group.style.display = 'none';
-      group.style.opacity = '0';
-    }
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+    });
   });
 
-  // Re-run lucide icons if any new icons are rendered
-  if (window.lucide) {
-    lucide.createIcons();
+  // Reveal each card on scroll with IntersectionObserver (threshold 0.15, rootMargin: '0px 0px -8% 0px')
+  // Fade in and rise 40px over 0.7s, staggered by column (index % 3 x 110ms), once only
+  const cards = document.querySelectorAll('.skills-bento-card');
+  if (!cards.length) return;
+
+  const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduced) {
+    cards.forEach((c) => c.classList.add('is-revealed'));
+    return;
   }
-});
+
+  // Assign stagger delay by column (index % 3 x 110ms)
+  cards.forEach((card, index) => {
+    const delay = (index % 3) * 110;
+    card.style.setProperty('--card-delay', `${delay}ms`);
+  });
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-revealed');
+            obs.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.15,
+        rootMargin: '0px 0px -8% 0px',
+      }
+    );
+
+    cards.forEach((card) => observer.observe(card));
+  } else {
+    cards.forEach((card) => card.classList.add('is-revealed'));
+  }
+}
+
 
 

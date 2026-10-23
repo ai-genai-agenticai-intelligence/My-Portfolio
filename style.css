@@ -23,6 +23,17 @@
   --secondary: #ff3b30;
   --accent-amber: #ffa600;
   --accent-warm: #ff5500;
+  --accent-orange: #ff5a1f;
+
+  /* Scroll Reveal Tokens (Easily tweak speed, distance, easing, stagger, and hover) */
+  --reveal-duration: 0.7s;
+  --reveal-distance: 48px;
+  --reveal-scale-from: 0.96;
+  --reveal-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --reveal-stagger: 140ms;
+  --reveal-accent: #ff5a1f;
+  --reveal-lift-hover: -6px;
+  --reveal-shadow-hover: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 35px rgba(255, 90, 31, 0.28);
 
   --border-subtle: rgba(255, 255, 255, 0.12);
   --border-amber: rgba(255, 107, 0, 0.4);
@@ -4845,3 +4856,586 @@ body:has(.nav-links.mobile-open) .ai-agent-widget {
     font-size: 0.88rem;
   }
 }
+
+/* ==========================================================================
+   SCROLL REVEAL & CARD HOVER ANIMATION SYSTEM
+   ========================================================================== */
+
+/* Default State (Progressive Enhancement):
+   If JavaScript fails or is disabled, cards remain 100% visible, fully laid out,
+   and accessible to all users and search engines. */
+.reveal,
+.reveal-card,
+.reveal-chip,
+.reveal-stat {
+  opacity: 1;
+  transform: none;
+}
+
+/* Hidden Unrevealed State:
+   Applied strictly when JavaScript has executed and added .js-reveal-ready to <html>.
+   Only animates opacity and transform for maximum 60fps GPU performance. */
+html.js-reveal-ready .reveal:not(.is-revealed),
+html.js-reveal-ready .reveal-card:not(.is-revealed),
+html.js-reveal-ready .reveal-chip:not(.is-revealed),
+html.js-reveal-ready .reveal-stat:not(.is-revealed) {
+  opacity: 0;
+  transform: translateY(var(--reveal-distance, 48px)) scale(var(--reveal-scale-from, 0.96));
+  pointer-events: none;
+  will-change: opacity, transform;
+}
+
+/* Active Revealed Transition State:
+   Fades in, rises 48px, and scales from 0.96 to 1 over 0.7s with cubic-bezier(0.2, 0.8, 0.2, 1).
+   Uses row stagger (index % 3 * 140ms) via --reveal-delay. */
+html.js-reveal-ready .reveal.is-revealed,
+html.js-reveal-ready .reveal-card.is-revealed,
+html.js-reveal-ready .reveal-chip.is-revealed,
+html.js-reveal-ready .reveal-stat.is-revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+  will-change: auto;
+  transition: opacity var(--reveal-duration, 0.7s) var(--reveal-ease, cubic-bezier(0.2, 0.8, 0.2, 1)),
+              transform var(--reveal-duration, 0.7s) var(--reveal-ease, cubic-bezier(0.2, 0.8, 0.2, 1)),
+              border-color 0.25s ease,
+              box-shadow 0.25s ease;
+  transition-delay: var(--reveal-delay, 0ms), var(--reveal-delay, 0ms), 0s, 0s;
+}
+
+/* Interactive Card Lift & Orange Border on Hover:
+   Card lifts 6px, and its border turns orange (#ff5a1f) with zero hover delay. */
+html.js-reveal-ready .reveal.is-revealed:hover,
+html.js-reveal-ready .reveal-card.is-revealed:hover,
+html.js-reveal-ready .reveal-stat.is-revealed:hover,
+.p-bento-card.reveal.is-revealed:hover,
+.cs-result-metric.reveal.is-revealed:hover,
+.hero-stat-box.reveal.is-revealed:hover {
+  transform: translateY(var(--reveal-lift-hover, -6px)) scale(1) !important;
+  border-color: var(--reveal-accent, #ff5a1f) !important;
+  box-shadow: var(--reveal-shadow-hover) !important;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.25s ease,
+              box-shadow 0.25s ease !important;
+  transition-delay: 0s !important;
+}
+
+/* Interactive Tech / Skill Chip Hover Lift & Orange Accent Border */
+html.js-reveal-ready .reveal-chip.is-revealed:hover,
+.skill-tag.reveal.is-revealed:hover,
+.core-lib-tag.reveal.is-revealed:hover {
+  transform: translateY(var(--reveal-lift-hover, -6px)) scale(1) !important;
+  border-color: var(--reveal-accent, #ff5a1f) !important;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45), 0 0 18px rgba(255, 90, 31, 0.32) !important;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.22s ease,
+              box-shadow 0.22s ease !important;
+  transition-delay: 0s !important;
+}
+
+/* Respect Prefers Reduced Motion:
+   Show all cards immediately with no movement or transitions. */
+@media (prefers-reduced-motion: reduce) {
+  html.js-reveal-ready .reveal,
+  html.js-reveal-ready .reveal-card,
+  html.js-reveal-ready .reveal-chip,
+  html.js-reveal-ready .reveal-stat,
+  .p-bento-card,
+  .cs-result-metric,
+  .hero-stat-box,
+  .skill-cat-card,
+  .core-lib-card,
+  .skill-tag,
+  .core-lib-tag {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+    pointer-events: auto !important;
+  }
+
+  html.js-reveal-ready .reveal:hover,
+  html.js-reveal-ready .reveal-card:hover,
+  html.js-reveal-ready .reveal-chip:hover,
+  html.js-reveal-ready .reveal-stat:hover,
+  .p-bento-card:hover,
+  .cs-result-metric:hover,
+  .hero-stat-box:hover,
+  .skill-cat-card:hover,
+  .core-lib-card:hover,
+  .skill-tag:hover,
+  .core-lib-tag:hover {
+    transform: none !important;
+  }
+}
+
+/* ==========================================================================
+   REDESIGNED TECHNICAL SKILLS 12-COLUMN BENTO GRID
+   ========================================================================== */
+
+/* 1. Proficiency Legend Bar */
+.skills-legend-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin: 2.2rem auto 2.8rem;
+  padding: 0.95rem 1.6rem;
+  background: rgba(18, 18, 26, 0.6);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  max-width: 900px;
+  backdrop-filter: var(--glass-blur);
+}
+
+.skills-legend-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.skills-legend-items {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.skills-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.legend-chip-sample {
+  pointer-events: none;
+  font-size: 0.85rem !important;
+  padding: 0.35rem 0.85rem !important;
+}
+
+.legend-chip-desc {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+}
+
+/* 2. 12-Column Bento Grid */
+.skills-bento-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 20px;
+  width: 100%;
+}
+
+/* Mixed card sizes */
+.skills-card-span-7 {
+  grid-column: span 7;
+}
+
+.skills-card-span-5 {
+  grid-column: span 5;
+}
+
+.skills-card-span-4 {
+  grid-column: span 4;
+}
+
+/* 3. Bento Card Structure & Styling */
+.skills-bento-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  backdrop-filter: var(--glass-blur);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: visible;
+  box-sizing: border-box;
+  opacity: 1;
+  translate: 0 0;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.25s ease,
+              box-shadow 0.25s ease;
+}
+
+/* Motion: Hidden Unrevealed State (Applied only when JS is confirmed running) */
+html.js-skills-ready .skills-bento-card:not(.is-revealed) {
+  opacity: 0;
+  translate: 0 40px;
+  pointer-events: none;
+  will-change: opacity, translate;
+}
+
+/* Motion: Revealed State via CSS translate property */
+html.js-skills-ready .skills-bento-card.is-revealed {
+  opacity: 1;
+  translate: 0 0;
+  pointer-events: auto;
+  will-change: auto;
+  transition: opacity 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
+              translate 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
+              border-color 0.25s ease,
+              box-shadow 0.25s ease;
+  transition-delay: var(--card-delay, 0ms), var(--card-delay, 0ms), 0s, 0s;
+}
+
+/* Hover Lift (translateY(-4px)) & Orange Border */
+.skills-bento-card:hover {
+  transform: translateY(-4px);
+  border-color: #ff5a1f !important;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 90, 31, 0.25) !important;
+}
+
+/* 4. Card Header Typography */
+.skills-card-header {
+  margin-bottom: 1.4rem;
+}
+
+.skills-card-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.skills-category-tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-orange, #ff5a1f);
+  background: rgba(255, 90, 31, 0.1);
+  border: 1px solid rgba(255, 90, 31, 0.28);
+  border-radius: var(--radius-full);
+  padding: 0.25rem 0.75rem;
+}
+
+.skills-count-pill {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  padding: 0.22rem 0.7rem;
+}
+
+.skills-card-title {
+  font-size: 1.42rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.45rem;
+  line-height: 1.3;
+}
+
+/* Largest 30px Heading for Autonomous Agents */
+.skills-card-hero-title {
+  font-size: 30px !important;
+  line-height: 1.25 !important;
+  letter-spacing: -0.01em;
+}
+
+.skills-card-desc {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* 5. Subheadings & Groups */
+.skills-groups-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+}
+
+.skills-subgroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.skills-subheading {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0;
+}
+
+.skills-subheading i,
+.skills-subheading svg {
+  width: 14px;
+  height: 14px;
+  color: var(--accent-orange, #ff5a1f);
+}
+
+/* 6. Skill Chips (At least 15px, 8px gaps, comfortable padding) */
+.skills-chips-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.skill-chip {
+  display: inline-flex;
+  align-items: center;
+  font-size: 15px; /* Minimum 15px as required */
+  line-height: 1.35;
+  padding: 0.52rem 1.05rem; /* Comfortable padding */
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  user-select: none;
+  box-sizing: border-box;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.2s ease,
+              background-color 0.2s ease,
+              color 0.2s ease,
+              box-shadow 0.2s ease;
+}
+
+/* Core chip: orange tint background, orange border, semi-bold (used in production deployments) */
+.skill-chip.chip-core {
+  background: rgba(255, 90, 31, 0.12);
+  border: 1px solid var(--accent-orange, #ff5a1f);
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(255, 90, 31, 0.12);
+}
+
+.skill-chip.chip-core:hover {
+  background: rgba(255, 90, 31, 0.22);
+  border-color: #ff7a3d;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(255, 90, 31, 0.32);
+}
+
+/* Standard chip: grey card background, thin border (working knowledge) */
+.skill-chip.chip-standard {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.skill-chip.chip-standard:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.28);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* 7. Subgrid Section: Databases, backend & cloud */
+.skills-subgrid-section {
+  margin-top: 3.2rem;
+  padding-top: 2.2rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.skills-subgrid-header {
+  margin-bottom: 1.8rem;
+}
+
+.skills-subgrid-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 0.4rem;
+}
+
+.skills-subgrid-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 90, 31, 0.1);
+  border: 1px solid rgba(255, 90, 31, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-orange, #ff5a1f);
+}
+
+.skills-subgrid-icon i,
+.skills-subgrid-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.skills-subgrid-title {
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.skills-subgrid-desc {
+  font-size: 0.94rem;
+  color: var(--text-muted);
+  max-width: 650px;
+  margin: 0.4rem 0 0;
+}
+
+/* 8. Long Lists Collapsible Toggle System (No inner scroll, no fixed height) */
+.skills-collapsible-card {
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+.skills-chips-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Progressive enhancement: Visible by default if JS fails */
+.skills-collapsed-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* When JS is initialized, hide the group until expanded */
+html.js-skills-ready .skills-collapsed-group:not(.is-open) {
+  display: none;
+}
+
+html.js-skills-ready .skills-collapsed-group.is-open {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  animation: fadeInSkillsGroup 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes fadeInSkillsGroup {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Toggle Button */
+.skills-toggle-btn {
+  display: none; /* Hidden if JS is disabled */
+  align-items: center;
+  gap: 0.45rem;
+  align-self: flex-start;
+  margin-top: 0.6rem;
+  padding: 0.48rem 1rem;
+  background: rgba(255, 90, 31, 0.08);
+  border: 1px solid rgba(255, 90, 31, 0.3);
+  border-radius: var(--radius-full);
+  color: #ff7a3d;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+html.js-skills-ready .skills-toggle-btn {
+  display: inline-flex;
+}
+
+.skills-toggle-btn:hover {
+  background: rgba(255, 90, 31, 0.18);
+  border-color: #ff5a1f;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* Accessible visible keyboard focus */
+.skills-toggle-btn:focus-visible {
+  outline: 2px solid #ff5a1f;
+  outline-offset: 3px;
+  box-shadow: 0 0 12px rgba(255, 90, 31, 0.5);
+}
+
+.skills-toggle-btn .toggle-chevron {
+  width: 15px;
+  height: 15px;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.skills-toggle-btn[aria-expanded="true"] .toggle-chevron {
+  transform: rotate(180deg);
+}
+
+/* 9. Responsive Layout: Under 860px wide, switch every card to full width in one column */
+@media (max-width: 860px) {
+  .skills-bento-grid {
+    grid-template-columns: 1fr !important;
+    gap: 18px;
+  }
+
+  .skills-card-span-7,
+  .skills-card-span-5,
+  .skills-card-span-4 {
+    grid-column: span 1 !important;
+  }
+
+  .skills-card-hero-title {
+    font-size: 1.55rem !important;
+  }
+
+  .skills-legend-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: var(--radius-lg);
+    gap: 0.85rem;
+  }
+
+  .skills-legend-items {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+}
+
+/* 10. Respect Prefers-Reduced-Motion */
+@media (prefers-reduced-motion: reduce) {
+  .skills-bento-card,
+  html.js-skills-ready .skills-bento-card {
+    opacity: 1 !important;
+    translate: 0 0 !important;
+    transform: none !important;
+    transition: none !important;
+    pointer-events: auto !important;
+  }
+
+  .skills-bento-card:hover {
+    transform: none !important;
+  }
+
+  html.js-skills-ready .skills-collapsed-group.is-open {
+    animation: none !important;
+  }
+
+  .skill-chip:hover {
+    transform: none !important;
+  }
+
+  .skills-toggle-btn:hover {
+    transform: none !important;
+  }
+}
+

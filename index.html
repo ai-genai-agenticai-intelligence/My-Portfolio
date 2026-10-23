@@ -158,15 +158,15 @@
 
             <!-- Floating Glass Stats Strip -->
             <div class="hero-glass-stats">
-              <div class="hero-stat-box">
+              <div class="hero-stat-box reveal">
                 <span class="stat-val">14+</span>
                 <span class="stat-lbl">Live Cloud Systems</span>
               </div>
-              <div class="hero-stat-box">
+              <div class="hero-stat-box reveal">
                 <span class="stat-val">99.4%</span>
                 <span class="stat-lbl">Factual Precision</span>
               </div>
-              <div class="hero-stat-box">
+              <div class="hero-stat-box reveal">
                 <span class="stat-val">2026</span>
                 <span class="stat-lbl">B.E Graduate (SMIT)</span>
               </div>
@@ -330,724 +330,351 @@
     <!-- SECTION 3: SKILLS MATRIX GROUPED BY AREA -->
     <section class="section skills-section" id="skills">
       <div class="container">
+        <!-- Section Header -->
         <div class="section-header-center">
           <span class="section-tag">Technical Competencies</span>
-          <h2 class="section-title-editorial">Specialized Skills <br /><span class="serif-accent">Grouped By Engineering
-              Area</span></h2>
+          <h2 class="section-title-editorial">Specialized Skills <br /><span class="serif-accent">Grouped By Engineering Area</span></h2>
           <p class="section-desc" style="margin: 0 auto; max-width: 680px;">
-            A rigorous technical stack honed across 14 end-to-end cloud deployments, enterprise agent graphs, and
-            real-time computer vision systems.
+            A rigorous technical stack honed across 14 end-to-end cloud deployments, enterprise agent graphs, and real-time computer vision systems.
           </p>
         </div>
 
-        <!-- TIER 1: CORE LANGUAGES, DATABASES & LIBRARIES GRID -->
-        <div class="skills-block-header">
-          <div class="skills-block-title-row">
-            <div class="skills-block-icon"><i data-lucide="layers"></i></div>
-            <div>
-              <span class="skills-block-eyebrow">Foundational Engineering Stack</span>
-              <h3 class="skills-block-title">Core Languages, Databases & Libraries Grid</h3>
+        <!-- Proficiency Legend Bar -->
+        <div class="skills-legend-bar">
+          <span class="skills-legend-title">Proficiency Legend:</span>
+          <div class="skills-legend-items">
+            <div class="skills-legend-item">
+              <span class="skill-chip chip-core legend-chip-sample">Core Skill</span>
+              <span class="legend-chip-desc">Used in production cloud deployments &amp; live systems</span>
             </div>
-          </div>
-          <p class="skills-block-subtitle">
-            Hands-on technical mastery across Python, Relational & Vector Databases, and Mathematical Data Science
-            libraries.
-          </p>
-        </div>
-
-        <div class="core-lib-grid">
-          <!-- Item 1: Python -->
-          <div class="core-lib-card">
-            <div class="core-lib-header">
-              <div class="core-lib-icon python-icon"><i data-lucide="code-2"></i></div>
-              <div class="core-lib-meta">
-                <span class="core-lib-badge">Core Language</span>
-                <h4 class="core-lib-name">Python</h4>
-              </div>
-            </div>
-            <p class="core-lib-desc">Primary language for autonomous multi-agent state graphs, ML pipelines,
-              asynchronous microservices, and backend APIs.</p>
-            <div class="core-lib-divider"></div>
-
-            <!-- Category Tabs -->
-            <div class="core-subnav">
-              <button type="button" class="core-subnav-btn active" data-cat="all">All (22+)</button>
-              <button type="button" class="core-subnav-btn" data-cat="datascience">Data Science</button>
-              <button type="button" class="core-subnav-btn" data-cat="mldl">ML & Deep Learning</button>
-              <button type="button" class="core-subnav-btn" data-cat="webapi">Web & Async</button>
-              <button type="button" class="core-subnav-btn" data-cat="agents">Agents & Tools</button>
-            </div>
-
-            <!-- Scroll Area Container -->
-            <div class="core-lib-scroll-area">
-              <!-- Group 1: Data Science -->
-              <div class="core-subgroup" data-group="datascience">
-                <div class="core-subgroup-title">
-                  <i data-lucide="line-chart"></i>
-                  <span>Data Science & Numerical Computing</span>
-                </div>
-                <div class="core-lib-tags">
-                  <span class="core-lib-tag highlight">NumPy</span>
-                  <span class="core-lib-tag highlight">Pandas</span>
-                  <span class="core-lib-tag">Polars</span>
-                  <span class="core-lib-tag highlight">SciPy</span>
-                  <span class="core-lib-tag">Matplotlib</span>
-                  <span class="core-lib-tag">Seaborn</span>
-                </div>
-              </div>
-
-              <!-- Group 2: ML & DL -->
-              <div class="core-subgroup" data-group="mldl">
-                <div class="core-subgroup-title">
-                  <i data-lucide="cpu"></i>
-                  <span>Machine Learning & Deep Learning</span>
-                </div>
-                <div class="core-lib-tags">
-                  <span class="core-lib-tag highlight">Scikit-learn</span>
-                  <span class="core-lib-tag highlight">PyTorch</span>
-                  <span class="core-lib-tag">TensorFlow</span>
-                  <span class="core-lib-tag highlight">HuggingFace Transformers</span>
-                  <span class="core-lib-tag">Keras</span>
-                  <span class="core-lib-tag">Joblib</span>
-                </div>
-              </div>
-
-              <!-- Group 3: Web & Async -->
-              <div class="core-subgroup" data-group="webapi">
-                <div class="core-subgroup-title">
-                  <i data-lucide="globe"></i>
-                  <span>Web APIs & Asynchronous Services</span>
-                </div>
-                <div class="core-lib-tags">
-                  <span class="core-lib-tag highlight">FastAPI</span>
-                  <span class="core-lib-tag highlight">Pydantic</span>
-                  <span class="core-lib-tag">Uvicorn</span>
-                  <span class="core-lib-tag">Flask</span>
-                  <span class="core-lib-tag highlight">AsyncIO</span>
-                  <span class="core-lib-tag">Celery</span>
-                </div>
-              </div>
-
-              <!-- Group 4: Agents & Tools -->
-              <div class="core-subgroup" data-group="agents">
-                <div class="core-subgroup-title">
-                  <i data-lucide="bot"></i>
-                  <span>Agentic AI & Orchestration</span>
-                </div>
-                <div class="core-lib-tags">
-                  <span class="core-lib-tag highlight">LangGraph</span>
-                  <span class="core-lib-tag highlight">LangChain</span>
-                  <span class="core-lib-tag highlight">LlamaIndex</span>
-                  <span class="core-lib-tag">AutoGen</span>
-                  <span class="core-lib-tag">Playwright</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Item 2: Machine Learning (ML) -->
-          <div class="core-lib-card">
-            <div class="core-lib-header">
-              <div class="core-lib-icon ml-icon"><i data-lucide="brain"></i></div>
-              <div class="core-lib-meta">
-                <span class="core-lib-badge">Predictive & Statistical AI</span>
-                <h4 class="core-lib-name">Machine Learning (ML)</h4>
-              </div>
-            </div>
-            <p class="core-lib-desc">Comprehensive mastery of continuous regression, categorical classification,
-              unsupervised dimensionality reduction, and clustering algorithms.</p>
-            <div class="core-lib-divider"></div>
-
-            <!-- Category Tabs -->
-            <div class="ml-subnav">
-              <button type="button" class="ml-subnav-btn active" data-ml-cat="all">All (30+)</button>
-              <button type="button" class="ml-subnav-btn" data-ml-cat="regression">Regression</button>
-              <button type="button" class="ml-subnav-btn" data-ml-cat="classification">Classification</button>
-              <button type="button" class="ml-subnav-btn" data-ml-cat="unsupervised">Unsupervised</button>
-              <button type="button" class="ml-subnav-btn" data-ml-cat="clustering">Clustering</button>
-              <button type="button" class="ml-subnav-btn" data-ml-cat="libraries">Libraries</button>
-            </div>
-
-            <!-- Algorithm Categories Container -->
-            <div class="ml-algos-container">
-              <!-- Group: Regression -->
-              <div class="ml-algo-group" data-group="regression">
-                <div class="ml-group-header">
-                  <i data-lucide="trending-up"></i>
-                  <span>Regression (Continuous Output)</span>
-                </div>
-                <div class="core-lib-tags">
-                  <span class="core-lib-tag highlight">Simple Linear Regression</span>
-                  <span class="core-lib-tag highlight">Multiple Linear Regression</span>
-                  <span class="core-lib-tag">Polynomial Regression</span>
-                  <span class="core-lib-tag highlight">Ridge Regression (L2)</span>
-                  <span class="core-lib-tag highlight">Lasso Regression (L1)</span>
-                  <span class="core-lib-tag">Elastic Net Regression</span>
-                  <span class="core-lib-tag">Support Vector Regression (SVR)</span>
-                  <span class="core-lib-tag">Decision Tree Regression</span>
-                  <span class="core-lib-tag highlight">Random Forest Regression</span>
-                  <span class="core-lib-tag highlight">Gradient Boosting (XGBoost, LightGBM, CatBoost)</span>
-                </div>
-              </div>
-
-              <!-- Group: Classification -->
-              <div class="ml-algo-group" data-group="classification">
-                <div class="ml-group-header">
-                  <i data-lucide="target"></i>
-                  <span>Classification (Categorical Output)</span>
-                </div>
-                <div class="core-lib-tags">
-                  <span class="core-lib-tag highlight">Logistic Regression</span>
-                  <span class="core-lib-tag">k-Nearest Neighbors (k-NN)</span>
-                  <span class="core-lib-tag highlight">Support Vector Machines (SVM)</span>
-                  <span class="core-lib-tag">Naive Bayes</span>
-                  <span class="core-lib-tag">Decision Tree Classification</span>
-                  <span class="core-lib-tag highlight">Random Forest Classification</span>
-                  <span class="core-lib-tag highlight">Gradient Boosting Classification</span>
-                  <span class="core-lib-tag">Neural Networks (MLP Classifier)</span>
-                </div>
-              </div>
-
-              <!-- Group: Unsupervised Learning -->
-              <div class="ml-algo-group" data-group="unsupervised">
-                <div class="ml-group-header">
-                  <i data-lucide="sparkles"></i>
-                  <span>Unsupervised Learning (Patterns & Dimensionality)</span>
-                </div>
-                <div class="core-lib-tags">
-                  <span class="core-lib-tag highlight">Principal Component Analysis (PCA)</span>
-                  <span class="core-lib-tag">Independent Component Analysis (ICA)</span>
-                  <span class="core-lib-tag">Singular Value Decomposition (SVD)</span>
-                  <span class="core-lib-tag highlight">Autoencoders (Dim Reduction / Anomaly)</span>
-                  <span class="core-lib-tag">Association Rule Learning (Apriori, Eclat)</span>
-                </div>
-              </div>
-
-              <!-- Group: Clustering Algorithms -->
-              <div class="ml-algo-group" data-group="clustering">
-                <div class="ml-group-header">
-                  <i data-lucide="pie-chart"></i>
-                  <span>Clustering Algorithms (Subtype of Unsupervised)</span>
-                </div>
-                <div class="core-lib-tags">
-                  <span class="core-lib-tag highlight" title="Centroid-based, fast, requires k">K-Means Clustering <span
-                      class="tag-note">(Centroid, Fast)</span></span>
-                  <span class="core-lib-tag" title="Builds dendrogram/tree structure">Hierarchical Clustering <span
-                      class="tag-note">(Dendrogram)</span></span>
-                  <span class="core-lib-tag highlight" title="Density-based, handles noise/outliers">DBSCAN <span
-                      class="tag-note">(Density, Noise-Robust)</span></span>
-                  <span class="core-lib-tag" title="Mode-seeking, no need for k">Mean Shift <span
-                      class="tag-note">(Mode-Seeking)</span></span>
-                  <span class="core-lib-tag highlight" title="Probabilistic, soft clustering">Gaussian Mixture Models
-                    (GMM) <span class="tag-note">(Probabilistic)</span></span>
-                  <span class="core-lib-tag" title="Graph-based, good for complex shapes">Spectral Clustering <span
-                      class="tag-note">(Graph-Based)</span></span>
-                </div>
-              </div>
-
-              <!-- Group: Core Libraries -->
-              <div class="ml-algo-group" data-group="libraries">
-                <div class="ml-group-header">
-                  <i data-lucide="package"></i>
-                  <span>Core ML Python Libraries</span>
-                </div>
-                <div class="core-lib-tags">
-                  <span class="core-lib-tag highlight">Scikit-learn</span>
-                  <span class="core-lib-tag highlight">XGBoost</span>
-                  <span class="core-lib-tag highlight">LightGBM</span>
-                  <span class="core-lib-tag highlight">CatBoost</span>
-                  <span class="core-lib-tag">SciPy</span>
-                  <span class="core-lib-tag">Joblib</span>
-                  <span class="core-lib-tag">Optuna</span>
-                  <span class="core-lib-tag">Hyperparameter Tuning</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Item 3: SQL -->
-          <div class="core-lib-card">
-            <div class="core-lib-header">
-              <div class="core-lib-icon sql-icon"><i data-lucide="database"></i></div>
-              <div class="core-lib-meta">
-                <span class="core-lib-badge">Query & Optimization</span>
-                <h4 class="core-lib-name">SQL</h4>
-              </div>
-            </div>
-            <p class="core-lib-desc">Complex multi-table queries, subqueries, Common Table Expressions (CTEs), window
-              functions, indexing, and query plan optimization.</p>
-            <div class="core-lib-divider"></div>
-
-            <!-- Category Tabs -->
-            <div class="core-subnav">
-              <button type="button" class="core-subnav-btn active" data-cat="all">All (18+)</button>
-              <button type="button" class="core-subnav-btn" data-cat="queries">Queries & CTEs</button>
-              <button type="button" class="core-subnav-btn" data-cat="orm">ORM & Schema</button>
-              <button type="button" class="core-subnav-btn" data-cat="tuning">Tuning & Plans</button>
-              <button type="button" class="core-subnav-btn" data-cat="admin">Tools & ACID</button>
-            </div>
-
-            <!-- Scroll Area Container -->
-            <div class="core-lib-scroll-area">
-              <!-- Group 1: Queries & CTEs -->
-              <div class="core-subgroup" data-group="queries">
-                <div class="core-subgroup-title">
-                  <i data-lucide="code"></i>
-                  <span>Advanced Queries & Analysis</span>
-                </div>
-                <div class="core-lib-tags">
-                  <span class="core-lib-tag highlight">Window Functions</span>
-                  <span class="core-lib-tag highlight">Recursive CTEs</span>
-                  <span class="core-lib-tag">Complex Subqueries</span>
-                  <span class="core-lib-tag highlight">Multi-Table Joins</span>
-                  <span class="core-lib-tag">GROUP BY ROLLUP</span>
-                  <span class="core-lib-tag">Aggregations</span>
-                </div>
-              </div>
-
-              <!-- Group 2: ORM & Schema -->
-              <div class="core-subgroup" data-group="orm">
-                <div class="core-subgroup-title">
-                  <i data-lucide="layers"></i>
-                  <span>ORM & Schema Management</span>
-                </div>
-                <div class="core-lib-tags">
-                  <span class="core-lib-tag highlight">SQLAlchemy (ORM)</span>
-                  <span class="core-lib-tag highlight">Alembic Migrations</span>
-                  <span class="core-lib-tag">Declarative Base</span>
-                  <span class="core-lib-tag">Pydantic-SQLAlchemy</span>
-                  <span class="core-lib-tag">Model Relationships</span>
-                </div>
-              </div>
-
-              <!-- Group 3: Tuning & Plans -->
-              <div class="core-subgroup" data-group="tuning">
-                <div class="core-subgroup-title">
-                  <i data-lucide="zap"></i>
-                  <span>Performance & Query Tuning</span>
-                </div>
-                <div class="core-lib-tags">
-                  <span class="core-lib-tag highlight">EXPLAIN ANALYZE</span>
-                  <span class="core-lib-tag highlight">Query Plan Tuning</span>
-                  <span class="core-lib-tag highlight">B-Tree Indexing</span>
-                  <span class="core-lib-tag">Composite Indexes</span>
-                  <span class="core-lib-tag">Query Caching</span>
-                </div>
-              </div>
-
-              <!-- Group 4: Tools & ACID -->
-              <div class="core-subgroup" data-group="admin">
-                <div class="core-subgroup-title">
-                  <i data-lucide="terminal"></i>
-                  <span>Administration & Tools</span>
-                </div>
-                <div class="core-lib-tags">
-                  <span class="core-lib-tag highlight">DBeaver</span>
-                  <span class="core-lib-tag highlight">ACID Transactions</span>
-                  <span class="core-lib-tag">Isolation Levels</span>
-                  <span class="core-lib-tag">Data Integrity</span>
-                  <span class="core-lib-tag">Stored Procedures</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Item 4: MySQL -->
-          <div class="core-lib-card">
-            <div class="core-lib-header">
-              <div class="core-lib-icon mysql-icon"><i data-lucide="server"></i></div>
-              <div class="core-lib-meta">
-                <span class="core-lib-badge">Relational RDBMS</span>
-                <h4 class="core-lib-name">MySQL</h4>
-              </div>
-            </div>
-            <p class="core-lib-desc">Production relational database design, ACID compliance, stored procedures, indexing
-              strategies, and database normalization.</p>
-            <div class="core-lib-divider"></div>
-
-            <!-- Category Tabs -->
-            <div class="core-subnav">
-              <button type="button" class="core-subnav-btn active" data-cat="all">All (16+)</button>
-              <button type="button" class="core-subnav-btn" data-cat="engines">Engines & ACID</button>
-              <button type="button" class="core-subnav-btn" data-cat="stored">Stored Logic</button>
-              <button type="button" class="core-subnav-btn" data-cat="connectors">Connectors</button>
-              <button type="button" class="core-subnav-btn" data-cat="scaling">Scaling & HA</button>
-            </div>
-
-            <!-- Scroll Area Container -->
-            <div class="core-lib-scroll-area">
-              <!-- Group 1: Engines & ACID -->
-              <div class="core-subgroup" data-group="engines">
-                <div class="core-subgroup-title">
-                  <i data-lucide="hard-drive"></i>
-                  <span>Storage Engines & Transactions</span>
-                </div>
-                <div class="core-lib-tags">
-                  <span class="core-lib-tag highlight">InnoDB Engine</span>
-                  <span class="core-lib-tag highlight">ACID Compliance</span>
-                  <span class="core-lib-tag">Row-Level Locking</span>
-                  <span class="core-lib-tag highlight">MVCC</span>
-                  <span class="core-lib-tag">Crash Recovery</span>
-                </div>
-              </div>
-
-              <!-- Group 2: Stored Logic -->
-              <div class="core-subgroup" data-group="stored">
-                <div class="core-subgroup-title">
-                  <i data-lucide="file-code"></i>
-                  <span>Schema & Stored Procedures</span>
-                </div>
-                <div class="core-lib-tags">
-                  <span class="core-lib-tag highlight">Stored Procedures</span>
-                  <span class="core-lib-tag">Triggers & Events</span>
-                  <span class="core-lib-tag">Views</span>
-                  <span class="core-lib-tag">Foreign Key Cascades</span>
-                  <span class="core-lib-tag highlight">3NF Normalization</span>
-                </div>
-              </div>
-
-              <!-- Group 3: Connectors -->
-              <div class="core-subgroup" data-group="connectors">
-                <div class="core-subgroup-title">
-                  <i data-lucide="cable"></i>
-                  <span>Python Drivers & Tools</span>
-                </div>
-                <div class="core-lib-tags">
-                  <span class="core-lib-tag highlight">PyMySQL</span>
-                  <span class="core-lib-tag highlight">mysql-connector</span>
-                  <span class="core-lib-tag highlight">MySQL Workbench</span>
-                  <span class="core-lib-tag">Connection Pooling</span>
-                  <span class="core-lib-tag">SQLAlchemy Driver</span>
-                </div>
-              </div>
-
-              <!-- Group 4: Scaling & HA -->
-              <div class="core-subgroup" data-group="scaling">
-                <div class="core-subgroup-title">
-                  <i data-lucide="database"></i>
-                  <span>Performance & Scaling</span>
-                </div>
-                <div class="core-lib-tags">
-                  <span class="core-lib-tag highlight">B-Tree Indexes</span>
-                  <span class="core-lib-tag">Slow Query Log</span>
-                  <span class="core-lib-tag highlight">Primary-Replica Replication</span>
-                  <span class="core-lib-tag">Query Cache</span>
-                  <span class="core-lib-tag">Backup & Dump</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Item 5: PostgreSQL -->
-          <div class="core-lib-card">
-            <div class="core-lib-header">
-              <div class="core-lib-icon postgres-icon"><i data-lucide="hard-drive"></i></div>
-              <div class="core-lib-meta">
-                <span class="core-lib-badge">Enterprise & Vector DB</span>
-                <h4 class="core-lib-name">PostgreSQL</h4>
-              </div>
-            </div>
-            <p class="core-lib-desc">Enterprise relational databases, semi-structured JSONB storage, pgvector
-              high-dimensional vector search, and cloud Supabase sync.</p>
-            <div class="core-lib-divider"></div>
-
-            <!-- Category Tabs -->
-            <div class="core-subnav">
-              <button type="button" class="core-subnav-btn active" data-cat="all">All (18+)</button>
-              <button type="button" class="core-subnav-btn" data-cat="vector">pgvector & AI</button>
-              <button type="button" class="core-subnav-btn" data-cat="jsonb">JSONB & Indices</button>
-              <button type="button" class="core-subnav-btn" data-cat="drivers">Async Drivers</button>
-              <button type="button" class="core-subnav-btn" data-cat="cloud">Cloud & Scale</button>
-            </div>
-
-            <!-- Scroll Area Container -->
-            <div class="core-lib-scroll-area">
-              <!-- Group 1: pgvector & AI -->
-              <div class="core-subgroup" data-group="vector">
-                <div class="core-subgroup-title">
-                  <i data-lucide="sparkles"></i>
-                  <span>Vector Search & AI Extensions</span>
-                </div>
-                <div class="core-lib-tags">
-                  <span class="core-lib-tag highlight">pgvector (AI Embeddings)</span>
-                  <span class="core-lib-tag highlight">HNSW Indexing</span>
-                  <span class="core-lib-tag">IVFFlat Indexing</span>
-                  <span class="core-lib-tag highlight">Cosine & L2 Distance</span>
-                  <span class="core-lib-tag">Semantic Search</span>
-                </div>
-              </div>
-
-              <!-- Group 2: JSONB & Indices -->
-              <div class="core-subgroup" data-group="jsonb">
-                <div class="core-subgroup-title">
-                  <i data-lucide="file-json"></i>
-                  <span>Semi-Structured & Indexing</span>
-                </div>
-                <div class="core-lib-tags">
-                  <span class="core-lib-tag highlight">JSONB Querying</span>
-                  <span class="core-lib-tag highlight">GIN Indexes</span>
-                  <span class="core-lib-tag">GiST Indexes</span>
-                  <span class="core-lib-tag">Full-Text Search</span>
-                  <span class="core-lib-tag">Partial Indexes</span>
-                </div>
-              </div>
-
-              <!-- Group 3: Async Drivers -->
-              <div class="core-subgroup" data-group="drivers">
-                <div class="core-subgroup-title">
-                  <i data-lucide="cpu"></i>
-                  <span>Asynchronous Python Drivers</span>
-                </div>
-                <div class="core-lib-tags">
-                  <span class="core-lib-tag highlight">asyncpg</span>
-                  <span class="core-lib-tag highlight">psycopg2 / psycopg3</span>
-                  <span class="core-lib-tag highlight">Connection Pooling</span>
-                  <span class="core-lib-tag">Async Cursor</span>
-                  <span class="core-lib-tag">Prepared Statements</span>
-                </div>
-              </div>
-
-              <!-- Group 4: Cloud & Scale -->
-              <div class="core-subgroup" data-group="cloud">
-                <div class="core-subgroup-title">
-                  <i data-lucide="cloud"></i>
-                  <span>Cloud DB & Scaling</span>
-                </div>
-                <div class="core-lib-tags">
-                  <span class="core-lib-tag highlight">Supabase</span>
-                  <span class="core-lib-tag">Neon Serverless</span>
-                  <span class="core-lib-tag">PgBouncer</span>
-                  <span class="core-lib-tag">Logical Replication</span>
-                  <span class="core-lib-tag highlight">Row-Level Security (RLS)</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Item 6: Statistics (Statics) -->
-          <div class="core-lib-card">
-            <div class="core-lib-header">
-              <div class="core-lib-icon stats-icon"><i data-lucide="bar-chart-2"></i></div>
-              <div class="core-lib-meta">
-                <span class="core-lib-badge">Mathematical Foundations</span>
-                <h4 class="core-lib-name">Statistics (Statics)</h4>
-              </div>
-            </div>
-            <p class="core-lib-desc">Inferential & descriptive statistics, hypothesis testing, probability
-              distributions, variance analysis, and statistical modeling.</p>
-            <div class="core-lib-divider"></div>
-
-            <!-- Category Tabs -->
-            <div class="core-subnav">
-              <button type="button" class="core-subnav-btn active" data-cat="all">All (18+)</button>
-              <button type="button" class="core-subnav-btn" data-cat="hypothesis">Hypothesis Testing</button>
-              <button type="button" class="core-subnav-btn" data-cat="distributions">Distributions</button>
-              <button type="button" class="core-subnav-btn" data-cat="scipy">SciPy & Stats</button>
-              <button type="button" class="core-subnav-btn" data-cat="modeling">Modeling</button>
-            </div>
-
-            <!-- Scroll Area Container -->
-            <div class="core-lib-scroll-area">
-              <!-- Group 1: Hypothesis Testing -->
-              <div class="core-subgroup" data-group="hypothesis">
-                <div class="core-subgroup-title">
-                  <i data-lucide="check-circle-2"></i>
-                  <span>Hypothesis Testing & Inference</span>
-                </div>
-                <div class="core-lib-tags">
-                  <span class="core-lib-tag highlight">Hypothesis Testing</span>
-                  <span class="core-lib-tag highlight">p-Value & Significance</span>
-                  <span class="core-lib-tag highlight">t-Tests (1 & 2 Sample)</span>
-                  <span class="core-lib-tag">Z-Score Analysis</span>
-                  <span class="core-lib-tag highlight">ANOVA (One/Two-Way)</span>
-                  <span class="core-lib-tag">Chi-Square Test</span>
-                </div>
-              </div>
-
-              <!-- Group 2: Distributions -->
-              <div class="core-subgroup" data-group="distributions">
-                <div class="core-subgroup-title">
-                  <i data-lucide="bar-chart-2"></i>
-                  <span>Probability & Distributions</span>
-                </div>
-                <div class="core-lib-tags">
-                  <span class="core-lib-tag highlight">Normal (Gaussian) Distribution</span>
-                  <span class="core-lib-tag">Poisson Distribution</span>
-                  <span class="core-lib-tag">Binomial Distribution</span>
-                  <span class="core-lib-tag highlight">Bayes' Theorem</span>
-                  <span class="core-lib-tag">Central Limit Theorem (CLT)</span>
-                  <span class="core-lib-tag">Confidence Intervals</span>
-                </div>
-              </div>
-
-              <!-- Group 3: SciPy & Stats -->
-              <div class="core-subgroup" data-group="scipy">
-                <div class="core-subgroup-title">
-                  <i data-lucide="package"></i>
-                  <span>Statistical Python Packages</span>
-                </div>
-                <div class="core-lib-tags">
-                  <span class="core-lib-tag highlight">SciPy (scipy.stats)</span>
-                  <span class="core-lib-tag highlight">Statsmodels</span>
-                  <span class="core-lib-tag">SciPy Optimize</span>
-                  <span class="core-lib-tag">NumPy Random</span>
-                  <span class="core-lib-tag">Probabilistic Modeling</span>
-                </div>
-              </div>
-
-              <!-- Group 4: Modeling -->
-              <div class="core-subgroup" data-group="modeling">
-                <div class="core-subgroup-title">
-                  <i data-lucide="trending-up"></i>
-                  <span>Statistical Analysis & Modeling</span>
-                </div>
-                <div class="core-lib-tags">
-                  <span class="core-lib-tag highlight">Regression Analysis</span>
-                  <span class="core-lib-tag highlight">Correlation & Covariance</span>
-                  <span class="core-lib-tag">Variance Analysis</span>
-                  <span class="core-lib-tag">Residual Diagnostics</span>
-                  <span class="core-lib-tag highlight">Monte Carlo Simulation</span>
-                </div>
-              </div>
+            <div class="skills-legend-item">
+              <span class="skill-chip chip-standard legend-chip-sample">Standard Skill</span>
+              <span class="legend-chip-desc">Applied working knowledge &amp; foundational engineering stack</span>
             </div>
           </div>
         </div>
 
-        <!-- TIER 2: SPECIALIZED PRODUCTION SYSTEMS -->
-        <div class="skills-block-header" style="margin-top: 4.5rem;">
-          <div class="skills-block-title-row">
-            <div class="skills-block-icon"><i data-lucide="cpu"></i></div>
-            <div>
-              <span class="skills-block-eyebrow">Production Architectures</span>
-              <h3 class="skills-block-title">Autonomous Agents, GenAI & Deployment Specializations</h3>
+        <!-- 12-Column Bento Grid: Row 1 & Row 2 -->
+        <div class="skills-bento-grid">
+
+          <!-- ROW 1, CARD 1 (Span 7, Largest, 30px heading) -->
+          <article class="skills-bento-card skills-card-span-7">
+            <div class="skills-card-header">
+              <div class="skills-card-top-row">
+                <span class="skills-category-tag">Core Specialization</span>
+                <span class="skills-count-pill">12 Skills</span>
+              </div>
+              <h3 class="skills-card-title skills-card-hero-title">Autonomous Agents &amp; Multi-Agent Systems</h3>
+              <p class="skills-card-desc">Architecting deterministic multi-node agent state graphs, hierarchical supervisor-worker routing, and Human-in-the-Loop checkpoints.</p>
             </div>
-          </div>
-          <p class="skills-block-subtitle">Production-grade multi-agent graphs, LangGraph state management, LLM safety
-            guardrails, and real-time computer vision.</p>
+
+            <div class="skills-groups-wrapper">
+              <div class="skills-subgroup">
+                <h4 class="skills-subheading"><i data-lucide="network"></i> State Graphs &amp; Tool Routing</h4>
+                <div class="skills-chips-cloud">
+                  <span class="skill-chip chip-core">LangGraph</span>
+                  <span class="skill-chip chip-core">Model Context Protocol (MCP)</span>
+                  <span class="skill-chip chip-core">Supervisor Architectures</span>
+                  <span class="skill-chip chip-core">StateGraph Memory</span>
+                  <span class="skill-chip chip-core">Dynamic Tool Routing</span>
+                  <span class="skill-chip chip-core">Human-in-the-Loop (HITL)</span>
+                </div>
+              </div>
+
+              <div class="skills-subgroup">
+                <h4 class="skills-subheading"><i data-lucide="bot"></i> Orchestration &amp; Frameworks</h4>
+                <div class="skills-chips-cloud">
+                  <span class="skill-chip chip-core">LangChain</span>
+                  <span class="skill-chip chip-core">LlamaIndex</span>
+                  <span class="skill-chip chip-core">AsyncIO</span>
+                  <span class="skill-chip chip-standard">CrewAI</span>
+                  <span class="skill-chip chip-standard">AutoGen</span>
+                  <span class="skill-chip chip-standard">Playwright</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- ROW 1, CARD 2 (Span 5) -->
+          <article class="skills-bento-card skills-card-span-5">
+            <div class="skills-card-header">
+              <div class="skills-card-top-row">
+                <span class="skills-category-tag">Production Ready</span>
+                <span class="skills-count-pill">10 Skills</span>
+              </div>
+              <h3 class="skills-card-title">LLM Engineering, GenAI &amp; Agentic RAG</h3>
+              <p class="skills-card-desc">Building self-correcting RAG pipelines with hybrid dense/sparse vector indexing, automated re-ranking, and enterprise safety shields.</p>
+            </div>
+
+            <div class="skills-groups-wrapper">
+              <div class="skills-subgroup">
+                <h4 class="skills-subheading"><i data-lucide="database"></i> Vector Retrieval &amp; RAG</h4>
+                <div class="skills-chips-cloud">
+                  <span class="skill-chip chip-core">Pinecone Vector DB</span>
+                  <span class="skill-chip chip-core">Agentic RAG</span>
+                  <span class="skill-chip chip-standard">ChromaDB</span>
+                  <span class="skill-chip chip-core">LlamaIndex</span>
+                </div>
+              </div>
+
+              <div class="skills-subgroup">
+                <h4 class="skills-subheading"><i data-lucide="shield-check"></i> Responsible AI &amp; Safety</h4>
+                <div class="skills-chips-cloud">
+                  <span class="skill-chip chip-core">Responsible AI Guardrails</span>
+                  <span class="skill-chip chip-core">Gemini 2.5 Flash</span>
+                  <span class="skill-chip chip-core">HuggingFace Transformers</span>
+                  <span class="skill-chip chip-standard">PII Masking</span>
+                  <span class="skill-chip chip-standard">Prompt Injection Defense</span>
+                  <span class="skill-chip chip-standard">Hallucination Verification</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- ROW 2, CARD 3 (Span 5) -->
+          <article class="skills-bento-card skills-card-span-5">
+            <div class="skills-card-header">
+              <div class="skills-card-top-row">
+                <span class="skills-category-tag">Predictive &amp; Deep AI</span>
+                <span class="skills-count-pill">14 Skills</span>
+              </div>
+              <h3 class="skills-card-title">Machine Learning &amp; Computer Vision</h3>
+              <p class="skills-card-desc">Building end-to-end Machine Learning pipelines, custom CNN classifiers, real-time object tracking with DeepSORT, and medical transfer learning.</p>
+            </div>
+
+            <div class="skills-groups-wrapper">
+              <div class="skills-subgroup">
+                <h4 class="skills-subheading"><i data-lucide="cpu"></i> Deep Learning &amp; ML Models</h4>
+                <div class="skills-chips-cloud">
+                  <span class="skill-chip chip-core">Python</span>
+                  <span class="skill-chip chip-core">PyTorch</span>
+                  <span class="skill-chip chip-core">TensorFlow &amp; Keras</span>
+                  <span class="skill-chip chip-core">Scikit-learn</span>
+                  <span class="skill-chip chip-core">Gradient Boosting (XGBoost, LightGBM, CatBoost)</span>
+                  <span class="skill-chip chip-core">Machine Learning (ML)</span>
+                  <span class="skill-chip chip-standard">Autoencoders</span>
+                  <span class="skill-chip chip-standard">Joblib &amp; Optuna</span>
+                </div>
+              </div>
+
+              <div class="skills-subgroup">
+                <h4 class="skills-subheading"><i data-lucide="scan"></i> Vision &amp; Tracking</h4>
+                <div class="skills-chips-cloud">
+                  <span class="skill-chip chip-core">YOLOv8 / YOLOv11</span>
+                  <span class="skill-chip chip-core">DeepSORT Tracking</span>
+                  <span class="skill-chip chip-core">Transfer Learning</span>
+                  <span class="skill-chip chip-standard">OpenCV</span>
+                  <span class="skill-chip chip-standard">Mediapipe</span>
+                  <span class="skill-chip chip-standard">CNN Image Classification</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- ROW 2, CARD 4 (Span 7) -->
+          <article class="skills-bento-card skills-card-span-7">
+            <div class="skills-card-header">
+              <div class="skills-card-top-row">
+                <span class="skills-category-tag">Executive BI &amp; Math</span>
+                <span class="skills-count-pill">14 Skills</span>
+              </div>
+              <h3 class="skills-card-title">Data Analytics, Statistics &amp; BI</h3>
+              <p class="skills-card-desc">Transforming complex datasets into executive decision dashboards, statistical hypothesis testing, and predictive business intelligence metrics.</p>
+            </div>
+
+            <div class="skills-groups-wrapper">
+              <div class="skills-subgroup">
+                <h4 class="skills-subheading"><i data-lucide="bar-chart-2"></i> Executive BI &amp; Dashboards</h4>
+                <div class="skills-chips-cloud">
+                  <span class="skill-chip chip-core">Power BI</span>
+                  <span class="skill-chip chip-core">Tableau BI</span>
+                  <span class="skill-chip chip-core">Streamlit Cloud</span>
+                  <span class="skill-chip chip-core">Exploratory Data Analysis (EDA)</span>
+                  <span class="skill-chip chip-standard">Executive Dashboards</span>
+                </div>
+              </div>
+
+              <div class="skills-subgroup">
+                <h4 class="skills-subheading"><i data-lucide="table"></i> Data Science &amp; Statistical Analysis</h4>
+                <div class="skills-chips-cloud">
+                  <span class="skill-chip chip-core">SQL</span>
+                  <span class="skill-chip chip-core">Pandas &amp; NumPy</span>
+                  <span class="skill-chip chip-core">SciPy</span>
+                  <span class="skill-chip chip-core">Hypothesis Testing</span>
+                  <span class="skill-chip chip-core">Regression Analysis</span>
+                  <span class="skill-chip chip-standard">Polars</span>
+                  <span class="skill-chip chip-standard">Matplotlib &amp; Seaborn</span>
+                  <span class="skill-chip chip-standard">Statistical Modeling</span>
+                  <span class="skill-chip chip-standard">Window Functions &amp; CTEs</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
         </div>
 
-        <div class="skills-category-grid">
-          <!-- Group 1: Autonomous Multi-Agent Systems -->
-          <div class="skill-cat-card">
-            <div class="skill-cat-header">
-              <div class="skill-cat-icon"><i data-lucide="network"></i></div>
+        <!-- BELOW: DATABASES, BACKEND & CLOUD SECTION -->
+        <div class="skills-subgrid-section">
+          <div class="skills-subgrid-header">
+            <div class="skills-subgrid-title-row">
+              <div class="skills-subgrid-icon"><i data-lucide="hard-drive"></i></div>
               <div>
-                <span class="skill-cat-badge">Core Specialization</span>
-                <h3 class="skill-cat-title">Autonomous Agents & Multi-Agent Systems</h3>
+                <span class="skills-category-tag">Persistence &amp; Infrastructure</span>
+                <h3 class="skills-subgrid-title">Databases, backend &amp; cloud</h3>
               </div>
             </div>
-            <p class="skill-cat-desc">Architecting deterministic multi-node agent state graphs, hierarchical
-              supervisor-worker routing, and Human-in-the-Loop approval checkpoints.</p>
-            <div class="skill-tags-cloud">
-              <span class="skill-tag highlight">LangGraph</span>
-              <span class="skill-tag highlight">Model Context Protocol (MCP)</span>
-              <span class="skill-tag highlight">Supervisor Architectures</span>
-              <span class="skill-tag">CrewAI</span>
-              <span class="skill-tag">AutoGen</span>
-              <span class="skill-tag">StateGraph Memory</span>
-              <span class="skill-tag">Dynamic Tool Routing</span>
-              <span class="skill-tag">Human-in-the-Loop (HITL)</span>
-            </div>
+            <p class="skills-subgrid-desc">Relational database architectures, high-dimensional vector search, and inferential mathematical foundations.</p>
           </div>
 
-          <!-- Group 2: LLM Engineering, GenAI & Agentic RAG -->
-          <div class="skill-cat-card">
-            <div class="skill-cat-header">
-              <div class="skill-cat-icon"><i data-lucide="cpu"></i></div>
-              <div>
-                <span class="skill-cat-badge">Production Ready</span>
-                <h3 class="skill-cat-title">LLM Engineering, GenAI & Agentic RAG</h3>
-              </div>
-            </div>
-            <p class="skill-cat-desc">Building self-correcting RAG pipelines with hybrid dense/sparse vector indexing,
-              automated re-ranking, and enterprise safety shields.</p>
-            <div class="skill-tags-cloud">
-              <span class="skill-tag highlight">Pinecone Vector DB</span>
-              <span class="skill-tag highlight">Agentic RAG</span>
-              <span class="skill-tag highlight">Responsible AI Guardrails</span>
-              <span class="skill-tag">ChromaDB</span>
-              <span class="skill-tag">LlamaIndex</span>
-              <span class="skill-tag">PII Masking</span>
-              <span class="skill-tag">Prompt Injection Defense</span>
-              <span class="skill-tag">Hallucination Verification</span>
-              <span class="skill-tag">Gemini 2.5 Flash</span>
-            </div>
-          </div>
+          <!-- 3 Equal Cards (Span 4 each) -->
+          <div class="skills-bento-grid skills-subgrid-3col">
 
-          <!-- Group 3: Machine Learning (ML), Deep Learning & Computer Vision -->
-          <div class="skill-cat-card">
-            <div class="skill-cat-header">
-              <div class="skill-cat-icon"><i data-lucide="brain"></i></div>
-              <div>
-                <span class="skill-cat-badge">Predictive & Deep AI</span>
-                <h3 class="skill-cat-title">Machine Learning (ML) & Computer Vision</h3>
+            <!-- CARD 5: MySQL (Span 4) -->
+            <article class="skills-bento-card skills-card-span-4 skills-collapsible-card">
+              <div class="skills-card-header">
+                <div class="skills-card-top-row">
+                  <span class="skills-category-tag">Relational RDBMS</span>
+                  <span class="skills-count-pill">20 Skills</span>
+                </div>
+                <h3 class="skills-card-title">MySQL</h3>
+                <p class="skills-card-desc">Production relational database design, ACID compliance, stored procedures, indexing strategies, and database normalization.</p>
               </div>
-            </div>
-            <p class="skill-cat-desc">Building end-to-end Machine Learning (ML) pipelines, custom CNN classifiers,
-              real-time object tracking with DeepSORT, and medical transfer learning models.</p>
-            <div class="skill-tags-cloud">
-              <span class="skill-tag highlight">Machine Learning (ML)</span>
-              <span class="skill-tag highlight">Python</span>
-              <span class="skill-tag highlight">PyTorch</span>
-              <span class="skill-tag highlight">TensorFlow & Keras</span>
-              <span class="skill-tag highlight">Scikit-learn</span>
-              <span class="skill-tag">OpenCV</span>
-              <span class="skill-tag">YOLOv8 / YOLOv11</span>
-              <span class="skill-tag">DeepSORT Tracking</span>
-              <span class="skill-tag">Transfer Learning</span>
-              <span class="skill-tag">Mediapipe</span>
-            </div>
-          </div>
 
-          <!-- Group 4: Data Analytics, Statistics & BI -->
-          <div class="skill-cat-card">
-            <div class="skill-cat-header">
-              <div class="skill-cat-icon"><i data-lucide="bar-chart-3"></i></div>
-              <div>
-                <span class="skill-cat-badge">Executive BI & Math</span>
-                <h3 class="skill-cat-title">Data Analytics, Statistics & BI</h3>
-              </div>
-            </div>
-            <p class="skill-cat-desc">Transforming complex datasets into executive decision dashboards, statistical
-              hypothesis testing, and predictive business intelligence metrics.</p>
-            <div class="skill-tags-cloud">
-              <span class="skill-tag highlight">Statistics (Statics)</span>
-              <span class="skill-tag highlight">SQL</span>
-              <span class="skill-tag highlight">Power BI</span>
-              <span class="skill-tag highlight">Tableau BI</span>
-              <span class="skill-tag">Streamlit Cloud</span>
-              <span class="skill-tag">Pandas & NumPy</span>
-              <span class="skill-tag">Statistical Modeling</span>
-              <span class="skill-tag">Exploratory Data Analysis (EDA)</span>
-              <span class="skill-tag">Hypothesis Testing</span>
-            </div>
-          </div>
+              <div class="skills-chips-wrapper">
+                <div class="skills-chips-cloud">
+                  <!-- Default 4 most important skills -->
+                  <span class="skill-chip chip-core">InnoDB Engine</span>
+                  <span class="skill-chip chip-core">ACID Compliance</span>
+                  <span class="skill-chip chip-core">3NF Normalization</span>
+                  <span class="skill-chip chip-core">B-Tree Indexes</span>
 
-          <!-- Group 5: Databases, Backend & Cloud Architecture -->
-          <div class="skill-cat-card">
-            <div class="skill-cat-header">
-              <div class="skill-cat-icon"><i data-lucide="database"></i></div>
-              <div>
-                <span class="skill-cat-badge">RDBMS & Cloud Services</span>
-                <h3 class="skill-cat-title">Databases, Backend & Cloud Architecture</h3>
+                  <!-- Expanded remaining skills -->
+                  <div class="skills-collapsed-group" id="mysql-expanded-skills">
+                    <span class="skill-chip chip-core">MVCC</span>
+                    <span class="skill-chip chip-core">Stored Procedures</span>
+                    <span class="skill-chip chip-core">Primary-Replica Replication</span>
+                    <span class="skill-chip chip-core">PyMySQL</span>
+                    <span class="skill-chip chip-core">mysql-connector</span>
+                    <span class="skill-chip chip-core">MySQL Workbench</span>
+                    <span class="skill-chip chip-standard">Row-Level Locking</span>
+                    <span class="skill-chip chip-standard">Crash Recovery</span>
+                    <span class="skill-chip chip-standard">Triggers &amp; Events</span>
+                    <span class="skill-chip chip-standard">Views</span>
+                    <span class="skill-chip chip-standard">Foreign Key Cascades</span>
+                    <span class="skill-chip chip-standard">Connection Pooling</span>
+                    <span class="skill-chip chip-standard">SQLAlchemy Driver</span>
+                    <span class="skill-chip chip-standard">Slow Query Log</span>
+                    <span class="skill-chip chip-standard">Query Cache</span>
+                    <span class="skill-chip chip-standard">Backup &amp; Dump</span>
+                  </div>
+                </div>
+
+                <button type="button" class="skills-toggle-btn" aria-expanded="false" aria-controls="mysql-expanded-skills" data-count="20">
+                  <span class="toggle-btn-text">Show all 20</span>
+                  <i data-lucide="chevron-down" class="toggle-chevron"></i>
+                </button>
               </div>
-            </div>
-            <p class="skill-cat-desc">Architecting robust relational database schemas with PostgreSQL & MySQL, optimized
-              SQL queries, asynchronous Python microservices, and Dockerized cloud deployments.</p>
-            <div class="skill-tags-cloud">
-              <span class="skill-tag highlight">Python</span>
-              <span class="skill-tag highlight">SQL</span>
-              <span class="skill-tag highlight">MySQL</span>
-              <span class="skill-tag highlight">PostgreSQL</span>
-              <span class="skill-tag highlight">FastAPI (Async)</span>
-              <span class="skill-tag highlight">Docker</span>
-              <span class="skill-tag">SQLite & Supabase</span>
-              <span class="skill-tag">RESTful APIs</span>
-              <span class="skill-tag">Render Cloud</span>
-              <span class="skill-tag">Git / GitHub CI/CD</span>
-            </div>
+            </article>
+
+            <!-- CARD 6: PostgreSQL (Span 4) -->
+            <article class="skills-bento-card skills-card-span-4 skills-collapsible-card">
+              <div class="skills-card-header">
+                <div class="skills-card-top-row">
+                  <span class="skills-category-tag">Enterprise &amp; Vector DB</span>
+                  <span class="skills-count-pill">20 Skills</span>
+                </div>
+                <h3 class="skills-card-title">PostgreSQL</h3>
+                <p class="skills-card-desc">Enterprise relational databases, semi-structured JSONB storage, pgvector high-dimensional vector search, and cloud Supabase sync.</p>
+              </div>
+
+              <div class="skills-chips-wrapper">
+                <div class="skills-chips-cloud">
+                  <!-- Default 4 most important skills -->
+                  <span class="skill-chip chip-core">pgvector (AI Embeddings)</span>
+                  <span class="skill-chip chip-core">HNSW Indexing</span>
+                  <span class="skill-chip chip-core">JSONB Querying</span>
+                  <span class="skill-chip chip-core">Supabase</span>
+
+                  <!-- Expanded remaining skills -->
+                  <div class="skills-collapsed-group" id="postgres-expanded-skills">
+                    <span class="skill-chip chip-core">Cosine &amp; L2 Distance</span>
+                    <span class="skill-chip chip-core">GIN Indexes</span>
+                    <span class="skill-chip chip-core">asyncpg</span>
+                    <span class="skill-chip chip-core">psycopg2 / psycopg3</span>
+                    <span class="skill-chip chip-core">Connection Pooling</span>
+                    <span class="skill-chip chip-core">Row-Level Security (RLS)</span>
+                    <span class="skill-chip chip-standard">IVFFlat Indexing</span>
+                    <span class="skill-chip chip-standard">Semantic Search</span>
+                    <span class="skill-chip chip-standard">GiST Indexes</span>
+                    <span class="skill-chip chip-standard">Full-Text Search</span>
+                    <span class="skill-chip chip-standard">Partial Indexes</span>
+                    <span class="skill-chip chip-standard">Async Cursor</span>
+                    <span class="skill-chip chip-standard">Prepared Statements</span>
+                    <span class="skill-chip chip-standard">Neon Serverless</span>
+                    <span class="skill-chip chip-standard">PgBouncer</span>
+                    <span class="skill-chip chip-standard">Logical Replication</span>
+                  </div>
+                </div>
+
+                <button type="button" class="skills-toggle-btn" aria-expanded="false" aria-controls="postgres-expanded-skills" data-count="20">
+                  <span class="toggle-btn-text">Show all 20</span>
+                  <i data-lucide="chevron-down" class="toggle-chevron"></i>
+                </button>
+              </div>
+            </article>
+
+            <!-- CARD 7: Statistics (Span 4) -->
+            <article class="skills-bento-card skills-card-span-4 skills-collapsible-card">
+              <div class="skills-card-header">
+                <div class="skills-card-top-row">
+                  <span class="skills-category-tag">Mathematical Foundations</span>
+                  <span class="skills-count-pill">22 Skills</span>
+                </div>
+                <h3 class="skills-card-title">Statistics</h3>
+                <p class="skills-card-desc">Inferential &amp; descriptive statistics, hypothesis testing, probability distributions, variance analysis, and statistical modeling.</p>
+              </div>
+
+              <div class="skills-chips-wrapper">
+                <div class="skills-chips-cloud">
+                  <!-- Default 4 most important skills -->
+                  <span class="skill-chip chip-core">Hypothesis Testing</span>
+                  <span class="skill-chip chip-core">p-Value &amp; Significance</span>
+                  <span class="skill-chip chip-core">Normal (Gaussian) Distribution</span>
+                  <span class="skill-chip chip-core">Bayes' Theorem</span>
+
+                  <!-- Expanded remaining skills -->
+                  <div class="skills-collapsed-group" id="stats-expanded-skills">
+                    <span class="skill-chip chip-core">t-Tests (1 &amp; 2 Sample)</span>
+                    <span class="skill-chip chip-core">ANOVA (One/Two-Way)</span>
+                    <span class="skill-chip chip-core">SciPy (scipy.stats)</span>
+                    <span class="skill-chip chip-core">Statsmodels</span>
+                    <span class="skill-chip chip-core">Regression Analysis</span>
+                    <span class="skill-chip chip-core">Correlation &amp; Covariance</span>
+                    <span class="skill-chip chip-core">Monte Carlo Simulation</span>
+                    <span class="skill-chip chip-standard">Z-Score Analysis</span>
+                    <span class="skill-chip chip-standard">Chi-Square Test</span>
+                    <span class="skill-chip chip-standard">Poisson Distribution</span>
+                    <span class="skill-chip chip-standard">Binomial Distribution</span>
+                    <span class="skill-chip chip-standard">Central Limit Theorem (CLT)</span>
+                    <span class="skill-chip chip-standard">Confidence Intervals</span>
+                    <span class="skill-chip chip-standard">SciPy Optimize</span>
+                    <span class="skill-chip chip-standard">NumPy Random</span>
+                    <span class="skill-chip chip-standard">Probabilistic Modeling</span>
+                    <span class="skill-chip chip-standard">Variance Analysis</span>
+                    <span class="skill-chip chip-standard">Residual Diagnostics</span>
+                  </div>
+                </div>
+
+                <button type="button" class="skills-toggle-btn" aria-expanded="false" aria-controls="stats-expanded-skills" data-count="22">
+                  <span class="toggle-btn-text">Show all 22</span>
+                  <i data-lucide="chevron-down" class="toggle-chevron"></i>
+                </button>
+              </div>
+            </article>
+
           </div>
         </div>
+
       </div>
     </section>
 
@@ -1304,15 +931,15 @@
                 </div>
 
                 <div class="cs-results-bar">
-                  <div class="cs-result-metric">
+                  <div class="cs-result-metric reveal">
                     <span class="metric-num">99.4%</span>
                     <span class="metric-label">Factual Precision</span>
                   </div>
-                  <div class="cs-result-metric">
+                  <div class="cs-result-metric reveal">
                     <span class="metric-num">-65%</span>
                     <span class="metric-label">Triage Resolution Time</span>
                   </div>
-                  <div class="cs-result-metric">
+                  <div class="cs-result-metric reveal">
                     <span class="metric-num">&lt;220ms</span>
                     <span class="metric-label">Vector Retrieval Latency</span>
                   </div>
@@ -1397,15 +1024,15 @@
                 </div>
 
                 <div class="cs-results-bar">
-                  <div class="cs-result-metric">
+                  <div class="cs-result-metric reveal">
                     <span class="metric-num">100%</span>
                     <span class="metric-label">Audited Tool Traces</span>
                   </div>
-                  <div class="cs-result-metric">
+                  <div class="cs-result-metric reveal">
                     <span class="metric-num">0</span>
                     <span class="metric-label">Unauthorized Actions</span>
                   </div>
-                  <div class="cs-result-metric">
+                  <div class="cs-result-metric reveal">
                     <span class="metric-num">4</span>
                     <span class="metric-label">Specialized Agent Roles</span>
                   </div>
@@ -1488,15 +1115,15 @@
                 </div>
 
                 <div class="cs-results-bar">
-                  <div class="cs-result-metric">
+                  <div class="cs-result-metric reveal">
                     <span class="metric-num">97.2%</span>
                     <span class="metric-label">Diagnostic Accuracy</span>
                   </div>
-                  <div class="cs-result-metric">
+                  <div class="cs-result-metric reveal">
                     <span class="metric-num">&lt;120ms</span>
                     <span class="metric-label">Inference Latency</span>
                   </div>
-                  <div class="cs-result-metric">
+                  <div class="cs-result-metric reveal">
                     <span class="metric-num">0.98</span>
                     <span class="metric-label">ROC-AUC Score</span>
                   </div>
@@ -1548,7 +1175,7 @@
         <div class="projects-bento-grid" id="projectsGrid">
 
           <!-- Project 1: Enterprise IT Support Agentic RAG Copilot -->
-          <article class="p-bento-card" data-category="agents">
+          <article class="p-bento-card reveal" data-category="agents">
             <div class="p-bento-media">
               <img src="images/Enterprise IT Support Agentic RAG Copilot.png"
                 alt="Enterprise IT Support: Agentic RAG Copilot" loading="lazy" />
@@ -1582,7 +1209,7 @@
           </article>
 
           <!-- Project 2: ResearchMind -->
-          <article class="p-bento-card" data-category="agents">
+          <article class="p-bento-card reveal" data-category="agents">
             <div class="p-bento-media">
               <img src="images/ResearchMind Autonomous Multi-Agent AI Research System.png"
                 alt="ResearchMind: Autonomous Multi-Agent AI Research System" loading="lazy" />
@@ -1615,7 +1242,7 @@
           </article>
 
           <!-- Project 3: Multi-Node LangGraph -->
-          <article class="p-bento-card" data-category="agents">
+          <article class="p-bento-card reveal" data-category="agents">
             <div class="p-bento-media">
               <img src="images/Multi-Node Conversational AI Framework.png" alt="Multi-Node Conversational AI Framework"
                 loading="lazy" />
@@ -1648,7 +1275,7 @@
           </article>
 
           <!-- Project 4: MCP Supervisor Guardrails HITL -->
-          <article class="p-bento-card" data-category="agents">
+          <article class="p-bento-card reveal" data-category="agents">
             <div class="p-bento-media">
               <img src="images/Multi-Agent System MCP, Supervisor, Guardrails & HITL.png"
                 alt="Multi-Agent System: MCP, Supervisor, Guardrails & HITL" loading="lazy" />
@@ -1681,7 +1308,7 @@
           </article>
 
           <!-- Project 5: Medical-Agentic-Chatbot -->
-          <article class="p-bento-card" data-category="agents">
+          <article class="p-bento-card reveal" data-category="agents">
             <div class="p-bento-media">
               <img src="images/Medical-Agentic-Chatbot.png"
                 alt="Medical-Agentic-Chatbot: Autonomous Clinical & Triage Copilot" loading="lazy" />
@@ -1716,7 +1343,7 @@
           </article>
 
           <!-- Project 6: LLM Guardrails -->
-          <article class="p-bento-card" data-category="guardrails">
+          <article class="p-bento-card reveal" data-category="guardrails">
             <div class="p-bento-media">
               <img src="images/LLM Guardrails Enterprise & Responsible AI.png"
                 alt="LLM Guardrails: Enterprise & Responsible AI" loading="lazy" />
@@ -1749,7 +1376,7 @@
           </article>
 
           <!-- Project 7: AI Resume Analyzer -->
-          <article class="p-bento-card" data-category="guardrails">
+          <article class="p-bento-card reveal" data-category="guardrails">
             <div class="p-bento-media">
               <img src="images/AI Resume Analyzer & Job Fit Predictor.png" alt="AI Resume Analyzer & Job Fit Predictor"
                 loading="lazy" />
@@ -1782,7 +1409,7 @@
           </article>
 
           <!-- Project 8: Gemini 2.5 Flash Chatbot -->
-          <article class="p-bento-card" data-category="guardrails">
+          <article class="p-bento-card reveal" data-category="guardrails">
             <div class="p-bento-media">
               <img src="images/Gemini 2.5 Flash Chatbot.png" alt="Gemini 2.5 Flash Chatbot" loading="lazy" />
               <div class="p-bento-media-overlay"></div>
@@ -1814,7 +1441,7 @@
           </article>
 
           <!-- Project 9: IMOT Object & Color Tracking -->
-          <article class="p-bento-card" data-category="cv">
+          <article class="p-bento-card reveal" data-category="cv">
             <div class="p-bento-media">
               <img src="images/Intelligent Multi-Modal Object & Color Tracking.png"
                 alt="Intelligent Multi-Modal Object & Color Tracking" loading="lazy" />
@@ -1847,7 +1474,7 @@
           </article>
 
           <!-- Project 10: ImageNet Deep Learning -->
-          <article class="p-bento-card" data-category="cv">
+          <article class="p-bento-card reveal" data-category="cv">
             <div class="p-bento-media">
               <img src="images/ImageNet Classification VGG16, ResNet50 & ResNet50V2.png"
                 alt="ImageNet Classification: VGG16, ResNet50 & ResNet50V2" loading="lazy" />
@@ -1880,7 +1507,7 @@
           </article>
 
           <!-- Project 11: CNN Mood Classification -->
-          <article class="p-bento-card" data-category="cv">
+          <article class="p-bento-card reveal" data-category="cv">
             <div class="p-bento-media">
               <img src="images/CNN Image Classification (Mood Detection).png"
                 alt="CNN Image Classification (Mood Detection)" loading="lazy" />
@@ -1913,7 +1540,7 @@
           </article>
 
           <!-- Project 12: E-Commerce Financial Performance -->
-          <article class="p-bento-card" data-category="analytics">
+          <article class="p-bento-card reveal" data-category="analytics">
             <div class="p-bento-media">
               <img src="images/ecommerce-dashboard-card.png" alt="E-Commerce Financial Performance" loading="lazy" />
               <div class="p-bento-media-overlay"></div>
@@ -1946,7 +1573,7 @@
           </article>
 
           <!-- Project 13: Website Performance Analytics -->
-          <article class="p-bento-card" data-category="analytics">
+          <article class="p-bento-card reveal" data-category="analytics">
             <div class="p-bento-media">
               <img src="images/website-analytics-card.png" alt="Website Performance Analytics" loading="lazy" />
               <div class="p-bento-media-overlay"></div>
@@ -1979,7 +1606,7 @@
           </article>
 
           <!-- Project 14: Netflix Movie Analysis -->
-          <article class="p-bento-card" data-category="analytics">
+          <article class="p-bento-card reveal" data-category="analytics">
             <div class="p-bento-media">
               <img src="images/netflix-analysis-card.png" alt="Netflix Movie Analysis" loading="lazy" />
               <div class="p-bento-media-overlay"></div>
@@ -2429,7 +2056,8 @@
     </div>
   </div>
 
-  <script src="script.js?v=3.2"></script>
+  <script src="scroll-reveal.js"></script>
+  <script src="script.js?v=3.3"></script>
 </body>
 
 </html>
