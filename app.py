@@ -7,18 +7,82 @@ import os
 import sqlite3
 import uuid
 import json
+import hmac
+import time
+import hashlib
+import logging
+import smtplib
+from collections import defaultdict, deque
+from email.message import EmailMessage
 from datetime import datetime
 from typing import Optional, List
 import requests
 from dotenv import load_dotenv
-from fastapi import FastAPI, HTTPException, Request, BackgroundTasks
+from fastapi import FastAPI, HTTPException, Request, BackgroundTasks, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, JSONResponse, Response
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, Field
 
 # Load environment variables from .env if present
 load_dotenv()
+logger = logging.getLogger("portfolio")
+
+# ------------------------------------------------------------------------------
+# Simple in-memory rate limiter (per IP, per bucket). Protects the contact form,
+# booking and the AI chat (which spends real API credits) from spam / abuse.
+# ------------------------------------------------------------------------------
+_rate_hits = defaultdict(deque)
+
+def rate_limit(bucket: str, limit: int, window_seconds: int):
+    def dependency(request: Request):
+        forwarded = request.headers.get("x-forwarded-for", "").split(",")[0].strip()
+        ip = forwarded or (request.client.host if request.client else "unknown")
+        now = time.time()
+        if len(_rate_hits) > 5000:  # keep memory bounded
+            _rate_hits.clear()
+        q = _rate_hits[(bucket, ip)]
+        while q and now - q[0] > window_seconds:
+            q.popleft()
+        if len(q) >= limit:
+            raise HTTPException(status_code=429, detail="Too many requests. Please try again in a little while.")
+        q.append(now)
+    return dependency
+
+def send_notification_email(subject: str, body: str, reply_to: Optional[str] = None) -> bool:
+    """Email the site owner via SMTP. Configure SMTP_HOST/PORT/USER/PASS and NOTIFY_TO.
+    Returns False (and logs) when not configured, so the app still works locally."""
+    host, to = os.getenv("SMTP_HOST"), os.getenv("NOTIFY_TO")
+    if not host or not to:
+        logger.warning("SMTP not configured (SMTP_HOST / NOTIFY_TO) - owner NOT emailed: %s", subject)
+        return False
+    user, password = os.getenv("SMTP_USER"), os.getenv("SMTP_PASS")
+    port = int(os.getenv("SMTP_PORT", "587"))
+    try:
+        msg = EmailMessage()
+        msg["Subject"] = " ".join(subject.split())[:200]  # strip newlines -> no header injection
+        msg["From"] = os.getenv("SMTP_FROM", user or to)
+        msg["To"] = to
+        if reply_to:
+            msg["Reply-To"] = reply_to
+        msg.set_content(body)
+        if port == 465:
+            with smtplib.SMTP_SSL(host, port, timeout=15) as smtp:
+                if user and password:
+                    smtp.login(user, password)
+                smtp.send_message(msg)
+        else:
+            with smtplib.SMTP(host, port, timeout=15) as smtp:
+                smtp.starttls()
+                if user and password:
+                    smtp.login(user, password)
+                smtp.send_message(msg)
+        return True
+    except Exception as exc:  # never crash the request over email trouble
+        logger.error("Notification email failed: %s", exc)
+        return False
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Initialize FastAPI App
 app = FastAPI(
@@ -30,11 +94,19 @@ app = FastAPI(
 # Enable CORS for cross-origin frontend requests
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=[o.strip() for o in os.getenv("ALLOWED_ORIGINS", "http://localhost:8000,https://my-portfolio-fwt5.onrender.com").split(",") if o.strip()],
+    allow_credentials=False,
+    allow_methods=["GET", "POST"],
+    allow_headers=["Content-Type"],
 )
+
+@app.middleware("http")
+async def security_headers(request: Request, call_next):
+    response = await call_next(request)
+    response.headers.setdefault("X-Content-Type-Options", "nosniff")
+    response.headers.setdefault("X-Frame-Options", "DENY")
+    response.headers.setdefault("Referrer-Policy", "strict-origin-when-cross-origin")
+    return response
 
 # Database Setup (SQLite local default with automated table creation matching Supabase schema)
 DB_PATH = "portfolio.db"
@@ -94,29 +166,30 @@ init_db()
 # PYDANTIC DATA MODELS
 # ==============================================================================
 class ContactRequest(BaseModel):
-    name: str
-    email: str
-    phone: Optional[str] = ""
-    subject: Optional[str] = "General Project Inquiry"
-    message: str
+    name: str = Field(min_length=1, max_length=120)
+    email: EmailStr
+    phone: Optional[str] = Field(default="", max_length=40)
+    subject: Optional[str] = Field(default="General Project Inquiry", max_length=200)
+    message: str = Field(min_length=5, max_length=5000)
+    website: Optional[str] = ""  # honeypot: real visitors never fill this in
 
 class BookingRequest(BaseModel):
-    client_name: str
-    client_email: str
-    client_phone: Optional[str] = ""
-    session_type: str
-    date: str
-    time: str
-    duration: Optional[int] = 45
-    message: Optional[str] = ""
+    client_name: str = Field(min_length=1, max_length=120)
+    client_email: EmailStr
+    client_phone: Optional[str] = Field(default="", max_length=40)
+    session_type: str = Field(max_length=100)
+    date: str = Field(max_length=20)
+    time: str = Field(max_length=20)
+    duration: Optional[int] = Field(default=45, ge=15, le=240)
+    message: Optional[str] = Field(default="", max_length=2000)
 
 class StripeCheckoutRequest(BaseModel):
     appointment_id: str
     session_type: str
     client_name: str
     client_email: str
-    amount_cents: int
-    currency: Optional[str] = "usd"
+    amount_cents: int = Field(gt=0, le=1_000_000)
+    currency: Optional[str] = Field(default="usd", max_length=3)
 
 # ==============================================================================
 # HELPER FUNCTIONS & ICS GENERATOR
@@ -153,7 +226,10 @@ def health_check():
 
 # --- 1. CONTACT MESSAGE ENDPOINT ---
 @app.post("/api/contact")
-def handle_contact(payload: ContactRequest, background_tasks: BackgroundTasks):
+def handle_contact(payload: ContactRequest, background_tasks: BackgroundTasks,
+                   _rl: None = Depends(rate_limit("contact", 5, 3600))):
+    if payload.website:  # honeypot tripped -> pretend success, store nothing
+        return {"success": True, "message_id": "MSG-OK", "status": "Message received."}
     msg_id = f"MSG-{uuid.uuid4().hex[:8].upper()}"
     created_at = datetime.utcnow().isoformat()
     
@@ -165,7 +241,13 @@ def handle_contact(payload: ContactRequest, background_tasks: BackgroundTasks):
     """, (msg_id, payload.name, payload.email, payload.subject, payload.message, created_at))
     conn.commit()
     conn.close()
-    
+
+    background_tasks.add_task(
+        send_notification_email,
+        f"[Portfolio] {payload.subject or 'New message'} - {payload.name}",
+        f"From: {payload.name} <{payload.email}>\nPhone: {payload.phone or 'n/a'}\nID: {msg_id}\n\n{payload.message}",
+        str(payload.email),
+    )
     return {
         "success": True,
         "message_id": msg_id,
@@ -174,7 +256,7 @@ def handle_contact(payload: ContactRequest, background_tasks: BackgroundTasks):
 
 # --- 2. APPOINTMENT BOOKING ENDPOINT ---
 @app.post("/api/appointments")
-def create_appointment(payload: BookingRequest):
+def create_appointment(payload: BookingRequest, background_tasks: BackgroundTasks, _rl: None = Depends(rate_limit("booking", 10, 3600))):
     appointment_id = f"ABHI-{datetime.utcnow().year}-{uuid.uuid4().hex[:6].upper()}"
     created_at = datetime.utcnow().isoformat()
     
@@ -208,7 +290,14 @@ def create_appointment(payload: BookingRequest):
     
     conn.commit()
     conn.close()
-    
+
+    background_tasks.add_task(
+        send_notification_email,
+        f"[Portfolio] New booking {appointment_id} - {payload.client_name}",
+        f"Booking {appointment_id}\nName: {payload.client_name} <{payload.client_email}>\nPhone: {payload.client_phone or 'n/a'}\n"
+        f"Session: {payload.session_type}\nWhen: {payload.date} {payload.time}\n\n{payload.message or ''}",
+        str(payload.client_email),
+    )
     return {
         "success": True,
         "appointment_id": appointment_id,
@@ -291,31 +380,49 @@ def create_stripe_checkout(payload: StripeCheckoutRequest):
 # --- 6. STRIPE WEBHOOK HANDLER ---
 @app.post("/api/webhook/stripe")
 async def stripe_webhook(request: Request):
-    data = await request.json()
-    event_type = data.get("type", "checkout.session.completed")
-    
+    """Only accepts events genuinely signed by Stripe (Stripe-Signature HMAC-SHA256)."""
+    secret = os.getenv("STRIPE_WEBHOOK_SECRET")
+    if not secret:
+        raise HTTPException(status_code=503, detail="Stripe webhook not configured")
+    raw = await request.body()
+    header = request.headers.get("stripe-signature", "")
+    timestamp, signatures = "", []
+    for part in header.split(","):
+        key, _, value = part.partition("=")
+        if key.strip() == "t":
+            timestamp = value.strip()
+        elif key.strip() == "v1":
+            signatures.append(value.strip())
+    try:
+        fresh = abs(time.time() - int(timestamp)) <= 300  # reject replays older than 5 min
+    except ValueError:
+        fresh = False
+    expected = hmac.new(secret.encode(), f"{timestamp}.".encode() + raw, hashlib.sha256).hexdigest()
+    if not fresh or not any(hmac.compare_digest(expected, sig) for sig in signatures):
+        raise HTTPException(status_code=400, detail="Invalid signature")
+
+    data = json.loads(raw)
+    event_type = data.get("type", "")
     if event_type == "checkout.session.completed":
         session_obj = data.get("data", {}).get("object", {})
         appointment_id = session_obj.get("metadata", {}).get("appointment_id")
-        
         if appointment_id:
             conn = sqlite3.connect(DB_PATH)
             cursor = conn.cursor()
             cursor.execute("UPDATE appointments SET payment_status = 'paid' WHERE id = ?", (appointment_id,))
             conn.commit()
             conn.close()
-            
     return {"status": "success", "event_received": event_type}
 
 class ChatMessage(BaseModel):
-    role: str
-    content: str
+    role: str = Field(max_length=20)
+    content: str = Field(max_length=2000)
 
 class AgentChatRequest(BaseModel):
-    query: Optional[str] = None
-    message: Optional[str] = None
-    client_name: Optional[str] = "Anonymous Visitor"
-    history: Optional[List[ChatMessage]] = []
+    query: Optional[str] = Field(default=None, max_length=1000)
+    message: Optional[str] = Field(default=None, max_length=1000)
+    client_name: Optional[str] = Field(default="Anonymous Visitor", max_length=100)
+    history: Optional[List[ChatMessage]] = Field(default=[], max_length=20)
 
 # --- SYSTEM PERSONA KNOWLEDGE BASE ---
 SYSTEM_PERSONA = """You are AbhiBot, the production-grade Autonomous AI Concierge for Abhishek Sahoo's official portfolio.
@@ -644,7 +751,7 @@ def resolve_semantic_intent(raw_message: str) -> dict:
 
 # --- 8. AUTONOMOUS AI AGENT CONCIERGE ENDPOINT ---
 @app.post("/api/agent/chat")
-def agent_chat_endpoint(payload: AgentChatRequest):
+def agent_chat_endpoint(payload: AgentChatRequest, _rl: None = Depends(rate_limit("chat", 20, 60))):
     raw_message = (payload.message or payload.query or "").strip()
     if not raw_message:
         return {
@@ -720,7 +827,6 @@ def agent_chat_endpoint(payload: AgentChatRequest):
 # ==============================================================================
 # RESUME DOWNLOAD ROUTE
 # ==============================================================================
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 @app.get("/api/resume")
 @app.get("/api/resume/download")
@@ -740,8 +846,34 @@ async def download_resume():
 # ==============================================================================
 # SERVE FRONTEND STATIC FILES (PORTABLE FOR CLOUD & LOCAL)
 # ==============================================================================
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-app.mount("/", StaticFiles(directory=BASE_DIR, html=True), name="static")
+# SECURITY: never mount the project root. Doing so exposes .env, app.py and
+# portfolio.db to anyone on the internet. Only whitelisted public files are served.
+PUBLIC_FILES = {
+    "style.css": "text/css",
+    "script.js": "application/javascript",
+    "scroll-reveal.js": "application/javascript",
+    "My Profile image.jpeg": "image/jpeg",
+    "Abhishek_Sahoo_AI_Resume.pdf": "application/pdf",
+    "robots.txt": "text/plain",
+    "sitemap.xml": "application/xml",
+}
+
+# Image folder only (no directory listing of anything else)
+app.mount("/images", StaticFiles(directory=os.path.join(BASE_DIR, "images")), name="images")
+
+@app.get("/")
+async def serve_index():
+    return FileResponse(os.path.join(BASE_DIR, "index.html"), media_type="text/html")
+
+@app.get("/{filename:path}")
+async def serve_public_file(filename: str):
+    if filename in PUBLIC_FILES:
+        path = os.path.join(BASE_DIR, filename)
+        if os.path.isfile(path):
+            return FileResponse(path, media_type=PUBLIC_FILES[filename],
+                                headers={"Cache-Control": "public, max-age=3600"})
+    return JSONResponse(status_code=404, content={"error": "Not found"})
+
 
 if __name__ == "__main__":
     import uvicorn

@@ -9,3 +9,18 @@ services:
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.9
+      # Set these in the Render dashboard (never commit real values)
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+      - key: NOTIFY_TO
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false

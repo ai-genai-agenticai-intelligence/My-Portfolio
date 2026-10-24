@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Sitemap: https://my-portfolio-fwt5.onrender.com/sitemap.xml

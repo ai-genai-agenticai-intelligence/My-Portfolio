@@ -211,8 +211,10 @@ function initProjectFilters() {
         }
       });
 
-      // Refresh ScrollReveal to re-sync stagger delays and observe any newly visible cards
-      if (window.ScrollReveal && typeof window.ScrollReveal.refresh === 'function') {
+      // Re-run reveal animations on newly visible cards with proper column stagger
+      if (window.ScrollReveal && typeof window.ScrollReveal.filterChange === 'function') {
+        window.ScrollReveal.filterChange();
+      } else if (window.ScrollReveal && typeof window.ScrollReveal.refresh === 'function') {
         window.ScrollReveal.refresh();
       }
     });
@@ -396,40 +398,65 @@ function initContactForm() {
 
     const name = document.getElementById('contactName').value.trim();
     const email = document.getElementById('contactEmail').value.trim();
-    const phone = document.getElementById('contactPhone').value.trim() || 'Not provided';
+    const phone = document.getElementById('contactPhone').value.trim();
     const message = document.getElementById('contactMessage').value.trim();
+    const website = (document.getElementById('contactWebsite') || {}).value || '';
+
+    // Clear previous state
+    form.querySelectorAll('.is-invalid').forEach((el) => el.classList.remove('is-invalid'));
+    form.querySelectorAll('.field-error, .form-status').forEach((el) => el.remove());
+
+    const fail = (id, text) => {
+      const el = document.getElementById(id);
+      el.classList.add('is-invalid');
+      el.setAttribute('aria-invalid', 'true');
+      const err = document.createElement('div');
+      err.className = 'field-error';
+      err.setAttribute('role', 'alert');
+      err.textContent = text;
+      el.insertAdjacentElement('afterend', err);
+      el.focus();
+    };
+    if (!name) return fail('contactName', 'Please enter your name.');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return fail('contactEmail', 'Please enter a valid email address.');
+    if (message.length < 5) return fail('contactMessage', 'Please write a few words about your inquiry.');
 
     const submitBtn = form.querySelector('button[type="submit"]');
     const originalText = submitBtn ? submitBtn.innerHTML : 'Send Message';
-
     if (submitBtn) {
       submitBtn.disabled = true;
-      submitBtn.innerHTML = '<span>Sending Message...</span>';
+      submitBtn.innerHTML = '<span>Sending...</span>';
     }
+
+    const showFallback = (reason) => {
+      const box = document.createElement('div');
+      box.className = 'form-status error';
+      box.setAttribute('role', 'alert');
+      box.innerHTML = reason + ' Your message was <strong>not</strong> sent \u2014 please email me directly at ' +
+        '<a href="mailto:abhisheksahoo08583@gmail.com">abhisheksahoo08583@gmail.com</a>.';
+      form.appendChild(box);
+    };
 
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name,
-          email,
-          phone,
-          message,
-        }),
+        body: JSON.stringify({ name, email, phone, message, website }),
       });
 
       if (response.ok) {
-        showToast('✉️ Message sent successfully! Abhishek will reply to your email shortly.');
+        showToast('\u2709\ufe0f Message sent! Abhishek will reply to your email shortly.');
         form.reset();
+      } else if (response.status === 429) {
+        showFallback('Too many messages from your network right now.');
+      } else if (response.status === 422) {
+        showFallback('The server rejected some of the details you entered.');
       } else {
-        showToast('✉️ Message recorded in dispatch queue.');
-        form.reset();
+        showFallback('Something went wrong on the server.');
       }
     } catch (err) {
-      console.warn('Backend contact dispatch fallback:', err);
-      showToast('✉️ Message submitted! Thank you for reaching out.');
-      form.reset();
+      console.warn('Contact request failed:', err);
+      showFallback('Could not reach the server.');
     } finally {
       if (submitBtn) {
         submitBtn.disabled = false;
@@ -1228,7 +1255,7 @@ function initSkillsSection() {
   // Mark JS ready so progressive enhancement collapses long lists only when JS works
   document.documentElement.classList.add('js-skills-ready');
 
-  // Handle "Show all N" / "Show less" toggle buttons (MySQL, PostgreSQL, Statistics)
+  // Handle "Show N more" / "Show less" toggle buttons across all skill cards
   const toggleBtns = document.querySelectorAll('.skills-toggle-btn');
   toggleBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -1241,7 +1268,7 @@ function initSkillsSection() {
         btn.setAttribute('aria-expanded', 'false');
         if (targetGroup) targetGroup.classList.remove('is-open');
         const textSpan = btn.querySelector('.toggle-btn-text');
-        if (textSpan) textSpan.textContent = `Show all ${count}`;
+        if (textSpan) textSpan.textContent = `Show ${count} more`;
       } else {
         btn.setAttribute('aria-expanded', 'true');
         if (targetGroup) targetGroup.classList.add('is-open');
@@ -1255,42 +1282,83 @@ function initSkillsSection() {
     });
   });
 
-  // Reveal each card on scroll with IntersectionObserver (threshold 0.15, rootMargin: '0px 0px -8% 0px')
-  // Fade in and rise 40px over 0.7s, staggered by column (index % 3 x 110ms), once only
-  const cards = document.querySelectorAll('.skills-bento-card');
-  if (!cards.length) return;
+  enhanceSkillCards();
+  initSkillsLegendFilter();
 
-  const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (prefersReduced) {
-    cards.forEach((c) => c.classList.add('is-revealed'));
-    return;
+  // Ensure ScrollReveal observes skills bento cards
+  if (window.ScrollReveal && typeof window.ScrollReveal.refresh === 'function') {
+    window.ScrollReveal.refresh();
   }
+}
 
-  // Assign stagger delay by column (index % 3 x 110ms)
-  cards.forEach((card, index) => {
-    const delay = (index % 3) * 110;
-    card.style.setProperty('--card-delay', `${delay}ms`);
+// Build the proficiency meter + count pill from the real chips (never hard-coded,
+// so the numbers can't drift out of date) and add the cursor spotlight.
+function enhanceSkillCards() {
+  const canHover = window.matchMedia && window.matchMedia('(hover: hover)').matches;
+  document.querySelectorAll('.skills-bento-card').forEach((card) => {
+    const core = card.querySelectorAll('.skill-chip.chip-core').length;
+    const std = card.querySelectorAll('.skill-chip.chip-standard').length;
+    const pill = card.querySelector('.skills-count-pill');
+    if (pill) pill.textContent = `${core + std} Skills`;
+
+    const desc = card.querySelector('.skills-card-desc');
+    if (desc && !card.querySelector('.skills-meter')) {
+      const meter = document.createElement('div');
+      meter.className = 'skills-meter';
+      meter.setAttribute('role', 'img');
+      meter.setAttribute('aria-label', `${core} core skills and ${std} standard skills`);
+      meter.innerHTML =
+        '<div class="skills-meter-bar">' +
+        (core ? `<span class="seg-core" style="flex:${core}"></span>` : '') +
+        (std ? `<span class="seg-std" style="flex:${std}"></span>` : '') +
+        '</div>' +
+        `<div class="skills-meter-label"><b>${core}</b> core \u00b7 <b>${std}</b> standard</div>`;
+      desc.insertAdjacentElement('afterend', meter);
+    }
+
+    if (canHover) {
+      card.addEventListener('pointermove', (e) => {
+        const r = card.getBoundingClientRect();
+        card.style.setProperty('--mx', `${e.clientX - r.left}px`);
+        card.style.setProperty('--my', `${e.clientY - r.top}px`);
+      });
+    }
+  });
+}
+
+// Legend doubles as a filter: click "Core" or "Standard" to spotlight those chips.
+function initSkillsLegendFilter() {
+  const grid = document.querySelector('.skills-bento-grid');
+  const items = document.querySelectorAll('.skills-legend-item[data-filter]');
+  if (!grid || !items.length) return;
+
+  const apply = (value) => {
+    items.forEach((it) => it.setAttribute('aria-pressed', String(it.dataset.filter === value)));
+    if (value) {
+      grid.dataset.filter = value;
+      grid.classList.add('is-filtering');
+    } else {
+      delete grid.dataset.filter;
+      grid.classList.remove('is-filtering');
+    }
+  };
+  items.forEach((it) => {
+    it.setAttribute('role', 'button');
+    it.setAttribute('tabindex', '0');
+    it.setAttribute('aria-pressed', 'false');
+    const toggle = () => apply(grid.dataset.filter === it.dataset.filter ? null : it.dataset.filter);
+    it.addEventListener('click', toggle);
+    it.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
   });
 
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver(
-      (entries, obs) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-revealed');
-            obs.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        threshold: 0.15,
-        rootMargin: '0px 0px -8% 0px',
-      }
-    );
-
-    cards.forEach((card) => observer.observe(card));
-  } else {
-    cards.forEach((card) => card.classList.add('is-revealed'));
+  const bar = document.querySelector('.skills-legend-bar');
+  if (bar && !document.querySelector('.skills-legend-hint')) {
+    const hint = document.createElement('p');
+    hint.className = 'skills-legend-hint';
+    hint.textContent = 'Tip: click a label to highlight only those skills.';
+    bar.insertAdjacentElement('afterend', hint);
   }
 }
 

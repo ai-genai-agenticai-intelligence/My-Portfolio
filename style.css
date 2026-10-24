@@ -49,7 +49,7 @@
   --gradient-amber: linear-gradient(135deg, #ff7a00 0%, #ff5500 50%, #ff2a00 100%);
   --gradient-amber-soft: linear-gradient(135deg, rgba(255, 122, 0, 0.18) 0%, rgba(255, 42, 0, 0.05) 100%);
   --gradient-card: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
-  --gradient-red-card: linear-gradient(135deg, #ff3b30 0%, #d91c1c 100%);
+  --gradient-red-card: linear-gradient(135deg, rgba(255, 90, 31, 0.24) 0%, rgba(255, 90, 31, 0.08) 100%);
 
   /* Typography */
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -774,7 +774,7 @@ h6 {
 .section {
   padding: 6.5rem 0;
   position: relative;
-  scroll-margin-top: calc(75px + env(safe-area-inset-top, 0px));
+  scroll-margin-top: calc(105px + env(safe-area-inset-top, 0px));
 }
 
 .section-header-left {
@@ -954,7 +954,7 @@ h6 {
 .bento-stat-card.red-accent {
   background: var(--gradient-red-card);
   color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 90, 31, 0.4);
 }
 
 .bento-stat-card.red-accent .b-num,
@@ -976,117 +976,388 @@ h6 {
 }
 
 /* ==========================================================================
-   SECTION 3: DESIGN WITH PURPOSE. BUILD WITH IMPACT. (SKILLS BENTO)
+   REDESIGNED TECHNICAL SKILLS 12-COLUMN BENTO GRID
    ========================================================================== */
-.skills-bento-grid {
-  display: grid;
-  grid-template-columns: 1.3fr 1fr 1fr;
-  grid-template-rows: auto auto;
-  gap: 1.5rem;
-}
 
-.sb-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-xl);
-  padding: 2rem;
-  transition: var(--transition-smooth);
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.sb-card:hover {
-  border-color: var(--border-amber);
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-amber);
-}
-
-.sb-card-wide {
-  grid-column: span 2;
-}
-
-.sb-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1.25rem;
-}
-
-.sb-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  background: rgba(255, 107, 0, 0.12);
-  border: 1px solid var(--border-amber);
+/* 1. Proficiency Legend Bar */
+.skills-legend-bar {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--primary);
-}
-
-.sb-icon svg,
-.sb-icon i {
-  width: 22px;
-  height: 22px;
-}
-
-.sb-title {
-  font-size: 1.25rem;
-  margin-bottom: 0.5rem;
-}
-
-.sb-desc {
-  font-size: 0.92rem;
-  color: var(--text-secondary);
-  line-height: 1.5;
-  margin-bottom: 1.5rem;
-}
-
-.sb-pills {
-  display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.sb-pill {
-  padding: 0.35rem 0.75rem;
-  background: var(--bg-tertiary);
+  gap: 1.25rem;
+  margin: 2.2rem auto 2.8rem;
+  padding: 0.95rem 1.6rem;
+  background: rgba(18, 18, 26, 0.65);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-full);
+  max-width: 900px;
+  backdrop-filter: var(--glass-blur);
+  box-sizing: border-box;
+}
+
+.skills-legend-title {
   font-size: 0.8rem;
-  font-weight: 500;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.skills-legend-items {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.skills-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.legend-chip-sample {
+  pointer-events: none;
+  font-size: 0.85rem !important;
+  padding: 0.35rem 0.85rem !important;
+}
+
+.legend-chip-desc {
+  font-size: 0.84rem;
   color: var(--text-secondary);
 }
 
-.sb-pill.highlight {
-  background: rgba(255, 107, 0, 0.15);
-  border-color: var(--border-amber);
-  color: #ffa64d;
+/* 2. 12-Column Bento Grid */
+.skills-bento-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 20px;
+  align-items: start;
+  /* Equal alignment at top; no stretching empty gaps */
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* Glowing Interactive Sparkline / Bar Indicator */
-.efficiency-bars {
+/* Mixed card sizes */
+.skills-card-span-7 {
+  grid-column: span 7;
+}
+
+.skills-card-span-5 {
+  grid-column: span 5;
+}
+
+.skills-card-span-4 {
+  grid-column: span 4;
+}
+
+.skills-card-span-12 {
+  grid-column: span 12;
+}
+
+/* Row 3 Divider / Sub-header */
+.skills-row-divider {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.skills-subgrid-title-row {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 0.4rem;
+}
+
+.skills-subgrid-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 90, 31, 0.1);
+  border: 1px solid rgba(255, 90, 31, 0.28);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-orange, #ff5a1f);
+}
+
+.skills-subgrid-icon i,
+.skills-subgrid-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.skills-subgrid-title {
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.skills-subgrid-desc {
+  font-size: 0.94rem;
+  color: var(--text-muted);
+  max-width: 650px;
+  margin: 0.35rem 0 0;
+}
+
+/* 3. Bento Card Structure & Styling */
+.skills-bento-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 1.85rem;
+  backdrop-filter: var(--glass-blur);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
+  overflow: visible !important;
+  box-sizing: border-box;
+  height: auto !important;
+  max-height: none !important;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+/* Card Header Typography */
+.skills-card-header {
+  margin-bottom: 1.25rem;
+}
+
+.skills-card-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.skills-category-tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-orange, #ff5a1f);
+  background: rgba(255, 90, 31, 0.1);
+  border: 1px solid rgba(255, 90, 31, 0.28);
+  border-radius: var(--radius-full);
+  padding: 0.25rem 0.75rem;
+}
+
+.skills-count-pill {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  padding: 0.22rem 0.7rem;
+}
+
+.skills-card-title {
+  font-size: 1.38rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.45rem;
+  line-height: 1.3;
+}
+
+/* Largest 30px Heading for Autonomous Agents */
+.skills-card-hero-title {
+  font-size: 30px !important;
+  line-height: 1.25 !important;
+  letter-spacing: -0.01em;
+}
+
+.skills-card-desc {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* 4. Skill Chips Wrapper & Cloud */
+.skills-chips-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+.skills-chips-cloud {
+  display: flex;
+  flex-wrap: wrap;
   gap: 8px;
-  height: 70px;
-  margin-top: 1rem;
+  align-items: center;
 }
 
-.eff-bar {
-  flex: 1;
-  background: rgba(255, 107, 0, 0.2);
-  border-radius: 4px;
-  transition: height 0.5s ease;
+.skill-chip {
+  display: inline-flex;
+  align-items: center;
+  font-size: 14.5px;
+  /* At least 14px as required */
+  line-height: 1.35;
+  padding: 0.5rem 1rem;
+  /* Comfortable padding */
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  user-select: none;
+  box-sizing: border-box;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.eff-bar.active {
-  background: var(--gradient-amber);
-  box-shadow: 0 0 12px var(--primary-glow);
+/* Core chip: orange tint background, orange border, semi-bold (production deployments) */
+.skill-chip.chip-core {
+  background: rgba(255, 90, 31, 0.12);
+  border: 1px solid var(--accent-orange, #ff5a1f);
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(255, 90, 31, 0.12);
 }
+
+.skill-chip.chip-core:hover {
+  background: rgba(255, 90, 31, 0.22);
+  border-color: #ff7a3d;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(255, 90, 31, 0.32);
+}
+
+/* Standard chip: grey card background, thin border (working knowledge) */
+.skill-chip.chip-standard {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.skill-chip.chip-standard:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.28);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Collapsible Group (In-place expansion, no inner scroll, no fixed height) */
+.skills-collapsed-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* When JS is ready, hide until expanded */
+html.js-skills-ready .skills-collapsed-group:not(.is-open) {
+  display: none;
+}
+
+html.js-skills-ready .skills-collapsed-group.is-open {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  animation: fadeInSkillsGroup 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes fadeInSkillsGroup {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Toggle Button */
+.skills-toggle-btn {
+  display: none;
+  align-items: center;
+  gap: 0.45rem;
+  align-self: flex-start;
+  margin-top: 0.5rem;
+  padding: 0.45rem 0.95rem;
+  background: rgba(255, 90, 31, 0.08);
+  border: 1px solid rgba(255, 90, 31, 0.3);
+  border-radius: var(--radius-full);
+  color: #ff7a3d;
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+html.js-skills-ready .skills-toggle-btn {
+  display: inline-flex;
+}
+
+.skills-toggle-btn:hover {
+  background: rgba(255, 90, 31, 0.18);
+  border-color: #ff5a1f;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.skills-toggle-btn:focus-visible {
+  outline: 2px solid #ff5a1f;
+  outline-offset: 3px;
+  box-shadow: 0 0 12px rgba(255, 90, 31, 0.5);
+}
+
+.skills-toggle-btn .toggle-chevron {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.skills-toggle-btn[aria-expanded="true"] .toggle-chevron {
+  transform: rotate(180deg);
+}
+
+/* Responsive under 860px wide: every card is full width in one column */
+@media (max-width: 860px) {
+  .skills-bento-grid {
+    grid-template-columns: 1fr !important;
+    gap: 18px;
+  }
+
+  .skills-card-span-7,
+  .skills-card-span-5,
+  .skills-card-span-4,
+  .skills-card-span-12 {
+    grid-column: span 1 !important;
+  }
+
+  .skills-card-hero-title {
+    font-size: 1.55rem !important;
+  }
+
+  .skills-legend-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: var(--radius-lg);
+    gap: 0.85rem;
+  }
+
+  .skills-legend-items {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+}
+
 
 /* ==========================================================================
    SECTION 4: A SIMPLE, HUMAN-CENTERED WAY TO WORK (WORKFLOW PROCESS)
@@ -1373,6 +1644,7 @@ h6 {
   padding: 0.6rem 0.9rem;
   font-size: 0.88rem;
 }
+
 
 /* Footnote for Case Study Metrics */
 .cs-metrics-footnote {
@@ -4858,584 +5130,302 @@ body:has(.nav-links.mobile-open) .ai-agent-widget {
 }
 
 /* ==========================================================================
-   SCROLL REVEAL & CARD HOVER ANIMATION SYSTEM
+   SCROLL REVEAL & CARD HOVER ANIMATION SYSTEM (UNIFIED FOR SKILLS & PROJECTS)
    ========================================================================== */
 
 /* Default State (Progressive Enhancement):
-   If JavaScript fails or is disabled, cards remain 100% visible, fully laid out,
-   and accessible to all users and search engines. */
+   Visible if JavaScript fails or before scripts initialize */
+.skills-bento-card,
+.p-bento-card,
 .reveal,
 .reveal-card,
-.reveal-chip,
 .reveal-stat {
   opacity: 1;
-  transform: none;
+  translate: 0 0;
+  scale: 1;
 }
 
 /* Hidden Unrevealed State:
    Applied strictly when JavaScript has executed and added .js-reveal-ready to <html>.
-   Only animates opacity and transform for maximum 60fps GPU performance. */
+   Uses independent translate & scale properties, NOT transform! */
+html.js-reveal-ready .skills-bento-card:not(.is-revealed),
+html.js-reveal-ready .p-bento-card:not(.is-revealed),
 html.js-reveal-ready .reveal:not(.is-revealed),
 html.js-reveal-ready .reveal-card:not(.is-revealed),
-html.js-reveal-ready .reveal-chip:not(.is-revealed),
 html.js-reveal-ready .reveal-stat:not(.is-revealed) {
   opacity: 0;
-  transform: translateY(var(--reveal-distance, 48px)) scale(var(--reveal-scale-from, 0.96));
+  translate: 0 48px;
+  scale: 0.96;
   pointer-events: none;
-  will-change: opacity, transform;
+  will-change: opacity, translate, scale;
 }
 
-/* Active Revealed Transition State:
-   Fades in, rises 48px, and scales from 0.96 to 1 over 0.7s with cubic-bezier(0.2, 0.8, 0.2, 1).
-   Uses row stagger (index % 3 * 140ms) via --reveal-delay. */
+/* Active Revealed State:
+   Fades in, rises 48px, and scales from 0.96 to 1 over 0.7s with cubic-bezier(.2,.8,.2,1).
+   Uses column stagger via --card-delay. */
+html.js-reveal-ready .skills-bento-card.is-revealed,
+html.js-reveal-ready .p-bento-card.is-revealed,
 html.js-reveal-ready .reveal.is-revealed,
 html.js-reveal-ready .reveal-card.is-revealed,
-html.js-reveal-ready .reveal-chip.is-revealed,
 html.js-reveal-ready .reveal-stat.is-revealed {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  translate: 0 0;
+  scale: 1;
   pointer-events: auto;
   will-change: auto;
-  transition: opacity var(--reveal-duration, 0.7s) var(--reveal-ease, cubic-bezier(0.2, 0.8, 0.2, 1)),
-              transform var(--reveal-duration, 0.7s) var(--reveal-ease, cubic-bezier(0.2, 0.8, 0.2, 1)),
-              border-color 0.25s ease,
-              box-shadow 0.25s ease;
-  transition-delay: var(--reveal-delay, 0ms), var(--reveal-delay, 0ms), 0s, 0s;
+  transition: opacity 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
+    translate 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
+    scale 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+  transition-delay: var(--card-delay, 0ms), var(--card-delay, 0ms), var(--card-delay, 0ms), 0s, 0s;
 }
 
-/* Interactive Card Lift & Orange Border on Hover:
-   Card lifts 6px, and its border turns orange (#ff5a1f) with zero hover delay. */
-html.js-reveal-ready .reveal.is-revealed:hover,
-html.js-reveal-ready .reveal-card.is-revealed:hover,
-html.js-reveal-ready .reveal-stat.is-revealed:hover,
+/* Card Hover Lift (Separate transform: translateY(-6px) with orange border)
+   Independent from translate & scale properties so neighbors never misalign! */
+.skills-bento-card:hover,
+.p-bento-card:hover,
 .p-bento-card.reveal.is-revealed:hover,
+.skills-bento-card.reveal.is-revealed:hover,
 .cs-result-metric.reveal.is-revealed:hover,
 .hero-stat-box.reveal.is-revealed:hover {
-  transform: translateY(var(--reveal-lift-hover, -6px)) scale(1) !important;
-  border-color: var(--reveal-accent, #ff5a1f) !important;
-  box-shadow: var(--reveal-shadow-hover) !important;
+  transform: translateY(-6px);
+  border-color: #ff5a1f !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 35px rgba(255, 90, 31, 0.28) !important;
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.25s ease,
-              box-shadow 0.25s ease !important;
+    border-color 0.25s ease,
+    box-shadow 0.25s ease !important;
   transition-delay: 0s !important;
 }
 
-/* Interactive Tech / Skill Chip Hover Lift & Orange Accent Border */
-html.js-reveal-ready .reveal-chip.is-revealed:hover,
-.skill-tag.reveal.is-revealed:hover,
-.core-lib-tag.reveal.is-revealed:hover {
-  transform: translateY(var(--reveal-lift-hover, -6px)) scale(1) !important;
-  border-color: var(--reveal-accent, #ff5a1f) !important;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45), 0 0 18px rgba(255, 90, 31, 0.32) !important;
-  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.22s ease,
-              box-shadow 0.22s ease !important;
-  transition-delay: 0s !important;
-}
-
-/* Respect Prefers Reduced Motion:
-   Show all cards immediately with no movement or transitions. */
+/* Respect Prefers-Reduced-Motion: Show everything immediately with no movement */
 @media (prefers-reduced-motion: reduce) {
+
+  .skills-bento-card,
+  .p-bento-card,
+  html.js-reveal-ready .skills-bento-card,
+  html.js-reveal-ready .p-bento-card,
   html.js-reveal-ready .reveal,
   html.js-reveal-ready .reveal-card,
-  html.js-reveal-ready .reveal-chip,
-  html.js-reveal-ready .reveal-stat,
-  .p-bento-card,
-  .cs-result-metric,
-  .hero-stat-box,
-  .skill-cat-card,
-  .core-lib-card,
-  .skill-tag,
-  .core-lib-tag {
+  html.js-reveal-ready .reveal-stat {
     opacity: 1 !important;
+    translate: 0 0 !important;
+    scale: 1 !important;
     transform: none !important;
     transition: none !important;
     animation: none !important;
     pointer-events: auto !important;
   }
 
-  html.js-reveal-ready .reveal:hover,
-  html.js-reveal-ready .reveal-card:hover,
-  html.js-reveal-ready .reveal-chip:hover,
-  html.js-reveal-ready .reveal-stat:hover,
-  .p-bento-card:hover,
-  .cs-result-metric:hover,
-  .hero-stat-box:hover,
-  .skill-cat-card:hover,
-  .core-lib-card:hover,
-  .skill-tag:hover,
-  .core-lib-tag:hover {
-    transform: none !important;
-  }
-}
-
-/* ==========================================================================
-   REDESIGNED TECHNICAL SKILLS 12-COLUMN BENTO GRID
-   ========================================================================== */
-
-/* 1. Proficiency Legend Bar */
-.skills-legend-bar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1.25rem;
-  margin: 2.2rem auto 2.8rem;
-  padding: 0.95rem 1.6rem;
-  background: rgba(18, 18, 26, 0.6);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-full);
-  max-width: 900px;
-  backdrop-filter: var(--glass-blur);
-}
-
-.skills-legend-title {
-  font-size: 0.8rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-muted);
-}
-
-.skills-legend-items {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-}
-
-.skills-legend-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.65rem;
-}
-
-.legend-chip-sample {
-  pointer-events: none;
-  font-size: 0.85rem !important;
-  padding: 0.35rem 0.85rem !important;
-}
-
-.legend-chip-desc {
-  font-size: 0.84rem;
-  color: var(--text-secondary);
-}
-
-/* 2. 12-Column Bento Grid */
-.skills-bento-grid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 20px;
-  width: 100%;
-}
-
-/* Mixed card sizes */
-.skills-card-span-7 {
-  grid-column: span 7;
-}
-
-.skills-card-span-5 {
-  grid-column: span 5;
-}
-
-.skills-card-span-4 {
-  grid-column: span 4;
-}
-
-/* 3. Bento Card Structure & Styling */
-.skills-bento-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-xl);
-  padding: 2rem;
-  backdrop-filter: var(--glass-blur);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
-  overflow: visible;
-  box-sizing: border-box;
-  opacity: 1;
-  translate: 0 0;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.25s ease,
-              box-shadow 0.25s ease;
-}
-
-/* Motion: Hidden Unrevealed State (Applied only when JS is confirmed running) */
-html.js-skills-ready .skills-bento-card:not(.is-revealed) {
-  opacity: 0;
-  translate: 0 40px;
-  pointer-events: none;
-  will-change: opacity, translate;
-}
-
-/* Motion: Revealed State via CSS translate property */
-html.js-skills-ready .skills-bento-card.is-revealed {
-  opacity: 1;
-  translate: 0 0;
-  pointer-events: auto;
-  will-change: auto;
-  transition: opacity 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
-              translate 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
-              border-color 0.25s ease,
-              box-shadow 0.25s ease;
-  transition-delay: var(--card-delay, 0ms), var(--card-delay, 0ms), 0s, 0s;
-}
-
-/* Hover Lift (translateY(-4px)) & Orange Border */
-.skills-bento-card:hover {
-  transform: translateY(-4px);
-  border-color: #ff5a1f !important;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 90, 31, 0.25) !important;
-}
-
-/* 4. Card Header Typography */
-.skills-card-header {
-  margin-bottom: 1.4rem;
-}
-
-.skills-card-top-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-  margin-bottom: 0.75rem;
-}
-
-.skills-category-tag {
-  display: inline-flex;
-  align-items: center;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--accent-orange, #ff5a1f);
-  background: rgba(255, 90, 31, 0.1);
-  border: 1px solid rgba(255, 90, 31, 0.28);
-  border-radius: var(--radius-full);
-  padding: 0.25rem 0.75rem;
-}
-
-.skills-count-pill {
-  display: inline-flex;
-  align-items: center;
-  font-size: 0.74rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-full);
-  padding: 0.22rem 0.7rem;
-}
-
-.skills-card-title {
-  font-size: 1.42rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 0.45rem;
-  line-height: 1.3;
-}
-
-/* Largest 30px Heading for Autonomous Agents */
-.skills-card-hero-title {
-  font-size: 30px !important;
-  line-height: 1.25 !important;
-  letter-spacing: -0.01em;
-}
-
-.skills-card-desc {
-  font-size: 0.92rem;
-  color: var(--text-secondary);
-  line-height: 1.55;
-  margin: 0;
-}
-
-/* 5. Subheadings & Groups */
-.skills-groups-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 1.35rem;
-}
-
-.skills-subgroup {
-  display: flex;
-  flex-direction: column;
-  gap: 0.55rem;
-}
-
-.skills-subheading {
-  font-size: 0.78rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-muted);
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  margin: 0;
-}
-
-.skills-subheading i,
-.skills-subheading svg {
-  width: 14px;
-  height: 14px;
-  color: var(--accent-orange, #ff5a1f);
-}
-
-/* 6. Skill Chips (At least 15px, 8px gaps, comfortable padding) */
-.skills-chips-cloud {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  align-items: center;
-}
-
-.skill-chip {
-  display: inline-flex;
-  align-items: center;
-  font-size: 15px; /* Minimum 15px as required */
-  line-height: 1.35;
-  padding: 0.52rem 1.05rem; /* Comfortable padding */
-  border-radius: var(--radius-full);
-  white-space: nowrap;
-  user-select: none;
-  box-sizing: border-box;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.2s ease,
-              background-color 0.2s ease,
-              color 0.2s ease,
-              box-shadow 0.2s ease;
-}
-
-/* Core chip: orange tint background, orange border, semi-bold (used in production deployments) */
-.skill-chip.chip-core {
-  background: rgba(255, 90, 31, 0.12);
-  border: 1px solid var(--accent-orange, #ff5a1f);
-  color: #ffffff;
-  font-weight: 600;
-  box-shadow: 0 2px 8px rgba(255, 90, 31, 0.12);
-}
-
-.skill-chip.chip-core:hover {
-  background: rgba(255, 90, 31, 0.22);
-  border-color: #ff7a3d;
-  color: #ffffff;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 14px rgba(255, 90, 31, 0.32);
-}
-
-/* Standard chip: grey card background, thin border (working knowledge) */
-.skill-chip.chip-standard {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: var(--text-secondary);
-  font-weight: 500;
-}
-
-.skill-chip.chip-standard:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.28);
-  color: #ffffff;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-/* 7. Subgrid Section: Databases, backend & cloud */
-.skills-subgrid-section {
-  margin-top: 3.2rem;
-  padding-top: 2.2rem;
-  border-top: 1px solid var(--border-subtle);
-}
-
-.skills-subgrid-header {
-  margin-bottom: 1.8rem;
-}
-
-.skills-subgrid-title-row {
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
-  margin-bottom: 0.4rem;
-}
-
-.skills-subgrid-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-sm);
-  background: rgba(255, 90, 31, 0.1);
-  border: 1px solid rgba(255, 90, 31, 0.25);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--accent-orange, #ff5a1f);
-}
-
-.skills-subgrid-icon i,
-.skills-subgrid-icon svg {
-  width: 20px;
-  height: 20px;
-}
-
-.skills-subgrid-title {
-  font-size: 1.65rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin: 0;
-}
-
-.skills-subgrid-desc {
-  font-size: 0.94rem;
-  color: var(--text-muted);
-  max-width: 650px;
-  margin: 0.4rem 0 0;
-}
-
-/* 8. Long Lists Collapsible Toggle System (No inner scroll, no fixed height) */
-.skills-collapsible-card {
-  height: auto !important;
-  max-height: none !important;
-  overflow: visible !important;
-}
-
-.skills-chips-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-/* Progressive enhancement: Visible by default if JS fails */
-.skills-collapsed-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-/* When JS is initialized, hide the group until expanded */
-html.js-skills-ready .skills-collapsed-group:not(.is-open) {
-  display: none;
-}
-
-html.js-skills-ready .skills-collapsed-group.is-open {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  animation: fadeInSkillsGroup 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-@keyframes fadeInSkillsGroup {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Toggle Button */
-.skills-toggle-btn {
-  display: none; /* Hidden if JS is disabled */
-  align-items: center;
-  gap: 0.45rem;
-  align-self: flex-start;
-  margin-top: 0.6rem;
-  padding: 0.48rem 1rem;
-  background: rgba(255, 90, 31, 0.08);
-  border: 1px solid rgba(255, 90, 31, 0.3);
-  border-radius: var(--radius-full);
-  color: #ff7a3d;
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-html.js-skills-ready .skills-toggle-btn {
-  display: inline-flex;
-}
-
-.skills-toggle-btn:hover {
-  background: rgba(255, 90, 31, 0.18);
-  border-color: #ff5a1f;
-  color: #ffffff;
-  transform: translateY(-1px);
-}
-
-/* Accessible visible keyboard focus */
-.skills-toggle-btn:focus-visible {
-  outline: 2px solid #ff5a1f;
-  outline-offset: 3px;
-  box-shadow: 0 0 12px rgba(255, 90, 31, 0.5);
-}
-
-.skills-toggle-btn .toggle-chevron {
-  width: 15px;
-  height: 15px;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.skills-toggle-btn[aria-expanded="true"] .toggle-chevron {
-  transform: rotate(180deg);
-}
-
-/* 9. Responsive Layout: Under 860px wide, switch every card to full width in one column */
-@media (max-width: 860px) {
-  .skills-bento-grid {
-    grid-template-columns: 1fr !important;
-    gap: 18px;
-  }
-
-  .skills-card-span-7,
-  .skills-card-span-5,
-  .skills-card-span-4 {
-    grid-column: span 1 !important;
-  }
-
-  .skills-card-hero-title {
-    font-size: 1.55rem !important;
-  }
-
-  .skills-legend-bar {
-    flex-direction: column;
-    align-items: flex-start;
-    border-radius: var(--radius-lg);
-    gap: 0.85rem;
-  }
-
-  .skills-legend-items {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.75rem;
-  }
-}
-
-/* 10. Respect Prefers-Reduced-Motion */
-@media (prefers-reduced-motion: reduce) {
-  .skills-bento-card,
-  html.js-skills-ready .skills-bento-card {
-    opacity: 1 !important;
-    translate: 0 0 !important;
-    transform: none !important;
-    transition: none !important;
-    pointer-events: auto !important;
-  }
-
-  .skills-bento-card:hover {
+  .skills-bento-card:hover,
+  .p-bento-card:hover {
     transform: none !important;
   }
 
   html.js-skills-ready .skills-collapsed-group.is-open {
     animation: none !important;
   }
-
-  .skill-chip:hover {
-    transform: none !important;
-  }
-
-  .skills-toggle-btn:hover {
-    transform: none !important;
-  }
 }
-
+
+/* ==========================================================================
+   v4.2 - Accessibility & form polish
+   ========================================================================== */
+.skip-link {
+  position: fixed; top: -100px; left: 1rem; z-index: 10000;
+  padding: 0.75rem 1.25rem; border-radius: 999px;
+  background: var(--primary, #f59e0b); color: #0b0b0f; font-weight: 700;
+  text-decoration: none; transition: top 0.2s ease;
+}
+.skip-link:focus { top: 1rem; }
+
+/* Visible keyboard focus everywhere (mouse clicks stay clean) */
+a:focus-visible, button:focus-visible, input:focus-visible,
+textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid var(--primary, #f59e0b);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Spam honeypot - off-screen, not display:none (bots skip display:none) */
+.hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+.form-control.is-invalid { border-color: #ef4444 !important; }
+.field-error { color: #ef4444; font-size: 0.8rem; margin-top: 0.35rem; }
+.form-status {
+  margin-top: 1rem; padding: 0.75rem 1rem; border-radius: 12px; font-size: 0.9rem;
+  border: 1px solid var(--border-subtle, rgba(255,255,255,.12));
+}
+.form-status.error { border-color: #ef4444; color: #ef4444; }
+.form-status a { color: inherit; text-decoration: underline; }
+
+/* ==========================================================================
+   v4.3 - Skills cards redesign
+   Per-card accent (--sk-accent), equal-height rows, quieter chips that work in
+   both themes, proficiency meter, hover spotlight and legend filtering.
+   ========================================================================== */
+.skills-bento-grid { align-items: stretch; }
+
+.skills-bento-card {
+  --sk-accent: #ff5a1f;
+  --sk-tint: color-mix(in srgb, var(--sk-accent) 14%, transparent);
+  --sk-line: color-mix(in srgb, var(--sk-accent) 38%, transparent);
+  padding: 1.6rem 1.7rem 1.5rem;
+  isolation: isolate;
+}
+
+/* accent hairline across the top edge */
+.skills-bento-card::after {
+  content: "";
+  position: absolute; top: 0; left: 1.7rem; right: 1.7rem; height: 2px;
+  background: linear-gradient(90deg, var(--sk-accent), transparent 85%);
+  opacity: 0.75; border-radius: 0 0 2px 2px; pointer-events: none;
+}
+
+/* cursor-following spotlight (position set by JS) */
+.skills-bento-card::before {
+  content: "";
+  position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%),
+    color-mix(in srgb, var(--sk-accent) 16%, transparent), transparent 62%);
+  opacity: 0; transition: opacity 0.3s ease;
+}
+.skills-bento-card:hover::before { opacity: 1; }
+
+.skills-bento-card:hover,
+.skills-bento-card.reveal.is-revealed:hover {
+  border-color: var(--sk-line) !important;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.45),
+              0 0 32px color-mix(in srgb, var(--sk-accent) 20%, transparent) !important;
+}
+[data-theme="light"] .skills-bento-card:hover,
+[data-theme="light"] .skills-bento-card.reveal.is-revealed:hover {
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.10),
+              0 0 28px color-mix(in srgb, var(--sk-accent) 18%, transparent) !important;
+}
+
+/* header: icon tile + category tag */
+.skills-card-id { display: flex; align-items: center; gap: 0.7rem; min-width: 0; }
+.skills-card-icon {
+  flex: none; width: 40px; height: 40px; border-radius: 12px;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--sk-accent); background: var(--sk-tint);
+  border: 1px solid var(--sk-line);
+}
+.skills-category-tag {
+  color: var(--sk-accent); background: transparent; border: 0; padding: 0;
+  font-size: 0.72rem; letter-spacing: 0.1em;
+}
+[data-theme="light"] .skills-category-tag {
+  color: color-mix(in srgb, var(--sk-accent) 70%, #000);
+}
+.skills-count-pill { font-variant-numeric: tabular-nums; }
+
+/* proficiency meter (built by JS from the real chips) */
+.skills-meter { margin-top: 1rem; }
+.skills-meter-bar {
+  display: flex; gap: 3px; height: 6px; border-radius: 999px; overflow: hidden;
+}
+.skills-meter-bar span { display: block; height: 100%; border-radius: 999px; }
+.skills-meter-bar .seg-core { background: var(--sk-accent); }
+.skills-meter-bar .seg-std { background: color-mix(in srgb, var(--text-muted) 45%, transparent); }
+.skills-meter-label {
+  margin-top: 0.5rem; font-size: 0.76rem; color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+.skills-meter-label b { color: var(--text-primary); font-weight: 700; }
+
+/* chips: calmer, theme-aware (fixes white-on-white text in light mode) */
+.skills-chips-wrapper { flex: 1; margin-top: 0.4rem; }
+.skills-chips-cloud, .skills-collapsed-group { gap: 7px; }
+.skill-chip {
+  font-size: 14px; padding: 0.36rem 0.8rem 0.36rem 0.7rem; gap: 0.45rem;
+}
+.skill-chip.chip-core {
+  background: var(--sk-tint); border: 1px solid var(--sk-line);
+  color: var(--text-primary); font-weight: 600; box-shadow: none;
+}
+.skill-chip.chip-core::before {
+  content: ""; width: 6px; height: 6px; border-radius: 50%; flex: none;
+  background: var(--sk-accent);
+}
+.skill-chip.chip-standard {
+  background: transparent; border: 1px solid var(--border-subtle);
+  color: var(--text-secondary); font-weight: 500;
+}
+.skill-chip.chip-standard::before {
+  content: ""; width: 6px; height: 6px; border-radius: 50%; flex: none;
+  border: 1.5px solid var(--text-muted); box-sizing: border-box;
+}
+.skill-chip.chip-core:hover {
+  background: color-mix(in srgb, var(--sk-accent) 24%, transparent);
+  border-color: var(--sk-accent); color: var(--text-primary);
+  transform: translateY(-1px); box-shadow: none;
+}
+.skill-chip.chip-standard:hover {
+  background: var(--sk-tint); border-color: var(--sk-line);
+  color: var(--text-primary); transform: translateY(-1px); box-shadow: none;
+}
+
+/* toggle button takes the card accent and sits at the bottom of the card */
+.skills-toggle-btn {
+  margin-top: auto; align-self: flex-start;
+  background: transparent; border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+}
+.skills-chips-wrapper { gap: 0.9rem; }
+.skills-toggle-btn:hover {
+  background: var(--sk-tint); border-color: var(--sk-line); color: var(--text-primary);
+}
+.skills-toggle-btn:focus-visible { outline-color: var(--sk-accent); box-shadow: none; }
+
+/* interactive legend */
+.skills-legend-item[data-filter] {
+  cursor: pointer; border-radius: 999px; padding: 0.2rem 0.5rem 0.2rem 0.2rem;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+.skills-legend-item[data-filter]:hover { background: color-mix(in srgb, var(--text-muted) 12%, transparent); }
+.skills-legend-item[aria-pressed="true"] {
+  background: color-mix(in srgb, var(--accent-orange, #ff5a1f) 14%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent-orange, #ff5a1f) 45%, transparent);
+}
+.legend-chip-sample { --sk-accent: var(--accent-orange, #ff5a1f); }
+
+/* filtering state: dim non-matches, reveal everything so nothing is hidden */
+.skills-bento-grid .skill-chip { transition: opacity 0.25s ease, transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease; }
+.skills-bento-grid.is-filtering[data-filter="core"] .chip-standard,
+.skills-bento-grid.is-filtering[data-filter="standard"] .chip-core { opacity: 0.18; }
+html.js-skills-ready .skills-bento-grid.is-filtering .skills-collapsed-group:not(.is-open) { display: flex; }
+html.js-skills-ready .skills-bento-grid.is-filtering .skills-toggle-btn { visibility: hidden; }
+
+@media (hover: none) { .skills-bento-card::before { display: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .skills-bento-card::before, .skill-chip, .skills-legend-item[data-filter] { transition: none; }
+}
+@media (max-width: 860px) {
+  .skills-bento-card { padding: 1.4rem 1.3rem 1.3rem; }
+  .skills-card-icon { width: 36px; height: 36px; }
+}
+
+/* v4.3 fixes: legend bar (was hard-coded dark -> unreadable in light mode) */
+.skills-legend-bar {
+  background: var(--bg-card);
+  border-radius: 28px;
+}
+.skills-legend-item[data-filter] { padding: 0.15rem 0.45rem 0.15rem 0.15rem; }
+.skills-legend-hint {
+  text-align: center; margin: -1.9rem 0 2.2rem; font-size: 0.78rem; color: var(--text-muted);
+}
+.skills-category-tag { color: var(--sk-accent, var(--accent-orange, #ff5a1f)); }
+.skills-chips-wrapper { gap: 1.15rem; }
+
+/* v4.3: mobile overflow fix (cards were wider than the screen and clipped) */
+.skills-bento-card { min-width: 0; }
+.skills-legend-bar { max-width: 1000px; }
+@media (max-width: 860px) {
+  .skills-bento-grid { grid-template-columns: minmax(0, 1fr) !important; }
+  .skill-chip { white-space: normal; text-align: left; }
+  .skills-card-hero-title { overflow-wrap: anywhere; }
+}
+.skills-count-pill { white-space: nowrap; flex: none; }
+.legend-chip-sample { white-space: nowrap; flex: none; }
