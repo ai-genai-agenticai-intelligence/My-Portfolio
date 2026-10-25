@@ -43,6 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 11. Redesigned Technical Skills Section (Toggle & Motion)
   initSkillsSection();
+  initHeroParallax();
+  initCinemaFinale();
 });
 
 /* --------------------------------------------------------------------------
@@ -1312,7 +1314,7 @@ function enhanceSkillCards() {
         (core ? `<span class="seg-core" style="flex:${core}"></span>` : '') +
         (std ? `<span class="seg-std" style="flex:${std}"></span>` : '') +
         '</div>' +
-        `<div class="skills-meter-label"><b>${core}</b> core \u00b7 <b>${std}</b> standard</div>`;
+        `<div class="skills-meter-label"><span>Core: <b>${core}</b></span><span>Standard: <b>${std}</b></span></div>`;
       desc.insertAdjacentElement('afterend', meter);
     }
 
@@ -1362,5 +1364,112 @@ function initSkillsLegendFilter() {
   }
 }
 
+/* Neutral local placeholder if the portrait fails to load (never a stock photo). */
+(function initPortraitFallback() {
+  const img = document.querySelector('img[data-fallback="avatar"]');
+  if (!img) return;
+  const placeholder =
+    'data:image/svg+xml,' +
+    encodeURIComponent(
+      "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'>" +
+      "<defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>" +
+      "<stop offset='0' stop-color='#241109'/><stop offset='1' stop-color='#0b0b0f'/></linearGradient></defs>" +
+      "<rect width='400' height='500' fill='url(#g)'/>" +
+      "<text x='200' y='285' font-size='120' font-weight='700' text-anchor='middle' " +
+      "fill='#f59e0b' font-family='sans-serif'>AS</text></svg>"
+    );
+  const useFallback = () => { img.onerror = null; img.src = placeholder; };
+  img.addEventListener('error', useFallback, { once: true });
+  if (img.complete && img.naturalWidth === 0) useFallback();
+})();
 
+/* ==========================================================================
+   Cinematic scroll animation (v5.0)
+   One scroll-progress value (--p, 0..1) drives the whole finale in CSS.
+   ========================================================================== */
+const PREFERS_REDUCED_MOTION =
+  window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+function initHeroParallax() {
+  const hero = document.getElementById('hero');
+  if (!hero || PREFERS_REDUCED_MOTION) return;
+  let ticking = false;
+  const update = () => {
+    ticking = false;
+    const p = Math.min(1, Math.max(0, window.scrollY / (hero.offsetHeight * 0.9)));
+    hero.style.setProperty('--hp', p.toFixed(3));
+  };
+  window.addEventListener('scroll', () => {
+    if (!ticking) { ticking = true; requestAnimationFrame(update); }
+  }, { passive: true });
+  update();
+}
+
+function initCinemaFinale() {
+  const section = document.getElementById('bookingSection');
+  if (!section) return;
+  const track = section.querySelector('.cinema-track');
+  const stage = section.querySelector('.cinema-stage');
+  const headline = section.querySelector('.neon-cta-headline');
+  if (!track || !stage) return;
+
+  // Split the headline into words so each can reveal on its own.
+  if (headline && !headline.querySelector('.cw')) {
+    let index = 0;
+    const walk = (node) => {
+      [...node.childNodes].forEach((child) => {
+        if (child.nodeType === 3) {
+          const frag = document.createDocumentFragment();
+          child.textContent.split(/(\s+)/).forEach((part) => {
+            if (!part) return;
+            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(' ')); return; }
+            const span = document.createElement('span');
+            span.className = 'cw';
+            span.style.setProperty('--i', String(index++));
+            span.textContent = part;
+            frag.appendChild(span);
+          });
+          child.replaceWith(frag);
+        } else if (child.nodeType === 1 && child.tagName !== 'BR') {
+          walk(child);
+        }
+      });
+    };
+    walk(headline);
+  }
+
+  if (PREFERS_REDUCED_MOTION) return;      // keep the finished, static layout
+  section.classList.add('cinema-ready');
+
+  const clamp01 = (v) => Math.min(1, Math.max(0, v));
+  let running = false;
+  const t0 = performance.now();
+
+  const render = (now) => {
+    const rect = track.getBoundingClientRect();
+    const scrubDistance = Math.max(1, track.offsetHeight - window.innerHeight);
+    const p = clamp01(-rect.top / scrubDistance);
+    const seconds = (now - t0) / 1000;
+    stage.style.setProperty('--p', p.toFixed(4));
+    stage.style.setProperty('--ry', (p * 540 + seconds * 16).toFixed(2) + 'deg');
+    stage.style.setProperty('--rx', (-20 + Math.sin(seconds * 0.7) * 7 + p * 10).toFixed(2) + 'deg');
+    stage.style.setProperty('--oz', (seconds * 55 + p * 360).toFixed(2) + 'deg');
+    section.classList.toggle('is-live', p > 0.78);
+  };
+  const loop = (now) => {
+    if (!running) return;
+    render(now);
+    requestAnimationFrame(loop);
+  };
+
+  // Only animate while the section is on (or near) the screen.
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      running = entry.isIntersecting;
+      if (running) requestAnimationFrame(loop);
+      else render(performance.now());      // settle on the exact final/initial frame
+    });
+  }, { rootMargin: '150px 0px' });
+  observer.observe(track);
+  render(performance.now());
+}

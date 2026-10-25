@@ -45,7 +45,7 @@
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
 
-  <link rel="stylesheet" href="style.css?v=4.3" />
+  <link rel="stylesheet" href="style.css?v=exp-theme-v1" />
 </head>
 
 <body>
@@ -190,7 +190,7 @@
               <div class="hero-amber-halo"></div>
               <div class="hero-portrait-frame">
                 <img src="My Profile image.jpeg" alt="Abhishek Sahoo - AI Engineer: Agentic Systems & Data"
-                  onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80'" />
+                  fetchpriority="high" decoding="async" data-fallback="avatar" />
               </div>
               <div class="hero-floating-chip">
                 <i data-lucide="shield-check"></i>
@@ -369,10 +369,14 @@
         <div class="skills-bento-grid">
 
           <!-- ROW 1, CARD 1 (Span 7, Largest, 30px heading) -->
-          <article style="--sk-accent: #ff5a1f;" class="skills-bento-card skills-card-span-7">
+          <article class="skills-bento-card skills-card-span-7">
             <div class="skills-card-header">
               <div class="skills-card-top-row">
-                <div class="skills-card-id"><span class="skills-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg></span><span class="skills-category-tag">Core Specialization</span></div>
+                <div class="skills-card-id">
+                  <span class="skills-card-num">01</span>
+                  <span class="skills-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg></span>
+                  <span class="skills-category-tag">Core Specialization</span>
+                </div>
                 <span class="skills-count-pill">12 Skills</span>
               </div>
               <h3 class="skills-card-title skills-card-hero-title">Autonomous Agents &amp; Multi-Agent Systems</h3>
@@ -408,10 +412,14 @@
           </article>
 
           <!-- ROW 1, CARD 2 (Span 5) -->
-          <article style="--sk-accent: #a78bfa;" class="skills-bento-card skills-card-span-5">
+          <article class="skills-bento-card skills-card-span-5">
             <div class="skills-card-header">
               <div class="skills-card-top-row">
-                <div class="skills-card-id"><span class="skills-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h8"/><path d="M8 13h5"/></svg></span><span class="skills-category-tag">Production Ready</span></div>
+                <div class="skills-card-id">
+                  <span class="skills-card-num">02</span>
+                  <span class="skills-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h8"/><path d="M8 13h5"/></svg></span>
+                  <span class="skills-category-tag">Production Ready</span>
+                </div>
                 <span class="skills-count-pill">10 Skills</span>
               </div>
               <h3 class="skills-card-title">LLM Engineering &amp; Agentic RAG</h3>
@@ -445,10 +453,14 @@
           </article>
 
           <!-- ROW 2, CARD 3 (Span 5) -->
-          <article style="--sk-accent: #38bdf8;" class="skills-bento-card skills-card-span-5">
+          <article class="skills-bento-card skills-card-span-5">
             <div class="skills-card-header">
               <div class="skills-card-top-row">
-                <div class="skills-card-id"><span class="skills-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="1"/><path d="M18.944 12.33a1 1 0 0 0 0-.66 7.5 7.5 0 0 0-13.888 0 1 1 0 0 0 0 .66 7.5 7.5 0 0 0 13.888 0"/></svg></span><span class="skills-category-tag">Predictive &amp; Deep AI</span></div>
+                <div class="skills-card-id">
+                  <span class="skills-card-num">03</span>
+                  <span class="skills-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="1"/><path d="M18.944 12.33a1 1 0 0 0 0-.66 7.5 7.5 0 0 0-13.888 0 1 1 0 0 0 0 .66 7.5 7.5 0 0 0 13.888 0"/></svg></span>
+                  <span class="skills-category-tag">Predictive &amp; Deep AI</span>
+                </div>
                 <span class="skills-count-pill">14 Skills</span>
               </div>
               <h3 class="skills-card-title">Machine Learning &amp; Computer Vision</h3>
@@ -486,10 +498,14 @@
           </article>
 
           <!-- ROW 2, CARD 4 (Span 7) -->
-          <article style="--sk-accent: #34d399;" class="skills-bento-card skills-card-span-7">
+          <article class="skills-bento-card skills-card-span-7">
             <div class="skills-card-header">
               <div class="skills-card-top-row">
-                <div class="skills-card-id"><span class="skills-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></span><span class="skills-category-tag">Executive BI &amp; Math</span></div>
+                <div class="skills-card-id">
+                  <span class="skills-card-num">04</span>
+                  <span class="skills-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></span>
+                  <span class="skills-category-tag">Executive BI &amp; Math</span>
+                </div>
                 <span class="skills-count-pill">14 Skills</span>
               </div>
               <h3 class="skills-card-title">Data Analytics, Statistics &amp; BI</h3>
@@ -539,10 +555,14 @@
           </div>
 
           <!-- ROW 3, CARD 5: MySQL (Span 4) -->
-          <article style="--sk-accent: #fbbf24;" class="skills-bento-card skills-card-span-4">
+          <article class="skills-bento-card skills-card-span-4">
             <div class="skills-card-header">
               <div class="skills-card-top-row">
-                <div class="skills-card-id"><span class="skills-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg></span><span class="skills-category-tag">Relational RDBMS</span></div>
+                <div class="skills-card-id">
+                  <span class="skills-card-num">05</span>
+                  <span class="skills-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg></span>
+                  <span class="skills-category-tag">Relational RDBMS</span>
+                </div>
                 <span class="skills-count-pill">20 Skills</span>
               </div>
               <h3 class="skills-card-title">MySQL</h3>
@@ -586,10 +606,14 @@
           </article>
 
           <!-- ROW 3, CARD 6: PostgreSQL (Span 4) -->
-          <article style="--sk-accent: #60a5fa;" class="skills-bento-card skills-card-span-4">
+          <article class="skills-bento-card skills-card-span-4">
             <div class="skills-card-header">
               <div class="skills-card-top-row">
-                <div class="skills-card-id"><span class="skills-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg></span><span class="skills-category-tag">Enterprise &amp; Vector DB</span></div>
+                <div class="skills-card-id">
+                  <span class="skills-card-num">06</span>
+                  <span class="skills-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg></span>
+                  <span class="skills-category-tag">Enterprise &amp; Vector DB</span>
+                </div>
                 <span class="skills-count-pill">20 Skills</span>
               </div>
               <h3 class="skills-card-title">PostgreSQL</h3>
@@ -633,10 +657,14 @@
           </article>
 
           <!-- ROW 3, CARD 7: Statistics (Span 4) -->
-          <article style="--sk-accent: #f472b6;" class="skills-bento-card skills-card-span-4">
+          <article class="skills-bento-card skills-card-span-4">
             <div class="skills-card-header">
               <div class="skills-card-top-row">
-                <div class="skills-card-id"><span class="skills-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 7V5a1 1 0 0 0-1-1H6.5a.5.5 0 0 0-.4.8l4.5 6a2 2 0 0 1 0 2.4l-4.5 6a.5.5 0 0 0 .4.8H17a1 1 0 0 0 1-1v-2"/></svg></span><span class="skills-category-tag">Mathematical Foundations</span></div>
+                <div class="skills-card-id">
+                  <span class="skills-card-num">07</span>
+                  <span class="skills-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 7V5a1 1 0 0 0-1-1H6.5a.5.5 0 0 0-.4.8l4.5 6a2 2 0 0 1 0 2.4l-4.5 6a.5.5 0 0 0 .4.8H17a1 1 0 0 0 1-1v-2"/></svg></span>
+                  <span class="skills-category-tag">Mathematical Foundations</span>
+                </div>
                 <span class="skills-count-pill">22 Skills</span>
               </div>
               <h3 class="skills-card-title">Statistics</h3>
@@ -1184,7 +1212,7 @@
           <!-- Project 1: Enterprise IT Support Agentic RAG Copilot -->
           <article class="p-bento-card reveal" data-category="agents">
             <div class="p-bento-media">
-              <img src="images/Enterprise IT Support Agentic RAG Copilot.png"
+              <img src="images/Enterprise IT Support Agentic RAG Copilot.webp"
                 alt="Enterprise IT Support: Agentic RAG Copilot" loading="lazy" />
               <div class="p-bento-media-overlay"></div>
               <div class="p-bento-media-badge-bar">
@@ -1218,7 +1246,7 @@
           <!-- Project 2: ResearchMind -->
           <article class="p-bento-card reveal" data-category="agents">
             <div class="p-bento-media">
-              <img src="images/ResearchMind Autonomous Multi-Agent AI Research System.png"
+              <img src="images/ResearchMind Autonomous Multi-Agent AI Research System.webp"
                 alt="ResearchMind: Autonomous Multi-Agent AI Research System" loading="lazy" />
               <div class="p-bento-media-overlay"></div>
               <div class="p-bento-media-badge-bar">
@@ -1251,7 +1279,7 @@
           <!-- Project 3: Multi-Node LangGraph -->
           <article class="p-bento-card reveal" data-category="agents">
             <div class="p-bento-media">
-              <img src="images/Multi-Node Conversational AI Framework.png" alt="Multi-Node Conversational AI Framework"
+              <img src="images/Multi-Node Conversational AI Framework.webp" alt="Multi-Node Conversational AI Framework"
                 loading="lazy" />
               <div class="p-bento-media-overlay"></div>
               <div class="p-bento-media-badge-bar">
@@ -1284,7 +1312,7 @@
           <!-- Project 4: MCP Supervisor Guardrails HITL -->
           <article class="p-bento-card reveal" data-category="agents">
             <div class="p-bento-media">
-              <img src="images/Multi-Agent System MCP, Supervisor, Guardrails & HITL.png"
+              <img src="images/Multi-Agent System MCP, Supervisor, Guardrails & HITL.webp"
                 alt="Multi-Agent System: MCP, Supervisor, Guardrails & HITL" loading="lazy" />
               <div class="p-bento-media-overlay"></div>
               <div class="p-bento-media-badge-bar">
@@ -1317,7 +1345,7 @@
           <!-- Project 5: Medical-Agentic-Chatbot -->
           <article class="p-bento-card reveal" data-category="agents">
             <div class="p-bento-media">
-              <img src="images/Medical-Agentic-Chatbot.png"
+              <img src="images/Medical-Agentic-Chatbot.webp"
                 alt="Medical-Agentic-Chatbot: Autonomous Clinical & Triage Copilot" loading="lazy" />
               <div class="p-bento-media-overlay"></div>
               <div class="p-bento-media-badge-bar">
@@ -1352,7 +1380,7 @@
           <!-- Project 6: LLM Guardrails -->
           <article class="p-bento-card reveal" data-category="guardrails">
             <div class="p-bento-media">
-              <img src="images/LLM Guardrails Enterprise & Responsible AI.png"
+              <img src="images/LLM Guardrails Enterprise & Responsible AI.webp"
                 alt="LLM Guardrails: Enterprise & Responsible AI" loading="lazy" />
               <div class="p-bento-media-overlay"></div>
               <div class="p-bento-media-badge-bar">
@@ -1385,7 +1413,7 @@
           <!-- Project 7: AI Resume Analyzer -->
           <article class="p-bento-card reveal" data-category="guardrails">
             <div class="p-bento-media">
-              <img src="images/AI Resume Analyzer & Job Fit Predictor.png" alt="AI Resume Analyzer & Job Fit Predictor"
+              <img src="images/AI Resume Analyzer & Job Fit Predictor.webp" alt="AI Resume Analyzer & Job Fit Predictor"
                 loading="lazy" />
               <div class="p-bento-media-overlay"></div>
               <div class="p-bento-media-badge-bar">
@@ -1418,7 +1446,7 @@
           <!-- Project 8: Gemini 2.5 Flash Chatbot -->
           <article class="p-bento-card reveal" data-category="guardrails">
             <div class="p-bento-media">
-              <img src="images/Gemini 2.5 Flash Chatbot.png" alt="Gemini 2.5 Flash Chatbot" loading="lazy" />
+              <img src="images/Gemini 2.5 Flash Chatbot.webp" alt="Gemini 2.5 Flash Chatbot" loading="lazy" />
               <div class="p-bento-media-overlay"></div>
               <div class="p-bento-media-badge-bar">
                 <span class="p-bento-badge">GenAI Assistant</span>
@@ -1450,7 +1478,7 @@
           <!-- Project 9: IMOT Object & Color Tracking -->
           <article class="p-bento-card reveal" data-category="cv">
             <div class="p-bento-media">
-              <img src="images/Intelligent Multi-Modal Object & Color Tracking.png"
+              <img src="images/Intelligent Multi-Modal Object & Color Tracking.webp"
                 alt="Intelligent Multi-Modal Object & Color Tracking" loading="lazy" />
               <div class="p-bento-media-overlay"></div>
               <div class="p-bento-media-badge-bar">
@@ -1483,7 +1511,7 @@
           <!-- Project 10: ImageNet Deep Learning -->
           <article class="p-bento-card reveal" data-category="cv">
             <div class="p-bento-media">
-              <img src="images/ImageNet Classification VGG16, ResNet50 & ResNet50V2.png"
+              <img src="images/ImageNet Classification VGG16, ResNet50 & ResNet50V2.webp"
                 alt="ImageNet Classification: VGG16, ResNet50 & ResNet50V2" loading="lazy" />
               <div class="p-bento-media-overlay"></div>
               <div class="p-bento-media-badge-bar">
@@ -1516,7 +1544,7 @@
           <!-- Project 11: CNN Mood Classification -->
           <article class="p-bento-card reveal" data-category="cv">
             <div class="p-bento-media">
-              <img src="images/CNN Image Classification (Mood Detection).png"
+              <img src="images/CNN Image Classification (Mood Detection).webp"
                 alt="CNN Image Classification (Mood Detection)" loading="lazy" />
               <div class="p-bento-media-overlay"></div>
               <div class="p-bento-media-badge-bar">
@@ -1549,7 +1577,7 @@
           <!-- Project 12: E-Commerce Financial Performance -->
           <article class="p-bento-card reveal" data-category="analytics">
             <div class="p-bento-media">
-              <img src="images/ecommerce-dashboard-card.png" alt="E-Commerce Financial Performance" loading="lazy" />
+              <img src="images/ecommerce-dashboard-card.webp" alt="E-Commerce Financial Performance" loading="lazy" />
               <div class="p-bento-media-overlay"></div>
               <div class="p-bento-media-badge-bar">
                 <span class="p-bento-badge">Financial Analytics</span>
@@ -1582,7 +1610,7 @@
           <!-- Project 13: Website Performance Analytics -->
           <article class="p-bento-card reveal" data-category="analytics">
             <div class="p-bento-media">
-              <img src="images/website-analytics-card.png" alt="Website Performance Analytics" loading="lazy" />
+              <img src="images/website-analytics-card.webp" alt="Website Performance Analytics" loading="lazy" />
               <div class="p-bento-media-overlay"></div>
               <div class="p-bento-media-badge-bar">
                 <span class="p-bento-badge">Web & Traffic Analytics</span>
@@ -1615,7 +1643,7 @@
           <!-- Project 14: Netflix Movie Analysis -->
           <article class="p-bento-card reveal" data-category="analytics">
             <div class="p-bento-media">
-              <img src="images/netflix-analysis-card.png" alt="Netflix Movie Analysis" loading="lazy" />
+              <img src="images/netflix-analysis-card.webp" alt="Netflix Movie Analysis" loading="lazy" />
               <div class="p-bento-media-overlay"></div>
               <div class="p-bento-media-badge-bar">
                 <span class="p-bento-badge">Content Intelligence</span>
@@ -1658,8 +1686,7 @@
         </div>
 
         <div class="testimonial-box">
-          <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80"
-            alt="Endorsement by Dr. Rajesh K." class="testimonial-avatar" />
+          <div class="testimonial-avatar testimonial-initials" role="img" aria-label="Dr. Rajesh K.">RK</div>
           <p class="testimonial-quote">
             "Abhishek's mastery of LangGraph multi-agent architectures and enterprise safety guardrails is exceptional.
             His systems are robust, scalable, and engineered with true human-centric clarity."
@@ -1678,38 +1705,70 @@
     </section>
 
     <!-- SECTION 7: TWIN GLOWING NEON CURVED ORBITAL ARCS CTA -->
-    <section class="curved-neon-cta-section" id="bookingSection">
-      <div class="neon-arc-top"></div>
-      <div class="neon-arc-bottom"></div>
+    <section class="curved-neon-cta-section cinema" id="bookingSection" aria-labelledby="ctaHeading">
+      <svg class="cinema-arc cinema-arc-top" viewBox="0 0 1400 200" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <defs><linearGradient id="arcFade-top" x1="0" x2="1" y1="0" y2="0">
+          <stop offset="0" stop-color="#ff6b00" stop-opacity="0"/><stop offset="0.18" stop-color="#ff6b00"/>
+          <stop offset="0.5" stop-color="#ff8a2a"/><stop offset="0.82" stop-color="#ff6b00"/><stop offset="1" stop-color="#ff6b00" stop-opacity="0"/>
+        </linearGradient></defs>
+        <g fill="none" stroke-linecap="round" vector-effect="non-scaling-stroke"><path d="M -60 -4 Q 700 330 1460 -4" stroke="url(#arcFade-top)" stroke-width="46" stroke-opacity="0.05" /><path d="M -60 -4 Q 700 330 1460 -4" stroke="url(#arcFade-top)" stroke-width="26" stroke-opacity="0.09" /><path d="M -60 -4 Q 700 330 1460 -4" stroke="url(#arcFade-top)" stroke-width="12" stroke-opacity="0.18" /><path d="M -60 -4 Q 700 330 1460 -4" stroke="url(#arcFade-top)" stroke-width="5" stroke-opacity="0.45" /><path d="M -60 -4 Q 700 330 1460 -4" stroke="url(#arcFade-top)" stroke-width="2.5" /></g>
+      </svg>
+      <svg class="cinema-arc cinema-arc-bottom" viewBox="0 0 1400 200" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <defs><linearGradient id="arcFade-bottom" x1="0" x2="1" y1="0" y2="0">
+          <stop offset="0" stop-color="#ff6b00" stop-opacity="0"/><stop offset="0.18" stop-color="#ff6b00"/>
+          <stop offset="0.5" stop-color="#ff8a2a"/><stop offset="0.82" stop-color="#ff6b00"/><stop offset="1" stop-color="#ff6b00" stop-opacity="0"/>
+        </linearGradient></defs>
+        <g fill="none" stroke-linecap="round" vector-effect="non-scaling-stroke"><path d="M -60 204 Q 700 -130 1460 204" stroke="url(#arcFade-bottom)" stroke-width="46" stroke-opacity="0.05" /><path d="M -60 204 Q 700 -130 1460 204" stroke="url(#arcFade-bottom)" stroke-width="26" stroke-opacity="0.09" /><path d="M -60 204 Q 700 -130 1460 204" stroke="url(#arcFade-bottom)" stroke-width="12" stroke-opacity="0.18" /><path d="M -60 204 Q 700 -130 1460 204" stroke="url(#arcFade-bottom)" stroke-width="5" stroke-opacity="0.45" /><path d="M -60 204 Q 700 -130 1460 204" stroke="url(#arcFade-bottom)" stroke-width="2.5" /></g>
+      </svg>
 
-      <!-- Floating Miniature Project Badges -->
-      <div class="cta-float-card cta-float-left">
-        <i data-lucide="bot"></i> LangGraph
-      </div>
-      <div class="cta-float-card cta-float-right">
-        <i data-lucide="shield"></i> Guardrails
-      </div>
+      <div class="cinema-track">
+        <div class="cinema-stage">
+          <!-- Atmosphere: dot grid + amber bloom that expand as you scroll -->
+          <div class="cinema-grid" aria-hidden="true"></div>
+          <div class="cinema-glow" aria-hidden="true"></div>
 
-      <div class="container">
-        <div class="neon-cta-content">
-          <span class="section-tag">Ready To Collaborate</span>
-          <h2 class="neon-cta-headline">
-            Let's Turn Ideas <br />
-            <span class="serif-accent">Into Intelligent Systems</span>
-          </h2>
-          <p class="neon-cta-desc">
-            Whether you need autonomous multi-agent pipelines, responsible AI guardrails, or deep learning vision
-            architectures, let's schedule an executive strategy session.
-          </p>
-          <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-            <button class="btn btn-amber-pill" id="ctaBookBtn">
-              <span>Book Strategy Session</span>
-              <span class="arrow-circle"><i data-lucide="arrow-right"></i></span>
-            </button>
-            <a href="https://wa.me/918984065377" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-              <i data-lucide="message-circle"></i>
-              <span>WhatsApp Direct</span>
-            </a>
+          <!-- Glass crystal emblem (pure CSS 3D, scroll-scrubbed) -->
+          <div class="emblem" aria-hidden="true">
+            <div class="emblem-halo"></div>
+            <div class="emblem-scene">
+              <div class="crystal">
+                <i class="face f-front"></i><i class="face f-back"></i><i class="face f-right"></i><i class="face f-left"></i><i class="face f-top"></i><i class="face f-bottom"></i>
+                <div class="core"><i class="cface f-front"></i><i class="cface f-back"></i><i class="cface f-right"></i><i class="cface f-left"></i><i class="cface f-top"></i><i class="cface f-bottom"></i></div>
+                <div class="orbit orbit-a"><b></b></div>
+                <div class="orbit orbit-b"><b></b></div>
+              </div>
+            </div>
+            <div class="emblem-floor"></div>
+          </div>
+
+          <!-- Floating Miniature Project Badges -->
+          <div class="cta-float-card cta-float-left">
+            <i data-lucide="bot"></i> LangGraph
+          </div>
+          <div class="cta-float-card cta-float-right">
+            <i data-lucide="shield"></i> Guardrails
+          </div>
+
+          <div class="neon-cta-content cinema-content">
+            <span class="section-tag cinema-tag">Ready To Collaborate</span>
+            <h2 class="neon-cta-headline" id="ctaHeading">
+              Let's Turn Ideas <br />
+              <span class="serif-accent">Into Intelligent Systems</span>
+            </h2>
+            <p class="neon-cta-desc cinema-desc">
+              Whether you need autonomous multi-agent pipelines, responsible AI guardrails, or deep learning vision
+              architectures, let's schedule an executive strategy session.
+            </p>
+            <div class="cinema-actions">
+              <button class="btn btn-amber-pill" id="ctaBookBtn">
+                <span>Book Strategy Session</span>
+                <span class="arrow-circle"><i data-lucide="arrow-right"></i></span>
+              </button>
+              <a href="https://wa.me/918984065377" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                <i data-lucide="message-circle"></i>
+                <span>WhatsApp Direct</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -2069,7 +2128,7 @@
   </div>
 
   <script src="scroll-reveal.js"></script>
-  <script src="script.js?v=4.3"></script>
+  <script src="script.js?v=5.0"></script>
 </body>
 
 </html>

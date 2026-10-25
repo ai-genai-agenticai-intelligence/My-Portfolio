@@ -863,15 +863,22 @@ app.mount("/images", StaticFiles(directory=os.path.join(BASE_DIR, "images")), na
 
 @app.get("/")
 async def serve_index():
-    return FileResponse(os.path.join(BASE_DIR, "index.html"), media_type="text/html")
+    return FileResponse(
+        os.path.join(BASE_DIR, "index.html"),
+        media_type="text/html",
+        headers={"Cache-Control": "no-cache, no-store, must-revalidate"}
+    )
 
 @app.get("/{filename:path}")
 async def serve_public_file(filename: str):
     if filename in PUBLIC_FILES:
         path = os.path.join(BASE_DIR, filename)
         if os.path.isfile(path):
-            return FileResponse(path, media_type=PUBLIC_FILES[filename],
-                                headers={"Cache-Control": "public, max-age=3600"})
+            return FileResponse(
+                path,
+                media_type=PUBLIC_FILES[filename],
+                headers={"Cache-Control": "no-cache, no-store, must-revalidate"}
+            )
     return JSONResponse(status_code=404, content={"error": "Not found"})
 
 
