@@ -1,6 +1,6 @@
 /**
  * Abhishek Sahoo Portfolio - Unified Scroll Reveal Engine
- * Shared reveal animation engine for Technical Skills & Projects sections.
+ * Shared reveal animation engine for portfolio cards.
  *
  * Requirements:
  * - Whole card animated as one unit (never inner chips or parts separately)
@@ -14,7 +14,7 @@
   'use strict';
 
   const defaults = {
-    selector: '.skills-bento-card, .p-bento-card, .reveal, .reveal-card, .reveal-stat',
+    selector: '.skills-bento-card, .p-bento-card, .reveal, .reveal-card, .reveal-stat, .about-arch-visual, .bento-bio-card, .bento-stat-card, .exp-main-card, .edu-card, .certifications-card, .workflow-step-card, .workflow-preview-panel, .case-study-card, .testimonial-box, .contact-info-card, .contact-form-card, .hero-stat-box, .skills-legend-bar',
     threshold: 0,
     rootMargin: '0px 0px -12% 0px',
     duration: '0.7s',
@@ -113,7 +113,7 @@
     // Fallback for any other sibling grid/flex items
     const numCols = getGridColumnCount(parent);
     const siblings = Array.from(parent.children).filter(child =>
-      child.matches('.reveal, .reveal-card, .reveal-stat') &&
+      child.matches(config.selector) &&
       window.getComputedStyle(child).display !== 'none'
     );
     const index = siblings.indexOf(element);
@@ -281,6 +281,8 @@
         if (observer) {
           observer.observe(el);
           observedElements.add(el);
+        } else {
+          revealElement(el);
         }
       }
     });

@@ -13,7 +13,7 @@
   <!-- Open Graph / LinkedIn / Facebook -->
   <meta property="og:title" content="Abhishek Sahoo | Autonomous AI & Agentic Systems Engineer" />
   <meta property="og:description"
-    content="Production-Grade Multi-Agent Systems, LangGraph State Graphs, Model Context Protocol (MCP), LLM Guardrails & Computer Vision. 14 Live Cloud Deployments." />
+    content="Production-Grade Multi-Agent Systems, LangGraph State Graphs, Model Context Protocol (MCP), LLM Guardrails & Computer Vision. 18 Live Cloud Deployments." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://my-portfolio-fwt5.onrender.com/images/og-preview.jpg" />
   <meta property="og:url" content="https://my-portfolio-fwt5.onrender.com/" />
@@ -25,7 +25,7 @@
     content="Architecting LangGraph Multi-Agent Workflows, MCP Servers, Enterprise LLM Guardrails & Deep Learning Systems." />
   <meta name="twitter:image" content="https://my-portfolio-fwt5.onrender.com/images/og-preview.jpg" />
 
-  <meta name="theme-color" content="#0b0b0f" />
+  <meta name="theme-color" content="#080809" />
   <meta name="author" content="Abhishek Sahoo" />
   <link rel="canonical" href="https://my-portfolio-fwt5.onrender.com/" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23f59e0b'/%3E%3Ctext x='32' y='45' font-size='36' font-weight='700' text-anchor='middle' fill='%230b0b0f' font-family='sans-serif'%3EA%3C/text%3E%3C/svg%3E" />
@@ -45,7 +45,9 @@
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
 
-  <link rel="stylesheet" href="style.css?v=exp-theme-v1" />
+  <link rel="preload" href="fonts/anton-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="style.css?v=7.3" />
+  <link rel="stylesheet" href="ember.css?v=31" />
 </head>
 
 <body>
@@ -64,9 +66,9 @@
   <header class="header" id="navbar">
     <div class="container">
       <div class="header-container">
-        <a href="#hero" class="logo">
-          <div class="logo-symbol">A</div>
-          <span>Abhishek.ai</span>
+        <a href="#hero" class="logo logo-chip" aria-label="Abhishek Sahoo, home">
+          <img class="logo-avatar" src="My Profile image.jpeg" alt="" width="42" height="42" decoding="async" />
+          <span class="logo-text"><small>AI Engineer</small><strong>Abhishek Sahoo</strong></span>
         </a>
 
         <nav class="nav-links" id="navLinks">
@@ -82,7 +84,7 @@
             <span>Resume</span>
           </a>
           <button class="btn btn-sm btn-amber-pill" id="openBookingHeader">
-            <i data-lucide="calendar"></i>
+            <span class="chev" aria-hidden="true">»</span>
             <span>Book 1:1</span>
           </button>
         </nav>
@@ -121,7 +123,7 @@
             <p class="hero-description">
               Architecting production-grade <strong>Multi-Agent Systems</strong> with <strong>LangGraph</strong>,
               <strong>Model Context Protocol (MCP)</strong>, and <strong>Enterprise LLM Guardrails</strong>.
-              <strong>B.E. 2026 graduate</strong> with 14 deployed cloud systems.
+              <strong>B.E. 2026 graduate</strong> with 18 deployed cloud systems.
             </p>
 
             <!-- Hero CTA Buttons in Single Clean Row -->
@@ -170,7 +172,7 @@
             <!-- Floating Glass Stats Strip -->
             <div class="hero-glass-stats">
               <div class="hero-stat-box reveal">
-                <span class="stat-val">14+</span>
+                <span class="stat-val">18+</span>
                 <span class="stat-lbl">Live Cloud Systems</span>
               </div>
               <div class="hero-stat-box reveal">
@@ -193,8 +195,12 @@
                   fetchpriority="high" decoding="async" data-fallback="avatar" />
               </div>
               <div class="hero-floating-chip">
-                <i data-lucide="shield-check"></i>
-                <span>SMIT B.E 2026 Graduate • Naresh i Tech AI</span>
+                <span class="hero-credential-icon"><i data-lucide="graduation-cap" aria-hidden="true"></i></span>
+                <span class="hero-credential-copy">
+                  <strong>SMIT · Class of 2026</strong>
+                  <small>Naresh i Tech · AI Engineering</small>
+                </span>
+                <span class="hero-credential-mark" aria-hidden="true">B.E.</span>
               </div>
             </div>
           </div>
@@ -319,13 +325,13 @@
                   <div class="avatar-item">LG</div>
                   <div class="avatar-item">CV</div>
                 </div>
-                <span class="badge-pill">14 Production Deployments</span>
+                <span class="badge-pill">18 Production Deployments</span>
               </div>
             </div>
 
             <div class="bento-stats-split">
               <div class="bento-stat-card">
-                <span class="b-num">14+</span>
+                <span class="b-num">18+</span>
                 <span class="b-lbl">Full-Stack Cloud AI Applications in Production</span>
               </div>
               <div class="bento-stat-card red-accent">
@@ -346,7 +352,7 @@
           <span class="section-tag">Technical Competencies</span>
           <h2 class="section-title-editorial">Specialized Skills <br /><span class="serif-accent">Grouped By Engineering Area</span></h2>
           <p class="section-desc" style="margin: 0 auto; max-width: 680px;">
-            A rigorous technical stack honed across 14 end-to-end cloud deployments, enterprise agent graphs, and real-time computer vision systems.
+            A rigorous technical stack honed across 18 end-to-end cloud deployments, enterprise agent graphs, and real-time computer vision systems.
           </p>
         </div>
 
@@ -369,14 +375,10 @@
         <div class="skills-bento-grid">
 
           <!-- ROW 1, CARD 1 (Span 7, Largest, 30px heading) -->
-          <article class="skills-bento-card skills-card-span-7">
+          <article class="skills-bento-card skills-card-span-7" data-tone="orange">
             <div class="skills-card-header">
               <div class="skills-card-top-row">
-                <div class="skills-card-id">
-                  <span class="skills-card-num">01</span>
-                  <span class="skills-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg></span>
-                  <span class="skills-category-tag">Core Specialization</span>
-                </div>
+                <div class="skills-card-id"><span class="skills-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg></span><span class="skills-category-tag">Core Specialization</span></div>
                 <span class="skills-count-pill">12 Skills</span>
               </div>
               <h3 class="skills-card-title skills-card-hero-title">Autonomous Agents &amp; Multi-Agent Systems</h3>
@@ -412,14 +414,10 @@
           </article>
 
           <!-- ROW 1, CARD 2 (Span 5) -->
-          <article class="skills-bento-card skills-card-span-5">
+          <article class="skills-bento-card skills-card-span-5" data-tone="ember">
             <div class="skills-card-header">
               <div class="skills-card-top-row">
-                <div class="skills-card-id">
-                  <span class="skills-card-num">02</span>
-                  <span class="skills-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h8"/><path d="M8 13h5"/></svg></span>
-                  <span class="skills-category-tag">Production Ready</span>
-                </div>
+                <div class="skills-card-id"><span class="skills-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h8"/><path d="M8 13h5"/></svg></span><span class="skills-category-tag">Production Ready</span></div>
                 <span class="skills-count-pill">10 Skills</span>
               </div>
               <h3 class="skills-card-title">LLM Engineering &amp; Agentic RAG</h3>
@@ -453,14 +451,10 @@
           </article>
 
           <!-- ROW 2, CARD 3 (Span 5) -->
-          <article class="skills-bento-card skills-card-span-5">
+          <article class="skills-bento-card skills-card-span-5" data-tone="cream">
             <div class="skills-card-header">
               <div class="skills-card-top-row">
-                <div class="skills-card-id">
-                  <span class="skills-card-num">03</span>
-                  <span class="skills-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="1"/><path d="M18.944 12.33a1 1 0 0 0 0-.66 7.5 7.5 0 0 0-13.888 0 1 1 0 0 0 0 .66 7.5 7.5 0 0 0 13.888 0"/></svg></span>
-                  <span class="skills-category-tag">Predictive &amp; Deep AI</span>
-                </div>
+                <div class="skills-card-id"><span class="skills-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="1"/><path d="M18.944 12.33a1 1 0 0 0 0-.66 7.5 7.5 0 0 0-13.888 0 1 1 0 0 0 0 .66 7.5 7.5 0 0 0 13.888 0"/></svg></span><span class="skills-category-tag">Predictive &amp; Deep AI</span></div>
                 <span class="skills-count-pill">14 Skills</span>
               </div>
               <h3 class="skills-card-title">Machine Learning &amp; Computer Vision</h3>
@@ -498,14 +492,10 @@
           </article>
 
           <!-- ROW 2, CARD 4 (Span 7) -->
-          <article class="skills-bento-card skills-card-span-7">
+          <article class="skills-bento-card skills-card-span-7" data-tone="charcoal">
             <div class="skills-card-header">
               <div class="skills-card-top-row">
-                <div class="skills-card-id">
-                  <span class="skills-card-num">04</span>
-                  <span class="skills-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></span>
-                  <span class="skills-category-tag">Executive BI &amp; Math</span>
-                </div>
+                <div class="skills-card-id"><span class="skills-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></span><span class="skills-category-tag">Executive BI &amp; Math</span></div>
                 <span class="skills-count-pill">14 Skills</span>
               </div>
               <h3 class="skills-card-title">Data Analytics, Statistics &amp; BI</h3>
@@ -555,14 +545,10 @@
           </div>
 
           <!-- ROW 3, CARD 5: MySQL (Span 4) -->
-          <article class="skills-bento-card skills-card-span-4">
+          <article class="skills-bento-card skills-card-span-4" data-tone="ember">
             <div class="skills-card-header">
               <div class="skills-card-top-row">
-                <div class="skills-card-id">
-                  <span class="skills-card-num">05</span>
-                  <span class="skills-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg></span>
-                  <span class="skills-category-tag">Relational RDBMS</span>
-                </div>
+                <div class="skills-card-id"><span class="skills-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg></span><span class="skills-category-tag">Relational RDBMS</span></div>
                 <span class="skills-count-pill">20 Skills</span>
               </div>
               <h3 class="skills-card-title">MySQL</h3>
@@ -606,14 +592,10 @@
           </article>
 
           <!-- ROW 3, CARD 6: PostgreSQL (Span 4) -->
-          <article class="skills-bento-card skills-card-span-4">
+          <article class="skills-bento-card skills-card-span-4" data-tone="orange">
             <div class="skills-card-header">
               <div class="skills-card-top-row">
-                <div class="skills-card-id">
-                  <span class="skills-card-num">06</span>
-                  <span class="skills-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg></span>
-                  <span class="skills-category-tag">Enterprise &amp; Vector DB</span>
-                </div>
+                <div class="skills-card-id"><span class="skills-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg></span><span class="skills-category-tag">Enterprise &amp; Vector DB</span></div>
                 <span class="skills-count-pill">20 Skills</span>
               </div>
               <h3 class="skills-card-title">PostgreSQL</h3>
@@ -657,14 +639,10 @@
           </article>
 
           <!-- ROW 3, CARD 7: Statistics (Span 4) -->
-          <article class="skills-bento-card skills-card-span-4">
+          <article class="skills-bento-card skills-card-span-4" data-tone="gradient">
             <div class="skills-card-header">
               <div class="skills-card-top-row">
-                <div class="skills-card-id">
-                  <span class="skills-card-num">07</span>
-                  <span class="skills-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 7V5a1 1 0 0 0-1-1H6.5a.5.5 0 0 0-.4.8l4.5 6a2 2 0 0 1 0 2.4l-4.5 6a.5.5 0 0 0 .4.8H17a1 1 0 0 0 1-1v-2"/></svg></span>
-                  <span class="skills-category-tag">Mathematical Foundations</span>
-                </div>
+                <div class="skills-card-id"><span class="skills-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 7V5a1 1 0 0 0-1-1H6.5a.5.5 0 0 0-.4.8l4.5 6a2 2 0 0 1 0 2.4l-4.5 6a.5.5 0 0 0 .4.8H17a1 1 0 0 0 1-1v-2"/></svg></span><span class="skills-category-tag">Mathematical Foundations</span></div>
                 <span class="skills-count-pill">22 Skills</span>
               </div>
               <h3 class="skills-card-title">Statistics</h3>
@@ -766,7 +744,7 @@
                   <h4>Measurable Outcomes & Business Impact</h4>
                   <p>Reduced semantic search latency by <strong>35%</strong> using dense vector caching; achieved
                     <strong>97.2%+</strong> classification accuracy on benchmark medical imaging; successfully deployed
-                    14 cloud-accessible systems.
+                    18 cloud-accessible systems.
                   </p>
                 </div>
               </div>
@@ -870,12 +848,7 @@
           </div>
 
           <div class="workflow-preview-panel">
-            <div class="w-preview-img-box" id="blueprintPreview">
-              <i data-lucide="git-branch"
-                style="width: 48px; height: 48px; color: var(--primary); margin-bottom: 1rem;"></i>
-              <h4 style="font-size: 1.2rem; margin-bottom: 0.5rem;">LangGraph State Topology</h4>
-              <p style="font-size: 0.9rem;">Supervisor Node → Dynamic Tool Router → Human Review Checkpoint</p>
-            </div>
+            <div class="w-preview-img-box" id="blueprintPreview"><div class="bp-chat"><div class="bp-label">Phase 01 · State Graph Topology</div><div class="bp-msg bp-human"><span class="bp-who">Architect</span><span class="bp-text">Define the graph: what must the agents know, and who does what?</span></div><div class="bp-msg bp-agent" style="--d:0.18s"><span class="bp-who"><i></i>Agent</span><span class="bp-text">Schema definition</span><span class="bp-time">✓✓</span></div><div class="bp-msg bp-agent" style="--d:0.30s"><span class="bp-who"><i></i>Agent</span><span class="bp-text">Multi-Agent Roles</span><span class="bp-time">✓✓</span></div><div class="bp-msg bp-agent" style="--d:0.42s"><span class="bp-who"><i></i>Agent</span><span class="bp-text">Dynamic Memory Buffers</span><span class="bp-time">✓✓</span></div><button type="button" class="bp-next" data-next="2"><span>Next: Phase 02</span><span class="bp-send" aria-hidden="true">→</span></button></div></div>
           </div>
         </div>
       </div>
@@ -1175,12 +1148,12 @@
       </div>
     </section>
 
-    <!-- SECTION 7: FEATURED INTELLIGENT SYSTEMS (14 PROJECTS GRID) -->
+    <!-- SECTION 7: FEATURED INTELLIGENT SYSTEMS (18 PROJECTS GRID) -->
     <section class="section projects-section" id="projects">
       <div class="container">
         <div class="section-header-center">
           <span class="section-tag">Production Catalog</span>
-          <h2 class="section-title-editorial">14 Live Cloud <span class="serif-accent">AI & Agentic</span> Deployments
+          <h2 class="section-title-editorial">18 Live Cloud <span class="serif-accent">AI & Agentic</span> Deployments
           </h2>
           <p class="section-desc" style="margin: 0 auto; max-width: 650px;">
             Fully tested, operational cloud systems with live interactive demos and public GitHub repositories.
@@ -1199,8 +1172,9 @@
 
         <!-- Filter Controls -->
         <div class="project-filter-bar">
-          <button class="filter-btn active" data-filter="all">All Systems (14)</button>
+          <button class="filter-btn active" data-filter="all">All Systems (18)</button>
           <button class="filter-btn" data-filter="agents">Multi-Agent & LangGraph (5)</button>
+          <button class="filter-btn" data-filter="ml">Machine Learning (4)</button>
           <button class="filter-btn" data-filter="guardrails">LLM & GenAI (3)</button>
           <button class="filter-btn" data-filter="cv">Computer Vision & DL (3)</button>
           <button class="filter-btn" data-filter="analytics">Data Analytics & BI (3)</button>
@@ -1672,6 +1646,134 @@
             </div>
           </article>
 
+          <!-- Project 15: Housing Price Prediction & Model Benchmarking -->
+          <article class="p-bento-card reveal" data-category="ml">
+            <div class="p-bento-media">
+              <img src="images/Housing-Price-Prediction-Model-Benchmarking.png"
+                alt="Housing Price Prediction & Model Benchmarking" loading="lazy" />
+              <div class="p-bento-media-overlay"></div>
+              <div class="p-bento-media-badge-bar">
+                <span class="p-bento-badge">Predictive ML Benchmarking</span>
+                <span class="p-bento-media-icon"><i data-lucide="home"></i></span>
+              </div>
+            </div>
+            <div class="p-bento-body">
+              <div>
+                <h3 class="p-bento-title">Housing Price Prediction & Model Benchmarking</h3>
+                <p class="p-bento-desc">Comprehensive real estate valuation and benchmarking suite comparing multiple regression algorithms (Linear, Ridge, Lasso, Random Forest, XGBoost) with rigorous cross-validation and feature importance analysis.</p>
+                <div class="p-bento-tech"><span>Stack:</span> Scikit-Learn • XGBoost • FastAPI • Pandas • Render</div>
+              </div>
+              <div class="p-bento-actions">
+                <a href="https://housing-price-prediction-model-nle8.onrender.com" target="_blank"
+                  rel="noopener noreferrer" class="btn btn-sm btn-amber-pill">
+                  <span>Live Demo</span>
+                  <span class="arrow-circle"><i data-lucide="arrow-right"></i></span>
+                </a>
+                <a href="https://github.com/ai-genai-agenticai-intelligence/-Housing-Price-Prediction-Model-Benchmarking.git"
+                  target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-secondary">
+                  <i data-lucide="github"></i>
+                  <span>GitHub</span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 16: AI-Powered Car Fuel Efficiency Prediction System -->
+          <article class="p-bento-card reveal" data-category="ml">
+            <div class="p-bento-media">
+              <img src="images/AI-Powered-Car-Fuel-Efficiency-Prediction-System.png"
+                alt="AI-Powered Car Fuel Efficiency Prediction System" loading="lazy" />
+              <div class="p-bento-media-overlay"></div>
+              <div class="p-bento-media-badge-bar">
+                <span class="p-bento-badge">Automotive Predictive AI</span>
+                <span class="p-bento-media-icon"><i data-lucide="gauge"></i></span>
+              </div>
+            </div>
+            <div class="p-bento-body">
+              <div>
+                <h3 class="p-bento-title">AI-Powered Car Fuel Efficiency Prediction System</h3>
+                <p class="p-bento-desc">Intelligent automotive regression engine estimating vehicle fuel efficiency (MPG) using engine displacement, horsepower, weight, and cylinder metrics with interactive sensitivity simulations.</p>
+                <div class="p-bento-tech"><span>Stack:</span> Streamlit • Scikit-Learn • Random Forest • Plotly • Python</div>
+              </div>
+              <div class="p-bento-actions">
+                <a href="https://ai-powered-car-fuel-efficiency-prediction-system.streamlit.app" target="_blank"
+                  rel="noopener noreferrer" class="btn btn-sm btn-amber-pill">
+                  <span>Live Demo</span>
+                  <span class="arrow-circle"><i data-lucide="arrow-right"></i></span>
+                </a>
+                <a href="https://github.com/ai-genai-agenticai-intelligence/AI-Powered-Car-Fuel-Efficiency-Prediction-System.git"
+                  target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-secondary">
+                  <i data-lucide="github"></i>
+                  <span>GitHub</span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 17: Employee Salary Estimator -->
+          <article class="p-bento-card reveal" data-category="ml">
+            <div class="p-bento-media">
+              <img src="images/Employee-Salary-Estimator.png"
+                alt="Employee Salary Estimator" loading="lazy" />
+              <div class="p-bento-media-overlay"></div>
+              <div class="p-bento-media-badge-bar">
+                <span class="p-bento-badge">Workforce Compensation ML</span>
+                <span class="p-bento-media-icon"><i data-lucide="trending-up"></i></span>
+              </div>
+            </div>
+            <div class="p-bento-body">
+              <div>
+                <h3 class="p-bento-title">Employee Salary Estimator</h3>
+                <p class="p-bento-desc">Data-driven compensation analytics platform predicting competitive salary bands based on experience, education, job role, and location benchmarks with dynamic percentile distributions.</p>
+                <div class="p-bento-tech"><span>Stack:</span> Streamlit • Scikit-Learn • Regression • Seaborn • Python</div>
+              </div>
+              <div class="p-bento-actions">
+                <a href="https://employee-salary-estimator-g4pcbpl4fcesay3zfabde7.streamlit.app" target="_blank"
+                  rel="noopener noreferrer" class="btn btn-sm btn-amber-pill">
+                  <span>Live Demo</span>
+                  <span class="arrow-circle"><i data-lucide="arrow-right"></i></span>
+                </a>
+                <a href="https://github.com/ai-genai-agenticai-intelligence/Employee-Salary-Estimator.git"
+                  target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-secondary">
+                  <i data-lucide="github"></i>
+                  <span>GitHub</span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 18: Consumer Buying Behavior Analysis -->
+          <article class="p-bento-card reveal" data-category="ml">
+            <div class="p-bento-media">
+              <img src="images/Consumer-Buying-Behavior-Analysis.png"
+                alt="Consumer Buying Behavior Analysis" loading="lazy" />
+              <div class="p-bento-media-overlay"></div>
+              <div class="p-bento-media-badge-bar">
+                <span class="p-bento-badge">Customer Propensity & Segmentation</span>
+                <span class="p-bento-media-icon"><i data-lucide="shopping-bag"></i></span>
+              </div>
+            </div>
+            <div class="p-bento-body">
+              <div>
+                <h3 class="p-bento-title">Consumer Buying Behavior Analysis</h3>
+                <p class="p-bento-desc">Customer analytics & purchase propensity modeling suite leveraging unsupervised clustering and classification algorithms to segment shoppers, forecast churn, and identify high-value customer journeys.</p>
+                <div class="p-bento-tech"><span>Stack:</span> Scikit-Learn • K-Means • Classification • FastAPI • Render</div>
+              </div>
+              <div class="p-bento-actions">
+                <a href="https://consumer-buying-behavior-analysis.onrender.com" target="_blank"
+                  rel="noopener noreferrer" class="btn btn-sm btn-amber-pill">
+                  <span>Live Demo</span>
+                  <span class="arrow-circle"><i data-lucide="arrow-right"></i></span>
+                </a>
+                <a href="https://github.com/ai-genai-agenticai-intelligence/Consumer-Buying-Behavior-Analysis.git"
+                  target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-secondary">
+                  <i data-lucide="github"></i>
+                  <span>GitHub</span>
+                </a>
+              </div>
+            </div>
+          </article>
+
         </div>
       </div>
     </section>
@@ -1686,12 +1788,12 @@
         </div>
 
         <div class="testimonial-box">
-          <div class="testimonial-avatar testimonial-initials" role="img" aria-label="Dr. Rajesh K.">RK</div>
+          <div class="testimonial-avatar testimonial-initials" role="img" aria-label="MR. Abhishek Sahoo">AS</div>
           <p class="testimonial-quote">
             "Abhishek's mastery of LangGraph multi-agent architectures and enterprise safety guardrails is exceptional.
             His systems are robust, scalable, and engineered with true human-centric clarity."
           </p>
-          <h4 class="testimonial-author">Dr. Rajesh K.</h4>
+          <h4 class="testimonial-author">MR. Abhishek Sahoo</h4>
           <span class="testimonial-role">Senior AI Lead & Mentor • Naresh i Technologies (Agentic AI Division)</span>
           <div style="margin-top: 0.6rem;">
             <a href="https://www.linkedin.com/in/abhishek-sahoo-75519b313" target="_blank" rel="noopener noreferrer"
@@ -1876,12 +1978,20 @@
   <!-- LUXURY FOOTER -->
   <footer class="footer">
     <div class="container">
+      <div class="footer-cta">
+        <p class="footer-cta-text">Have an AI product in mind? <span class="hl">Message me on WhatsApp</span> or
+          <span class="hl">send an email</span> and let's talk about building it.</p>
+        <div class="footer-cta-actions">
+          <a class="pill-cta" href="https://wa.me/918984065377" target="_blank" rel="noopener noreferrer"><span class="chev" aria-hidden="true">»</span> WhatsApp</a>
+          <a class="pill-cta pill-ghost" href="mailto:abhisheksahoo08583@gmail.com"><span class="chev" aria-hidden="true">»</span> Email me</a>
+        </div>
+      </div>
       <div class="footer-top">
         <div class="footer-brand-col">
-          <a href="#hero" class="logo" style="margin-bottom: 1rem; display: inline-flex;">
-            <div class="logo-symbol">A</div>
-            <span>Abhishek.ai</span>
-          </a>
+          <a href="#hero" class="logo logo-chip footer-logo" aria-label="Abhishek Sahoo, home">
+          <img class="logo-avatar" src="My Profile image.jpeg" alt="" width="42" height="42" decoding="async" />
+          <span class="logo-text"><small>AI Engineer</small><strong>Abhishek Sahoo</strong></span>
+        </a>
           <p style="color: var(--text-secondary); max-width: 360px; font-size: 0.92rem; line-height: 1.6;">
             Architecting production-grade Autonomous Multi-Agent Systems, Enterprise LLM Guardrails, and Computer Vision
             architectures. Available for full-time AI engineering roles.
@@ -1903,7 +2013,7 @@
               <a href="#skills">Skills Matrix</a>
               <a href="#experience">Experience & Certs</a>
               <a href="#case-studies">Flagship Case Studies</a>
-              <a href="#projects">14 Live Deployments</a>
+              <a href="#projects">18 Live Deployments</a>
               <a href="#contact">Contact & Inquiry</a>
             </div>
           </div>
@@ -1931,7 +2041,7 @@
         <div>© 2026 Abhishek Sahoo. All rights reserved. B.E. 2026 graduate (SMIT).</div>
         <div class="footer-tech-credit">
           Engineered with <strong>FastAPI</strong>, <strong>Vanilla Modern JS</strong>, <strong>Semantic Vector
-            Intelligence</strong> & <strong>Cyberpunk Glassmorphism</strong>.
+            Intelligence</strong> & <strong>an Ember-Grid design system</strong>.
         </div>
       </div>
     </div>
@@ -2080,7 +2190,7 @@
 
     <!-- Dynamic Quick Suggestion Chips Bar -->
     <div class="agent-chips-bar" id="agentChipsBar">
-      <button class="agent-chip" data-query="🚀 Show all 14 projects">🚀 14 Projects</button>
+      <button class="agent-chip" data-query="🚀 Show all 18 projects">🚀 18 Projects</button>
       <button class="agent-chip" data-query="🤖 Tell me about LangGraph and Multi-Agent workflows">🤖 LangGraph</button>
       <button class="agent-chip" data-query="📊 What are your Analytics & BI projects?">📊 Analytics Dashboards</button>
       <button class="agent-chip" data-query="🛡️ How do your Enterprise LLM Guardrails work?">🛡️ Guardrails</button>
@@ -2108,11 +2218,11 @@
           AbhiBot AI
         </div>
 
-        Hello! I am <strong>AbhiBot</strong>, Abhishek Sahoo's official AI Concierge. Ask me about his <strong>14 live
+        Hello! I am <strong>AbhiBot</strong>, Abhishek Sahoo's official AI Concierge. Ask me about his <strong>18 live
           production systems</strong>, his <strong>LangGraph Multi-Agent architectures</strong>, or how to schedule an
         executive strategy session.
         <div class="chat-actions-row" style="margin-top: 0.6rem;">
-          <a href="#projects" class="chat-action-btn"><i data-lucide="grid"></i> View 14 Projects</a>
+          <a href="#projects" class="chat-action-btn"><i data-lucide="grid"></i> View 18 Projects</a>
           <button class="chat-action-btn book-session-trigger"><i data-lucide="calendar"></i> Book Session</button>
         </div>
       </div>
@@ -2127,7 +2237,7 @@
     </div>
   </div>
 
-  <script src="scroll-reveal.js"></script>
+  <script src="scroll-reveal.js?v=2"></script>
   <script src="script.js?v=5.0"></script>
 </body>
 

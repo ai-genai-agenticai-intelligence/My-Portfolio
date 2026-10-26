@@ -20,10 +20,18 @@ Open http://localhost:8000
 ## Security notes
 Only whitelisted files (`PUBLIC_FILES` in `app.py`) and `/images` are served. Never mount the project root as static files.
 
-## Scroll animation
-The "Ready To Collaborate" finale is a pinned, scroll-scrubbed sequence (glass 3D emblem, dot-grid + glow,
-word-by-word headline reveal). It is driven by a single CSS variable `--p` (0 to 1) set in `script.js`
-(`initCinemaFinale`) and styled in `style.css` (search "v5.0"). Visitors who prefer reduced motion get the
-finished layout with no animation. Tune the length with `.cinema-ready .cinema-track { height }` and the
-timing by editing the `--p` thresholds in the same block.
+## Finale animation (v6.0)
+The "Ready To Collaborate" finale features a responsive 3D quantum crystal core with continuous ambient levitation,
+orbiting agent photons, and an interactive mouse-tilt parallax gyroscope (styled in `style.css` and powered by
+`initCinemaFinale` in `script.js`). The section reveals instantly upon entering the viewport with an ultra-smooth
+staggered sequence, eliminating sluggish pinned scroll traps while keeping action buttons immediately accessible.
+
+
+## Design system ("Ember Grid")
+All of the look-and-feel lives in `ember.css`, loaded after `style.css`. Delete the `<link>` to it in
+`index.html` to return to the previous design. Key ideas: fine grid + rising ember glow canvas, condensed
+uppercase display headlines (Anton, self-hosted in `fonts/`, SIL OFL licence included), dark "slide" cards
+and solid orange cards, chat-bubble panels, and "»" pill buttons. Tokens (`--cream`, `--ember-grad`,
+`--slide-bg`, `--font-display`) are at the top of the file. Text colours are checked against WCAG AA in
+both themes; solid orange surfaces use `--ember-grad` (deeper orange) so white text stays readable.
 

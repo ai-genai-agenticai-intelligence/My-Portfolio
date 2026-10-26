@@ -434,7 +434,7 @@ Key Profile Knowledge:
 - Core Expertise: Autonomous Multi-Agent Workflows, LangGraph, Model Context Protocol (MCP), Responsible AI Guardrails, Agentic RAG, FastAPI, PyTorch, Computer Vision (YOLO/IMOT), and Business Intelligence & Analytics.
 - Direct Contact: Phone / WhatsApp: +91 8984065377, Email: abhisheksahoo08583@gmail.com, LinkedIn: linkedin.com/in/abhishek-sahoo-75519b313, GitHub: github.com/ai-genai-agenticai-intelligence
 
-Key 14 Live Deployments:
+Key 18 Live Deployments:
 1. Enterprise IT Support Agentic RAG Copilot: LangGraph state machine, Pinecone vector store, dynamic fallback search, real-time decision tracing.
 2. ResearchMind: Deep Research Multi-Agent system for multi-paper academic synthesis.
 3. Multi-Node LangGraph Framework: Supervisor pattern, dynamic routing, stateful execution.
@@ -449,6 +449,10 @@ Key 14 Live Deployments:
 12. E-Commerce Financial Performance Dashboard: Streamlit + Plotly modeling revenues, margins, and unit economics (https://e-commerce-financial-performance-app.streamlit.app).
 13. Website Performance & Traffic Analytics: Real-time telemetry, bounce rates & conversion funnels (https://website-performance-analytics-app.streamlit.app).
 14. Netflix Global Movie Analysis: Catalog trends, runtime clusters & director networks (https://netflix-movie-analysis-app.streamlit.app).
+15. Housing Price Prediction & Model Benchmarking: Real estate valuation and benchmarking suite comparing multiple regression algorithms with cross-validation and feature importance (https://housing-price-prediction-model-nle8.onrender.com).
+16. AI-Powered Car Fuel Efficiency Prediction System: Intelligent automotive regression engine estimating vehicle MPG with interactive sensitivity simulations (https://ai-powered-car-fuel-efficiency-prediction-system.streamlit.app).
+17. Employee Salary Estimator: Compensation analytics platform predicting competitive salary bands based on experience, education, role, and location benchmarks (https://employee-salary-estimator-g4pcbpl4fcesay3zfabde7.streamlit.app).
+18. Consumer Buying Behavior Analysis: Customer analytics and purchase propensity modeling leveraging clustering and classification for customer segmentation (https://consumer-buying-behavior-analysis.onrender.com).
 
 Response Style:
 - Professional, concise, actionable (2-4 sentences max per response).
@@ -577,9 +581,9 @@ def resolve_semantic_intent(raw_message: str) -> dict:
     user_input = (raw_message or "").strip().lower()
     if not user_input:
         return {
-            "reply": "Hello! I am <strong>AbhiBot</strong>, Abhishek Sahoo's AI Concierge. How can I help you explore his 14 live production systems, review his Multi-Agent LangGraph architecture, or schedule an executive strategy session?",
+            "reply": "Hello! I am <strong>AbhiBot</strong>, Abhishek Sahoo's AI Concierge. How can I help you explore his 18 live production systems, review his Multi-Agent LangGraph architecture, or schedule an executive strategy session?",
             "action": "general",
-            "suggested_chips": ["🚀 Show 14 Projects", "🤖 LangGraph & Agents", "📊 Analytics Dashboards", "📅 Book Strategy Call", "📞 Contact Abhishek"]
+            "suggested_chips": ["🚀 Show 18 Projects", "🤖 LangGraph & Agents", "🧠 Machine Learning", "📊 Analytics Dashboards", "📅 Book Strategy Call", "📞 Contact Abhishek"]
         }
 
     # 1. Booking & Scheduling Strategy Session
@@ -587,7 +591,7 @@ def resolve_semantic_intent(raw_message: str) -> dict:
         return {
             "reply": "Opening the <strong>1-on-1 Strategy Session Calendar</strong> for you! You can pick your preferred date and time, and instantly receive a calendar invite (.ics).<br><div class='chat-actions-row'><button class='chat-action-btn book-session-trigger'><i data-lucide='calendar'></i> Open Booking Modal</button><a href='https://wa.me/918984065377' target='_blank' class='chat-action-btn'><i data-lucide='phone'></i> Direct WhatsApp</a></div>",
             "action": "open_calendar",
-            "suggested_chips": ["🚀 Show 14 Projects", "🤖 Multi-Agent Systems", "📞 Direct WhatsApp"]
+            "suggested_chips": ["🚀 Show 18 Projects", "🤖 Multi-Agent Systems", "📞 Direct WhatsApp"]
         }
 
     # 2. Contact & Direct Reach
@@ -595,15 +599,15 @@ def resolve_semantic_intent(raw_message: str) -> dict:
         return {
             "reply": "You can connect with Abhishek directly on WhatsApp / Phone at <strong>+91 8984065377</strong> or email him at <strong>abhisheksahoo08583@gmail.com</strong>.<br><div class='chat-actions-row'><a href='https://wa.me/918984065377' target='_blank' class='chat-action-btn'><i data-lucide='message-circle'></i> Open WhatsApp Chat</a><a href='https://www.linkedin.com/in/abhishek-sahoo-75519b313' target='_blank' class='chat-action-btn'><i data-lucide='linkedin'></i> View LinkedIn</a></div>",
             "action": "open_whatsapp",
-            "suggested_chips": ["📅 Book 1:1 Session", "🚀 View All 14 Projects", "💻 View Tech Stack"]
+            "suggested_chips": ["📅 Book 1:1 Session", "🚀 View All 18 Projects", "💻 View Tech Stack"]
         }
 
     # 3. Resume & CV Download
     if has_intent(user_input, ["resume", "cv", "curriculum", "download resume", "pdf", "bio"]):
         return {
-            "reply": "You can view and download Abhishek Sahoo's official <strong>AI & Agentic Systems Engineer Resume (PDF)</strong> detailing his Naresh i Tech experience, 14 live deployments, and credentials.<br><div class='chat-actions-row'><a href='Abhishek_Sahoo_AI_Resume.pdf' download='Abhishek_Sahoo_AI_Resume.pdf' class='chat-action-btn'><i data-lucide='download'></i> Download Official Resume (PDF)</a><a href='https://www.linkedin.com/in/abhishek-sahoo-75519b313' target='_blank' class='chat-action-btn'><i data-lucide='linkedin'></i> LinkedIn Profile</a></div>",
+            "reply": "You can view and download Abhishek Sahoo's official <strong>AI & Agentic Systems Engineer Resume (PDF)</strong> detailing his Naresh i Tech experience, 18 live deployments, and credentials.<br><div class='chat-actions-row'><a href='Abhishek_Sahoo_AI_Resume.pdf' download='Abhishek_Sahoo_AI_Resume.pdf' class='chat-action-btn'><i data-lucide='download'></i> Download Official Resume (PDF)</a><a href='https://www.linkedin.com/in/abhishek-sahoo-75519b313' target='_blank' class='chat-action-btn'><i data-lucide='linkedin'></i> LinkedIn Profile</a></div>",
             "action": "download_resume",
-            "suggested_chips": ["📅 Book 1:1 Session", "🚀 View All 14 Projects", "📞 Contact Abhishek"]
+            "suggested_chips": ["📅 Book 1:1 Session", "🚀 View All 18 Projects", "📞 Contact Abhishek"]
         }
 
     # 4. Work Experience & Internship
@@ -619,7 +623,7 @@ def resolve_semantic_intent(raw_message: str) -> dict:
         return {
             "reply": "Abhishek is pursuing his <strong>B.E. in Computer Science & Engineering (2022 - 2026)</strong> at <strong>Sikkim Manipal Institute of Technology (SMIT)</strong>, focusing on Distributed Systems, Multi-Agent Architectures, and Responsible AI.",
             "action": "general",
-            "suggested_chips": ["💼 View Tech Stack", "🚀 View 14 Projects", "📞 Direct Contact"]
+            "suggested_chips": ["💼 View Tech Stack", "🚀 View 18 Projects", "📞 Direct Contact"]
         }
 
     # 6. Certifications & Verified Credentials
@@ -627,7 +631,7 @@ def resolve_semantic_intent(raw_message: str) -> dict:
         return {
             "reply": "Abhishek holds verified certifications in <strong>Machine Learning Specialization (DeepLearning.AI / Stanford)</strong>, <strong>Deep Learning & Generative AI</strong>, and <strong>PyTorch & TensorFlow</strong> foundations.",
             "action": "general",
-            "suggested_chips": ["💼 Tech Stack", "🚀 14 Live Projects", "📄 Download Resume"]
+            "suggested_chips": ["💼 Tech Stack", "🚀 18 Live Projects", "📄 Download Resume"]
         }
 
     # 7. Enterprise IT Support Agentic RAG Copilot
@@ -683,7 +687,7 @@ def resolve_semantic_intent(raw_message: str) -> dict:
         return {
             "reply": "Abhishek has deployed <strong>3 live Streamlit Cloud analytics suites</strong>:<br>• <strong>E-Commerce Financial Performance</strong>: Unit economics & margin modeling<br>• <strong>Website Performance & Traffic Telemetry</strong>: Real-time latency & funnel analysis<br>• <strong>Netflix Global Movie Analysis</strong>: Catalog dynamics & director networks<br><div class='chat-actions-row'><a href='https://e-commerce-financial-performance-app.streamlit.app' target='_blank' class='chat-action-btn'><i data-lucide='external-link'></i> E-Commerce App</a><a href='https://website-performance-analytics-app.streamlit.app' target='_blank' class='chat-action-btn'><i data-lucide='external-link'></i> Website App</a><a href='https://netflix-movie-analysis-app.streamlit.app' target='_blank' class='chat-action-btn'><i data-lucide='external-link'></i> Netflix App</a></div>",
             "action": "general",
-            "suggested_chips": ["🚀 View All 14 Projects", "🤖 LangGraph & Agents", "📅 Book Strategy Call"]
+            "suggested_chips": ["🚀 View All 18 Projects", "🤖 LangGraph & Agents", "📅 Book Strategy Call"]
         }
 
     # 13. AI Resume Analyzer
@@ -702,36 +706,44 @@ def resolve_semantic_intent(raw_message: str) -> dict:
             "suggested_chips": ["🤖 LangGraph Agents", "🛡️ LLM Guardrails", "📅 Book 1:1 Session"]
         }
 
+    # 14b. Machine Learning & Predictive Modeling
+    if has_intent(user_input, ["machine learning", "predictive", "housing", "fuel", "salary", "consumer", "buying behavior", "scikit-learn", "xgboost", "regression", "clustering", "benchmarking"]):
+        return {
+            "reply": "Abhishek has engineered <strong>4 live Machine Learning & Predictive AI systems</strong>:<br>• <strong>Housing Price Prediction & Model Benchmarking</strong>: Multi-model regression with XGBoost & FastAPI (Render)<br>• <strong>Car Fuel Efficiency System</strong>: Automotive MPG prediction & simulation (Streamlit)<br>• <strong>Employee Salary Estimator</strong>: Compensation bands & experience analytics (Streamlit)<br>• <strong>Consumer Buying Behavior Analysis</strong>: Customer segmentation & purchase propensity (Render)<br><div class='chat-actions-row'><a href='#projects' class='chat-action-btn'><i data-lucide='grid'></i> View ML Projects in Grid</a></div>",
+            "action": "view_projects",
+            "suggested_chips": ["🤖 Multi-Agent Systems", "📊 Data Analytics", "📅 Book Strategy Call"]
+        }
+
     # 15. Projects Overview / Showcase
     if has_intent(user_input, ["project", "projects", "work", "portfolio", "built", "showcase", "systems"]):
         return {
-            "reply": "Abhishek has engineered and deployed <strong>14 production-grade systems</strong> across 4 domains: Multi-Agent LangGraph (5), LLM Guardrails & GenAI (3), Computer Vision (3), and Analytics Dashboards (3).<br><div class='chat-actions-row'><a href='#projects' class='chat-action-btn'><i data-lucide='grid'></i> Jump To Projects Grid</a></div>",
+            "reply": "Abhishek has engineered and deployed <strong>18 production-grade systems</strong> across 5 domains: Multi-Agent LangGraph (5), Machine Learning (4), LLM Guardrails & GenAI (3), Computer Vision (3), and Analytics Dashboards (3).<br><div class='chat-actions-row'><a href='#projects' class='chat-action-btn'><i data-lucide='grid'></i> Jump To Projects Grid</a></div>",
             "action": "view_projects",
-            "suggested_chips": ["🤖 Multi-Agent (5)", "🛡️ LLM & GenAI (3)", "👁️ Computer Vision (3)", "📊 Data Analytics (3)"]
+            "suggested_chips": ["🤖 Multi-Agent (5)", "🧠 Machine Learning (4)", "🛡️ LLM & GenAI (3)", "👁️ Computer Vision (3)", "📊 Data Analytics (3)"]
         }
 
     # 16. Technical Stack & Skills
     if has_intent(user_input, ["skill", "skills", "tech", "stack", "framework", "tools", "python", "pytorch", "fastapi", "technologies", "languages"]):
         return {
-            "reply": "Abhishek's technical stack includes: <strong>LangGraph & Multi-Agent Workflows</strong>, <strong>Agentic RAG & Pinecone</strong>, <strong>Model Context Protocol (MCP)</strong>, <strong>FastAPI & Python</strong>, <strong>PyTorch & OpenCV</strong>, <strong>Responsible AI Guardrails</strong>, and <strong>Streamlit & Tableau BI</strong>.",
+            "reply": "Abhishek's technical stack includes: <strong>LangGraph & Multi-Agent Workflows</strong>, <strong>Agentic RAG & Pinecone</strong>, <strong>Machine Learning (Scikit-Learn & XGBoost)</strong>, <strong>Model Context Protocol (MCP)</strong>, <strong>FastAPI & Python</strong>, <strong>PyTorch & OpenCV</strong>, <strong>Responsible AI Guardrails</strong>, and <strong>Streamlit & Tableau BI</strong>.",
             "action": "general",
-            "suggested_chips": ["🚀 View 14 Projects", "📅 Schedule Strategy Session", "💬 WhatsApp Chat"]
+            "suggested_chips": ["🚀 View 18 Projects", "📅 Schedule Strategy Session", "💬 WhatsApp Chat"]
         }
 
     # 17. Who is Abhishek / Profile
     if has_intent(user_input, ["who is abhishek", "about abhishek", "who are you", "tell me about yourself", "tell me about abhishek", "introduce abhishek", "profile"]):
         return {
-            "reply": "Abhishek Sahoo is an <strong>AI & Agentic Systems Engineer</strong> (SMIT B.E. CSE 2026) building autonomous multi-agent systems, enterprise RAG copilots, and responsible AI guardrails. He has deployed 14 live cloud systems and interned at Naresh i Tech.",
+            "reply": "Abhishek Sahoo is an <strong>AI & Agentic Systems Engineer</strong> (SMIT B.E. CSE 2026) building autonomous multi-agent systems, enterprise RAG copilots, and responsible AI guardrails. He has deployed 18 live cloud systems and interned at Naresh i Tech.",
             "action": "general",
-            "suggested_chips": ["🚀 Show 14 Projects", "📄 Download Resume", "💼 View Tech Stack", "📅 Book Strategy Call"]
+            "suggested_chips": ["🚀 Show 18 Projects", "📄 Download Resume", "💼 View Tech Stack", "📅 Book Strategy Call"]
         }
 
     # 18. Greetings
     if has_intent(user_input, ["hi", "hello", "hey", "hola", "namaste", "greetings", "good morning", "good evening", "good afternoon"]):
         return {
-            "reply": "Hello! 👋 I am <strong>AbhiBot</strong>, Abhishek Sahoo's AI Concierge. I can guide you through his <strong>14 live production systems</strong>, break down his multi-agent architecture, or help you book an executive strategy call. How can I assist you today?",
+            "reply": "Hello! 👋 I am <strong>AbhiBot</strong>, Abhishek Sahoo's AI Concierge. I can guide you through his <strong>18 live production systems</strong>, break down his multi-agent architecture, or help you book an executive strategy call. How can I assist you today?",
             "action": "general",
-            "suggested_chips": ["🚀 Explore 14 Projects", "🤖 LangGraph & Agents", "📊 Live Analytics Dashboards", "📅 Book 1:1 Strategy Call"]
+            "suggested_chips": ["🚀 Explore 18 Projects", "🤖 LangGraph & Agents", "🧠 Machine Learning", "📊 Live Analytics Dashboards", "📅 Book 1:1 Strategy Call"]
         }
 
     # 19. Goodbye / Thanks
@@ -744,9 +756,9 @@ def resolve_semantic_intent(raw_message: str) -> dict:
 
     # Default Fallback
     return {
-        "reply": "Abhishek Sahoo is an <strong>AI & Agentic Systems Engineer</strong> (SMIT B.E. 2026) building autonomous multi-agent pipelines, enterprise RAG copilots, and responsible AI guardrails. Feel free to ask about his 14 live systems, tech stack, or book a strategy session!",
+        "reply": "Abhishek Sahoo is an <strong>AI & Agentic Systems Engineer</strong> (SMIT B.E. 2026) building autonomous multi-agent pipelines, enterprise RAG copilots, and responsible AI guardrails. Feel free to ask about his 18 live systems, tech stack, or book a strategy session!",
         "action": "general",
-        "suggested_chips": ["🚀 Show 14 Projects", "📄 Download Resume", "🤖 LangGraph Architecture", "📅 Book Strategy Call"]
+        "suggested_chips": ["🚀 Show 18 Projects", "📄 Download Resume", "🤖 LangGraph Architecture", "📅 Book Strategy Call"]
     }
 
 # --- 8. AUTONOMOUS AI AGENT CONCIERGE ENDPOINT ---
@@ -755,17 +767,17 @@ def agent_chat_endpoint(payload: AgentChatRequest, _rl: None = Depends(rate_limi
     raw_message = (payload.message or payload.query or "").strip()
     if not raw_message:
         return {
-            "reply": "Hello! I am <strong>AbhiBot</strong>, Abhishek's AI Concierge. How can I help you explore his 14 live systems, tech stack, or schedule an executive strategy session?",
+            "reply": "Hello! I am <strong>AbhiBot</strong>, Abhishek's AI Concierge. How can I help you explore his 18 live systems, tech stack, or schedule an executive strategy session?",
             "action": "general",
             "provider": "default",
-            "suggested_chips": ["🚀 Show 14 Projects", "🤖 LangGraph & Agents", "📊 Analytics Dashboards", "📅 Book Strategy Call", "📞 Contact Abhishek"]
+            "suggested_chips": ["🚀 Show 18 Projects", "🤖 LangGraph & Agents", "🧠 Machine Learning", "📊 Analytics Dashboards", "📅 Book Strategy Call", "📞 Contact Abhishek"]
         }
 
     # First check semantic action for UI coordination
     semantic_result = resolve_semantic_intent(raw_message)
     action = semantic_result.get("action", "general")
     action_data = semantic_result.get("action_data", {})
-    suggested_chips = semantic_result.get("suggested_chips", ["🚀 Show 14 Projects", "📅 Book Strategy Call", "📞 Direct WhatsApp"])
+    suggested_chips = semantic_result.get("suggested_chips", ["🚀 Show 18 Projects", "📅 Book Strategy Call", "📞 Direct WhatsApp"])
 
     # 1. Try Groq API (Ultra-fast LPU inference)
     groq_key = os.environ.get("GROQ_API_KEY")
@@ -850,6 +862,7 @@ async def download_resume():
 # portfolio.db to anyone on the internet. Only whitelisted public files are served.
 PUBLIC_FILES = {
     "style.css": "text/css",
+    "ember.css": "text/css",
     "script.js": "application/javascript",
     "scroll-reveal.js": "application/javascript",
     "My Profile image.jpeg": "image/jpeg",
@@ -860,25 +873,19 @@ PUBLIC_FILES = {
 
 # Image folder only (no directory listing of anything else)
 app.mount("/images", StaticFiles(directory=os.path.join(BASE_DIR, "images")), name="images")
+app.mount("/fonts", StaticFiles(directory=os.path.join(BASE_DIR, "fonts")), name="fonts")
 
 @app.get("/")
 async def serve_index():
-    return FileResponse(
-        os.path.join(BASE_DIR, "index.html"),
-        media_type="text/html",
-        headers={"Cache-Control": "no-cache, no-store, must-revalidate"}
-    )
+    return FileResponse(os.path.join(BASE_DIR, "index.html"), media_type="text/html")
 
 @app.get("/{filename:path}")
 async def serve_public_file(filename: str):
     if filename in PUBLIC_FILES:
         path = os.path.join(BASE_DIR, filename)
         if os.path.isfile(path):
-            return FileResponse(
-                path,
-                media_type=PUBLIC_FILES[filename],
-                headers={"Cache-Control": "no-cache, no-store, must-revalidate"}
-            )
+            return FileResponse(path, media_type=PUBLIC_FILES[filename],
+                                headers={"Cache-Control": "public, max-age=3600"})
     return JSONResponse(status_code=404, content={"error": "Not found"})
 
 

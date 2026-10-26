@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 4. Mobile Menu Toggle
   initMobileMenu();
 
-  // 5. Project Filtering (10 Systems)
+  // 5. Project Filtering (18 Systems)
   initProjectFilters();
 
   // 6. 1-on-1 Consultation Booking Engine
@@ -231,22 +231,24 @@ function initWorkflowTabs() {
   const previewBox = document.getElementById('blueprintPreview');
   if (!previewBox) return;
 
-  const stepPreviews = {
-    '1': `
-      <i data-lucide="git-branch" style="width: 48px; height: 48px; color: var(--primary); margin-bottom: 1rem;"></i>
-      <h4 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Phase 01: State Graph Topology</h4>
-      <p style="font-size: 0.9rem;">Schema definition • Multi-Agent Roles • Dynamic Memory Buffers</p>
-    `,
-    '2': `
-      <i data-lucide="network" style="width: 48px; height: 48px; color: var(--primary); margin-bottom: 1rem;"></i>
-      <h4 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Phase 02: Supervisor Graph & MCP</h4>
-      <p style="font-size: 0.9rem;">Supervisor Node → Dynamic Tool Router → Human-in-the-Loop Checkpoint</p>
-    `,
-    '3': `
-      <i data-lucide="shield-check" style="width: 48px; height: 48px; color: var(--primary); margin-bottom: 1rem;"></i>
-      <h4 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Phase 03: Responsible Guardrails & Cloud</h4>
-      <p style="font-size: 0.9rem;">PII Sanitization • Prompt Injection Defense • Render Cloud Deployment</p>
-    `,
+  const PHASES = {
+    '1': ['Phase 01 \u00b7 State Graph Topology', 'Define the graph: what must the agents know, and who does what?',
+      ['Schema definition', 'Multi-Agent Roles', 'Dynamic Memory Buffers']],
+    '2': ['Phase 02 \u00b7 Supervisor Graph & MCP', 'Route the work: who plans, which tool runs, and when does a human step in?',
+      ['Supervisor Node', 'Dynamic Tool Router', 'Human-in-the-Loop Checkpoint']],
+    '3': ['Phase 03 \u00b7 Guardrails & Cloud', 'Make it safe to ship: what gets filtered, and where does it run?',
+      ['PII Sanitization', 'Prompt Injection Defense', 'Render Cloud Deployment']],
+  };
+  const buildChat = (n) => {
+    const [label, question, items] = PHASES[n] || PHASES['1'];
+    const next = String((Number(n) % 3) + 1);
+    const bubbles = items.map((t, i) =>
+      `<div class="bp-msg bp-agent" style="--d:${(0.18 + 0.12 * i).toFixed(2)}s"><span class="bp-who"><i></i>Agent</span>` +
+      `<span class="bp-text">${t}</span><span class="bp-time">\u2713\u2713</span></div>`).join('');
+    const btn = n === '3' ? 'Back to Phase 01' : `Next: Phase 0${next}`;
+    return `<div class="bp-chat"><div class="bp-label">${label}</div>` +
+      `<div class="bp-msg bp-human"><span class="bp-who">Architect</span><span class="bp-text">${question}</span></div>${bubbles}` +
+      `<button type="button" class="bp-next" data-next="${next}"><span>${btn}</span><span class="bp-send" aria-hidden="true">\u2192</span></button></div>`;
   };
 
   stepCards.forEach((card) => {
@@ -255,9 +257,16 @@ function initWorkflowTabs() {
       card.classList.add('active');
 
       const stepNum = card.getAttribute('data-step') || '1';
-      previewBox.innerHTML = stepPreviews[stepNum] || stepPreviews['1'];
-      if (window.lucide) lucide.createIcons();
+      previewBox.innerHTML = buildChat(stepNum);
     });
+  });
+
+  // the chat's "Next" button advances the phase (same as clicking the phase card)
+  previewBox.addEventListener('click', (e) => {
+    const btn = e.target.closest('.bp-next');
+    if (!btn) return;
+    const target = document.querySelector(`.workflow-step-card[data-step="${btn.dataset.next}"]`);
+    if (target) target.click();
   });
 }
 
@@ -491,8 +500,9 @@ function initAiAgent() {
   let conversationHistory = [];
 
   const initialChips = [
-    "🚀 Show 14 Projects",
+    "🚀 Show 18 Projects",
     "🤖 LangGraph & Agents",
+    "🧠 Machine Learning",
     "📊 Analytics Dashboards",
     "🛡️ Guardrails",
     "📅 Book Strategy Call",
@@ -621,9 +631,9 @@ function initAiAgent() {
       chatBody.innerHTML = `
         <div class="agent-msg bot">
           ${GEMINI_SENDER_HTML}
-          Conversation refreshed! I am ready to guide you through Abhishek's <strong>14 live production systems</strong>, his <strong>LangGraph Multi-Agent architectures</strong>, or help you book an executive strategy session.
+          Conversation refreshed! I am ready to guide you through Abhishek's <strong>18 live production systems</strong>, his <strong>LangGraph Multi-Agent architectures</strong>, or help you book an executive strategy session.
           <div class="chat-actions-row" style="margin-top: 0.6rem;">
-            <a href="#projects" class="chat-action-btn"><i data-lucide="grid"></i> View 14 Projects</a>
+            <a href="#projects" class="chat-action-btn"><i data-lucide="grid"></i> View 18 Projects</a>
             <button class="chat-action-btn book-session-trigger"><i data-lucide="calendar"></i> Book Strategy Session</button>
           </div>
         </div>
@@ -848,7 +858,7 @@ function resolveLocalAiResponse(rawQuery) {
     return {
       reply: `Opening the <strong>1-on-1 Strategy Session Calendar</strong> for you! You can pick your preferred date and time, and instantly receive a calendar invite (.ics).<br><div class='chat-actions-row'><button class='chat-action-btn book-session-trigger'><i data-lucide='calendar'></i> Open Booking Modal</button><a href='https://wa.me/918984065377' target='_blank' class='chat-action-btn'><i data-lucide='phone'></i> Direct WhatsApp</a></div>`,
       action: 'open_calendar',
-      suggested_chips: ['🚀 Show 14 Projects', '🤖 Multi-Agent Systems', '📞 Direct WhatsApp'],
+      suggested_chips: ['🚀 Show 18 Projects', '🤖 Multi-Agent Systems', '📞 Direct WhatsApp'],
     };
   }
 
@@ -870,7 +880,7 @@ function resolveLocalAiResponse(rawQuery) {
     return {
       reply: `You can connect with Abhishek directly on WhatsApp / Phone at <strong>+91 8984065377</strong> or email him at <strong>abhisheksahoo08583@gmail.com</strong>.<br><div class='chat-actions-row'><a href='https://wa.me/918984065377' target='_blank' class='chat-action-btn'><i data-lucide='message-circle'></i> Open WhatsApp Chat</a><a href='https://www.linkedin.com/in/abhishek-sahoo-75519b313' target='_blank' class='chat-action-btn'><i data-lucide='linkedin'></i> View LinkedIn</a></div>`,
       action: 'open_whatsapp',
-      suggested_chips: ['📅 Book 1:1 Session', '🚀 View All 14 Projects', '💻 View Tech Stack'],
+      suggested_chips: ['📅 Book 1:1 Session', '🚀 View All 18 Projects', '💻 View Tech Stack'],
     };
   }
 
@@ -886,9 +896,9 @@ function resolveLocalAiResponse(rawQuery) {
     ])
   ) {
     return {
-      reply: `You can view and download Abhishek Sahoo's official <strong>AI & Agentic Systems Engineer Resume (PDF)</strong> detailing his Naresh i Tech experience, 14 live deployments, and credentials.<br><div class='chat-actions-row'><a href='Abhishek_Sahoo_AI_Resume.pdf' download='Abhishek_Sahoo_AI_Resume.pdf' class='chat-action-btn'><i data-lucide='download'></i> Download Official Resume (PDF)</a><a href='https://www.linkedin.com/in/abhishek-sahoo-75519b313' target='_blank' class='chat-action-btn'><i data-lucide='linkedin'></i> LinkedIn Profile</a></div>`,
+      reply: `You can view and download Abhishek Sahoo's official <strong>AI & Agentic Systems Engineer Resume (PDF)</strong> detailing his Naresh i Tech experience, 18 live deployments, and credentials.<br><div class='chat-actions-row'><a href='Abhishek_Sahoo_AI_Resume.pdf' download='Abhishek_Sahoo_AI_Resume.pdf' class='chat-action-btn'><i data-lucide='download'></i> Download Official Resume (PDF)</a><a href='https://www.linkedin.com/in/abhishek-sahoo-75519b313' target='_blank' class='chat-action-btn'><i data-lucide='linkedin'></i> LinkedIn Profile</a></div>`,
       action: 'download_resume',
-      suggested_chips: ['📅 Book 1:1 Session', '🚀 View All 14 Projects', '📞 Contact Abhishek'],
+      suggested_chips: ['📅 Book 1:1 Session', '🚀 View All 18 Projects', '📞 Contact Abhishek'],
     };
   }
 
@@ -929,7 +939,7 @@ function resolveLocalAiResponse(rawQuery) {
     return {
       reply: `Abhishek is pursuing his <strong>B.E. in Computer Science & Engineering (2022 - 2026)</strong> at <strong>Sikkim Manipal Institute of Technology (SMIT)</strong>, focusing on Distributed Systems, Multi-Agent Architectures, and Responsible AI.`,
       action: 'general',
-      suggested_chips: ['💼 View Tech Stack', '🚀 View 14 Projects', '📞 Direct Contact'],
+      suggested_chips: ['💼 View Tech Stack', '🚀 View 18 Projects', '📞 Direct Contact'],
     };
   }
 
@@ -948,7 +958,7 @@ function resolveLocalAiResponse(rawQuery) {
     return {
       reply: `Abhishek holds verified certifications in <strong>Machine Learning Specialization (DeepLearning.AI / Stanford)</strong>, <strong>Deep Learning & Generative AI</strong>, and <strong>PyTorch & TensorFlow</strong> foundations.`,
       action: 'general',
-      suggested_chips: ['💼 Tech Stack', '🚀 14 Live Projects', '📄 Download Resume'],
+      suggested_chips: ['💼 Tech Stack', '🚀 18 Live Projects', '📄 Download Resume'],
     };
   }
 
@@ -1088,7 +1098,7 @@ function resolveLocalAiResponse(rawQuery) {
     return {
       reply: `Abhishek has deployed <strong>3 live Streamlit Cloud analytics suites</strong>:<br>• <strong>E-Commerce Financial Performance</strong>: Unit economics & margin modeling<br>• <strong>Website Performance & Traffic Telemetry</strong>: Real-time latency & funnel analysis<br>• <strong>Netflix Global Movie Analysis</strong>: Catalog dynamics & director networks<br><div class='chat-actions-row'><a href='https://e-commerce-financial-performance-app.streamlit.app' target='_blank' class='chat-action-btn'><i data-lucide='external-link'></i> E-Commerce App</a><a href='https://website-performance-analytics-app.streamlit.app' target='_blank' class='chat-action-btn'><i data-lucide='external-link'></i> Website App</a><a href='https://netflix-movie-analysis-app.streamlit.app' target='_blank' class='chat-action-btn'><i data-lucide='external-link'></i> Netflix App</a></div>`,
       action: 'general',
-      suggested_chips: ['🚀 View All 14 Projects', '🤖 LangGraph & Agents', '📅 Book Strategy Call'],
+      suggested_chips: ['🚀 View All 18 Projects', '🤖 LangGraph & Agents', '📅 Book Strategy Call'],
     };
   }
 
@@ -1110,6 +1120,30 @@ function resolveLocalAiResponse(rawQuery) {
     };
   }
 
+  // 14b. Machine Learning & Predictive Modeling
+  if (
+    hasLocalIntent(q, [
+      'machine learning',
+      'predictive',
+      'housing',
+      'fuel',
+      'salary',
+      'consumer',
+      'buying behavior',
+      'scikit-learn',
+      'xgboost',
+      'regression',
+      'clustering',
+      'benchmarking',
+    ])
+  ) {
+    return {
+      reply: `Abhishek has engineered <strong>4 live Machine Learning & Predictive AI systems</strong>:<br>• <strong>Housing Price Prediction & Model Benchmarking</strong>: Multi-model regression with XGBoost & FastAPI (Render)<br>• <strong>Car Fuel Efficiency System</strong>: Automotive MPG prediction & simulation (Streamlit)<br>• <strong>Employee Salary Estimator</strong>: Compensation bands & experience analytics (Streamlit)<br>• <strong>Consumer Buying Behavior Analysis</strong>: Customer segmentation & purchase propensity (Render)<br><div class='chat-actions-row'><a href='#projects' class='chat-action-btn'><i data-lucide='grid'></i> View ML Projects in Grid</a></div>`,
+      action: 'view_projects',
+      suggested_chips: ['🤖 Multi-Agent Systems', '📊 Data Analytics', '📅 Book Strategy Call'],
+    };
+  }
+
   // 15. Projects Overview / Showcase
   if (
     hasLocalIntent(q, [
@@ -1123,9 +1157,9 @@ function resolveLocalAiResponse(rawQuery) {
     ])
   ) {
     return {
-      reply: `Abhishek has engineered and deployed <strong>14 production-grade systems</strong> across 4 domains: Multi-Agent LangGraph (5), LLM Guardrails & GenAI (3), Computer Vision (3), and Analytics Dashboards (3).<br><div class='chat-actions-row'><a href='#projects' class='chat-action-btn'><i data-lucide='grid'></i> Jump To Projects Grid</a></div>`,
+      reply: `Abhishek has engineered and deployed <strong>18 production-grade systems</strong> across 5 domains: Multi-Agent LangGraph (5), Machine Learning (4), LLM Guardrails & GenAI (3), Computer Vision (3), and Analytics Dashboards (3).<br><div class='chat-actions-row'><a href='#projects' class='chat-action-btn'><i data-lucide='grid'></i> Jump To Projects Grid</a></div>`,
       action: 'view_projects',
-      suggested_chips: ['🤖 Multi-Agent (5)', '🛡️ LLM & GenAI (3)', '👁️ Computer Vision (3)', '📊 Data Analytics (3)'],
+      suggested_chips: ['🤖 Multi-Agent (5)', '🧠 Machine Learning (4)', '🛡️ LLM & GenAI (3)', '👁️ Computer Vision (3)', '📊 Data Analytics (3)'],
     };
   }
 
@@ -1156,7 +1190,7 @@ function resolveLocalAiResponse(rawQuery) {
     return {
       reply: `Abhishek's core technical stack includes: <strong>Python</strong>, <strong>Machine Learning (ML)</strong>, <strong>SQL (PostgreSQL & MySQL)</strong>, <strong>Statistics & Data Analysis</strong>, <strong>LangGraph Multi-Agent Workflows</strong>, <strong>Agentic RAG & Pinecone</strong>, <strong>FastAPI & Docker</strong>, and <strong>PyTorch & OpenCV</strong>.<br><div class='chat-actions-row'><a href='#skills' class='chat-action-btn'><i data-lucide='layers'></i> Explore Skills Matrix</a></div>`,
       action: 'general',
-      suggested_chips: ['🚀 View 14 Projects', '📅 Schedule Strategy Session', '💬 WhatsApp Chat'],
+      suggested_chips: ['🚀 View 18 Projects', '📅 Schedule Strategy Session', '💬 WhatsApp Chat'],
     };
   }
 
@@ -1173,9 +1207,9 @@ function resolveLocalAiResponse(rawQuery) {
     ])
   ) {
     return {
-      reply: `Abhishek Sahoo is an <strong>AI & Agentic Systems Engineer</strong> (SMIT B.E. CSE 2026) building autonomous multi-agent systems, enterprise RAG copilots, and responsible AI guardrails. He has deployed 14 live cloud systems and interned at Naresh i Tech.`,
+      reply: `Abhishek Sahoo is an <strong>AI & Agentic Systems Engineer</strong> (SMIT B.E. CSE 2026) building autonomous multi-agent systems, enterprise RAG copilots, and responsible AI guardrails. He has deployed 18 live cloud systems and interned at Naresh i Tech.`,
       action: 'general',
-      suggested_chips: ['🚀 Show 14 Projects', '📄 Download Resume', '💼 View Tech Stack', '📅 Book Strategy Call'],
+      suggested_chips: ['🚀 Show 18 Projects', '📄 Download Resume', '💼 View Tech Stack', '📅 Book Strategy Call'],
     };
   }
 
@@ -1194,9 +1228,9 @@ function resolveLocalAiResponse(rawQuery) {
     ])
   ) {
     return {
-      reply: `Hello! 👋 I am <strong>AbhiBot</strong>, Abhishek Sahoo's AI Concierge. I can guide you through his <strong>14 live production systems</strong>, break down his multi-agent architecture, or help you book an executive strategy call. How can I assist you today?`,
+      reply: `Hello! 👋 I am <strong>AbhiBot</strong>, Abhishek Sahoo's AI Concierge. I can guide you through his <strong>18 live production systems</strong>, break down his multi-agent architecture, or help you book an executive strategy call. How can I assist you today?`,
       action: 'general',
-      suggested_chips: ['🚀 Explore 14 Projects', '🤖 LangGraph & Agents', '📊 Live Analytics Dashboards', '📅 Book 1:1 Strategy Call'],
+      suggested_chips: ['🚀 Explore 18 Projects', '🤖 LangGraph & Agents', '🧠 Machine Learning', '📊 Live Analytics Dashboards', '📅 Book 1:1 Strategy Call'],
     };
   }
 
@@ -1211,9 +1245,9 @@ function resolveLocalAiResponse(rawQuery) {
 
   // Default Fallback
   return {
-    reply: `Abhishek Sahoo is an <strong>AI & Agentic Systems Engineer</strong> (SMIT B.E. 2026) building autonomous multi-agent pipelines, enterprise RAG copilots, and responsible AI guardrails. Feel free to ask about his 14 live systems, tech stack, or book a strategy session!`,
+    reply: `Abhishek Sahoo is an <strong>AI & Agentic Systems Engineer</strong> (SMIT B.E. 2026) building autonomous multi-agent pipelines, enterprise RAG copilots, and responsible AI guardrails. Feel free to ask about his 18 live systems, tech stack, or book a strategy session!`,
     action: 'general',
-    suggested_chips: ['🚀 Show 14 Projects', '📄 Download Resume', '🤖 LangGraph Architecture', '📅 Book Strategy Call'],
+    suggested_chips: ['🚀 Show 18 Projects', '📄 Download Resume', '🤖 LangGraph Architecture', '📅 Book Strategy Call'],
   };
 }
 
@@ -1408,68 +1442,85 @@ function initHeroParallax() {
 function initCinemaFinale() {
   const section = document.getElementById('bookingSection');
   if (!section) return;
-  const track = section.querySelector('.cinema-track');
   const stage = section.querySelector('.cinema-stage');
-  const headline = section.querySelector('.neon-cta-headline');
-  if (!track || !stage) return;
+  if (!stage) return;
 
-  // Split the headline into words so each can reveal on its own.
-  if (headline && !headline.querySelector('.cw')) {
-    let index = 0;
-    const walk = (node) => {
-      [...node.childNodes].forEach((child) => {
-        if (child.nodeType === 3) {
-          const frag = document.createDocumentFragment();
-          child.textContent.split(/(\s+)/).forEach((part) => {
-            if (!part) return;
-            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(' ')); return; }
-            const span = document.createElement('span');
-            span.className = 'cw';
-            span.style.setProperty('--i', String(index++));
-            span.textContent = part;
-            frag.appendChild(span);
-          });
-          child.replaceWith(frag);
-        } else if (child.nodeType === 1 && child.tagName !== 'BR') {
-          walk(child);
-        }
-      });
-    };
-    walk(headline);
+  // 1. Reveal immediately when the section enters the viewport
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        stage.classList.add('is-revealed');
+        revealObserver.unobserve(section);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealObserver.observe(section);
+
+  // Fallback: If section is already in or near viewport on load, reveal immediately
+  const rect = section.getBoundingClientRect();
+  if (rect.top < window.innerHeight && rect.bottom > 0) {
+    stage.classList.add('is-revealed');
   }
 
-  if (PREFERS_REDUCED_MOTION) return;      // keep the finished, static layout
-  section.classList.add('cinema-ready');
+  if (PREFERS_REDUCED_MOTION) return;
 
-  const clamp01 = (v) => Math.min(1, Math.max(0, v));
-  let running = false;
-  const t0 = performance.now();
+  // 2. Interactive 3D Cursor Tilt & Smooth Ambient Rotation
+  let isVisible = false;
+  let targetTiltX = 0;
+  let targetTiltY = 0;
+  let currentTiltX = 0;
+  let currentTiltY = 0;
+  let baseRotationY = 35;
+  let lastTime = performance.now();
 
-  const render = (now) => {
-    const rect = track.getBoundingClientRect();
-    const scrubDistance = Math.max(1, track.offsetHeight - window.innerHeight);
-    const p = clamp01(-rect.top / scrubDistance);
-    const seconds = (now - t0) / 1000;
-    stage.style.setProperty('--p', p.toFixed(4));
-    stage.style.setProperty('--ry', (p * 540 + seconds * 16).toFixed(2) + 'deg');
-    stage.style.setProperty('--rx', (-20 + Math.sin(seconds * 0.7) * 7 + p * 10).toFixed(2) + 'deg');
-    stage.style.setProperty('--oz', (seconds * 55 + p * 360).toFixed(2) + 'deg');
-    section.classList.toggle('is-live', p > 0.78);
-  };
-  const loop = (now) => {
-    if (!running) return;
-    render(now);
-    requestAnimationFrame(loop);
+  const handlePointerMove = (e) => {
+    const sRect = section.getBoundingClientRect();
+    if (sRect.width === 0 || sRect.height === 0) return;
+    const nx = ((e.clientX - sRect.left) / sRect.width) * 2 - 1;
+    const ny = ((e.clientY - sRect.top) / sRect.height) * 2 - 1;
+    targetTiltY = nx * 24;   // ±24deg on Y axis
+    targetTiltX = -ny * 20;  // ±20deg on X axis
   };
 
-  // Only animate while the section is on (or near) the screen.
-  const observer = new IntersectionObserver((entries) => {
+  const handlePointerLeave = () => {
+    targetTiltX = 0;
+    targetTiltY = 0;
+  };
+
+  section.addEventListener('pointermove', handlePointerMove, { passive: true });
+  section.addEventListener('pointerleave', handlePointerLeave, { passive: true });
+
+  const renderLoop = (now) => {
+    if (!isVisible) return;
+    const delta = Math.min((now - lastTime) / 1000, 0.1);
+    lastTime = now;
+
+    // Smooth lerp (inertia) towards pointer tilt
+    currentTiltX += (targetTiltX - currentTiltX) * 0.08;
+    currentTiltY += (targetTiltY - currentTiltY) * 0.08;
+
+    // Continuous ambient orbit and rotation
+    baseRotationY = (baseRotationY + delta * 26) % 360;
+    const totalRy = baseRotationY + currentTiltY;
+    const totalRx = -18 + currentTiltX;
+    const orbitZ = (now * 0.055) % 360;
+
+    stage.style.setProperty('--rx', totalRx.toFixed(2) + 'deg');
+    stage.style.setProperty('--ry', totalRy.toFixed(2) + 'deg');
+    stage.style.setProperty('--oz', orbitZ.toFixed(2) + 'deg');
+
+    requestAnimationFrame(renderLoop);
+  };
+
+  // Only animate the 3D loop while section is in viewport (saves CPU/battery)
+  const visibilityObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
-      running = entry.isIntersecting;
-      if (running) requestAnimationFrame(loop);
-      else render(performance.now());      // settle on the exact final/initial frame
+      isVisible = entry.isIntersecting;
+      if (isVisible) {
+        lastTime = performance.now();
+        requestAnimationFrame(renderLoop);
+      }
     });
-  }, { rootMargin: '150px 0px' });
-  observer.observe(track);
-  render(performance.now());
+  }, { rootMargin: '100px 0px' });
+  visibilityObserver.observe(section);
 }
