@@ -688,6 +688,7 @@
           </article>
 
         </div>
+
       </div>
     </section>
 
@@ -868,7 +869,7 @@
 
         <div class="case-studies-stack">
           <!-- CASE STUDY 1: Enterprise IT Support Copilot -->
-          <article class="case-study-card">
+          <article class="case-study-card" id="case-study-rag">
             <div class="cs-header">
               <div class="cs-header-left">
                 <span class="cs-badge">Case Study 01 • Agentic RAG</span>
@@ -962,7 +963,7 @@
           </article>
 
           <!-- CASE STUDY 2: Multi-Agent System: MCP & HITL -->
-          <article class="case-study-card">
+          <article class="case-study-card" id="case-study-mcp">
             <div class="cs-header">
               <div class="cs-header-left">
                 <span class="cs-badge">Case Study 02 • Multi-Agent Systems</span>
@@ -1055,7 +1056,7 @@
           </article>
 
           <!-- CASE STUDY 3: Deep Learning Malaria Diagnostic Classifier -->
-          <article class="case-study-card">
+          <article class="case-study-card" id="case-study-vision">
             <div class="cs-header">
               <div class="cs-header-left">
                 <span class="cs-badge">Case Study 03 • Deep Learning & Computer Vision</span>
@@ -1156,9 +1157,49 @@
           <h2 class="section-title-editorial">18 Live Cloud <span class="serif-accent">AI & Agentic</span> Deployments
           </h2>
           <p class="section-desc" style="margin: 0 auto; max-width: 650px;">
-            Fully tested, operational cloud systems with live interactive demos and public GitHub repositories.
+            Explore deployed systems, the engineering behind them, and project-specific evaluation details.
           </p>
         </div>
+
+        <section class="engineering-proof" aria-labelledby="engineering-proof-title">
+          <div class="engineering-proof-heading">
+            <span class="section-tag">Selected Engineering Work</span>
+            <h3 id="engineering-proof-title">Built, Evaluated, <span class="serif-accent">Deployed</span></h3>
+            <p>Start with three systems that show the architecture, implementation choices, and evaluation behind my work.</p>
+          </div>
+          <div class="engineering-proof-grid">
+            <article class="engineering-proof-card">
+              <span class="engineering-proof-kicker"><i data-lucide="workflow"></i> Agentic RAG · LangGraph</span>
+              <h4>Enterprise IT Support Copilot</h4>
+              <p>Conditional retrieval loop with Pinecone search, web fallback, and cited, guarded answers.</p>
+              <div class="engineering-proof-metrics">
+                <span><strong>99.4%</strong> factual precision</span>
+                <span><strong>200</strong> curated benchmark queries</span>
+              </div>
+              <a href="#case-study-rag" class="engineering-proof-link">Read architecture & evaluation <i data-lucide="arrow-down-right"></i></a>
+            </article>
+            <article class="engineering-proof-card">
+              <span class="engineering-proof-kicker"><i data-lucide="shield-check"></i> Multi-Agent · MCP · HITL</span>
+              <h4>Human-Governed Agent System</h4>
+              <p>Supervisor routes specialist agents through bounded tools and approval checkpoints for sensitive actions.</p>
+              <div class="engineering-proof-metrics">
+                <span><strong>150</strong> multi-step test runs</span>
+                <span><strong>0</strong> unauthorized actions observed</span>
+              </div>
+              <a href="#case-study-mcp" class="engineering-proof-link">Read architecture & evaluation <i data-lucide="arrow-down-right"></i></a>
+            </article>
+            <article class="engineering-proof-card">
+              <span class="engineering-proof-kicker"><i data-lucide="scan-line"></i> Computer Vision · ResNet50</span>
+              <h4>Malaria Cell Image Classifier</h4>
+              <p>Transfer-learning image pipeline with confidence scoring and review for uncertain predictions.</p>
+              <div class="engineering-proof-metrics">
+                <span><strong>97.2%</strong> diagnostic accuracy</span>
+                <span><strong>27,558</strong> images · 5-fold cross-validation</span>
+              </div>
+              <a href="#case-study-vision" class="engineering-proof-link">Read architecture & evaluation <i data-lucide="arrow-down-right"></i></a>
+            </article>
+          </div>
+        </section>
 
         <!-- Render Free Tier Wakeup Notice Banner -->
         <div class="cloud-demo-notice">
@@ -1775,6 +1816,90 @@
           </article>
 
         </div>
+
+        <section class="ai-visual-showcase" aria-labelledby="ai-visual-showcase-title">
+          <div class="ai-visual-showcase-heading">
+            <span class="section-tag">Illustrative AI Concepts</span>
+            <h3 id="ai-visual-showcase-title">Ideas Shaping <span class="serif-accent">What Comes Next</span></h3>
+            <p>These visuals are conceptual; the project cards above show systems I built, deployed, and evaluated.</p>
+          </div>
+          <div class="ai-visual-grid">
+            <article class="ai-visual-card reveal">
+              <div class="ai-visual-image">
+                <img src="images/Future Technology_ ClaudHub AI 2_.jpeg"
+                  alt="A person interacting with a futuristic AI interface" loading="lazy" decoding="async" />
+                <span class="ai-visual-label">AI Interfaces</span>
+                <span class="ai-visual-icon"><i data-lucide="sparkles"></i></span>
+              </div>
+              <div class="ai-visual-content">
+                <h4>Intelligence at Your Fingertips</h4>
+                <p>Natural, intuitive AI experiences bring powerful digital tools closer to everyday work.</p>
+              </div>
+            </article>
+            <article class="ai-visual-card reveal">
+              <div class="ai-visual-image">
+                <img src="images/Pure, soft, and dreamy 🤍🌙✨.jpeg"
+                  alt="A connected city visualized with an AI brain and smart technology icons" loading="lazy"
+                  decoding="async" />
+                <span class="ai-visual-label">Smart Cities</span>
+                <span class="ai-visual-icon"><i data-lucide="building-2"></i></span>
+              </div>
+              <div class="ai-visual-content">
+                <h4>Smarter, Connected Cities</h4>
+                <p>AI can help connect urban systems and turn real-time signals into more informed decisions.</p>
+              </div>
+            </article>
+            <article class="ai-visual-card reveal">
+              <div class="ai-visual-image">
+                <img src="images/download (1).jpeg" alt="A person reaching toward a glowing artificial intelligence symbol"
+                  loading="lazy" decoding="async" />
+                <span class="ai-visual-label">Human + AI</span>
+                <span class="ai-visual-icon"><i data-lucide="fingerprint"></i></span>
+              </div>
+              <div class="ai-visual-content">
+                <h4>Human Creativity, Amplified</h4>
+                <p>Thoughtful AI tools can support people with new ways to explore, create, and solve problems.</p>
+              </div>
+            </article>
+            <article class="ai-visual-card reveal">
+              <div class="ai-visual-image">
+                <img src="images/download (2).jpeg" alt="A rising data visualization representing AI-powered growth"
+                  loading="lazy" decoding="async" />
+                <span class="ai-visual-label">AI Analytics</span>
+                <span class="ai-visual-icon"><i data-lucide="chart-no-axes-combined"></i></span>
+              </div>
+              <div class="ai-visual-content">
+                <h4>From Data to Direction</h4>
+                <p>Machine learning can surface meaningful patterns and help teams make data-informed choices.</p>
+              </div>
+            </article>
+            <article class="ai-visual-card reveal">
+              <div class="ai-visual-image">
+                <img src="images/🎬 Generative AI Video_ The Next Big Thing_.jpeg"
+                  alt="A person holding a glowing generative AI city concept" loading="lazy" decoding="async" />
+                <span class="ai-visual-label">Generative Media</span>
+                <span class="ai-visual-icon"><i data-lucide="clapperboard"></i></span>
+              </div>
+              <div class="ai-visual-content">
+                <h4>New Worlds of Storytelling</h4>
+                <p>Generative media opens fresh possibilities for turning an idea into a visual story.</p>
+              </div>
+            </article>
+            <article class="ai-visual-card reveal">
+              <div class="ai-visual-image">
+                <img src="images/Van AI-strategie naar actie in onzekere tijden_.jpeg"
+                  alt="A team collaborating around an AI-powered global strategy visualization" loading="lazy"
+                  decoding="async" />
+                <span class="ai-visual-label">AI Strategy</span>
+                <span class="ai-visual-icon"><i data-lucide="globe-2"></i></span>
+              </div>
+              <div class="ai-visual-content">
+                <h4>Strategy for a Connected World</h4>
+                <p>AI-powered insights can help teams connect global perspectives and make more informed decisions.</p>
+              </div>
+            </article>
+          </div>
+        </section>
       </div>
     </section>
 
